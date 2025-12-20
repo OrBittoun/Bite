@@ -1,6 +1,8 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
+    id("kotlin-parcelize")
+    kotlin("kapt")
 }
 
 android {
@@ -41,6 +43,8 @@ android {
 }
 
 dependencies {
+    implementation("androidx.room:room-runtime:2.8.4")
+    add("kapt", "androidx.room:room-compiler:2.8.4")
     implementation("androidx.activity:activity-ktx:1.12.1")
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)

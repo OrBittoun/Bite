@@ -1,15 +1,17 @@
-package com.example.first_app_version
+package com.example.first_app_version.ui.add_comment
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import com.example.first_app_version.databinding.HomePageLayoutBinding
+import com.example.first_app_version.R
+import com.example.first_app_version.databinding.NewCommentLayoutBinding
 
-class HomePageFragment : Fragment() {
-    private var _binding : HomePageLayoutBinding? = null
+class AddCommentFragment : Fragment() {
+    private var _binding : NewCommentLayoutBinding? = null
     private val binding get() = _binding!!
 
     override fun onCreateView(
@@ -18,10 +20,11 @@ class HomePageFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        _binding = HomePageLayoutBinding.inflate(inflater, container, false)
+        _binding = NewCommentLayoutBinding.inflate(inflater, container, false)
 
-        binding.text123.setOnClickListener {
-            findNavController().navigate(R.id.action_homePageFragment_to_signInFragment)
+        binding.addComment.setOnClickListener {
+            // Fix logic
+            Toast.makeText(requireContext(), "Should add comment", Toast.LENGTH_SHORT ).show()
         }
 
         return binding.root

@@ -6,29 +6,44 @@
     app:startDestination="@id/homePageFragment">
 
     <fragment
-        android:id="@+id/signInFragment"
-        android:name="com.example.first_app_version.SignInFragment"
-        android:label="sign_in_layout"
-        tools:layout="@layout/sign_in_layout" >
-        <action
-            android:id="@+id/action_signInFragment_to_signUpFragment"
-            app:destination="@id/signUpFragment" />
-        <action
-            android:id="@+id/action_signInFragment_to_homePageFragment"
-            app:destination="@id/homePageFragment" />
-    </fragment>
-    <fragment
         android:id="@+id/homePageFragment"
-        android:name="com.example.first_app_version.HomePageFragment"
+        android:name="com.example.first_app_version.ui.all_kitchens.HomePageFragment"
         android:label="home_page_layout"
         tools:layout="@layout/home_page_layout" >
         <action
-            android:id="@+id/action_homePageFragment_to_signInFragment"
-            app:destination="@id/signInFragment" />
+            android:id="@+id/action_homePageFragment_to_dishesTypesFragment"
+            app:destination="@id/dishesTypesFragment" />
     </fragment>
     <fragment
-        android:id="@+id/signUpFragment"
-        android:name="com.example.first_app_version.SignUpFragment"
-        android:label="sign_up_layout"
-        tools:layout="@layout/sign_up_layout" />
+        android:id="@+id/dishesTypesFragment"
+        android:name="com.example.first_app_version.ui.all_dishes_types.DishesTypesFragment"
+        android:label="dishes_types_layout"
+        tools:layout="@layout/dishes_types_layout" >
+        <action
+            android:id="@+id/action_dishesTypesFragment_to_dishesFragment"
+            app:destination="@id/dishesFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/dishesFragment"
+        android:name="com.example.first_app_version.ui.all_dishes.DishesFragment"
+        android:label="dishes_layout"
+        tools:layout="@layout/dishes_layout" >
+        <action
+            android:id="@+id/action_dishesFragment_to_dishDisplayPageFragment"
+            app:destination="@id/dishDisplayPageFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/dishDisplayPageFragment"
+        android:name="com.example.first_app_version.ui.dish_display.DishDisplayPageFragment"
+        android:label="dish_display_layout"
+        tools:layout="@layout/dish_display_layout" >
+        <action
+            android:id="@+id/action_dishDisplayPageFragment_to_addCommentFragment"
+            app:destination="@id/addCommentFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addCommentFragment"
+        android:name="com.example.first_app_version.ui.add_comment.AddCommentFragment"
+        android:label="new_comment_layout"
+        tools:layout="@layout/new_comment_layout" />
 </navigation>

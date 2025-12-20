@@ -24,11 +24,11 @@ class SignInFragment : Fragment() {
         binding.login.setOnClickListener {
             // Need to add login logic and validation
             // Should include bundle or something with the details of the user
-            findNavController().navigate(R.id.action_signInFragment_to_homePageFragment)
+            //findNavController().navigate(R.id.action_signInFragment_to_homePageFragment)
         }
 
         binding.signUp.setOnClickListener {
-            findNavController().navigate(R.id.action_signInFragment_to_signUpFragment)
+            //findNavController().navigate(R.id.action_signInFragment_to_signUpFragment)
         }
 
         return binding.root
