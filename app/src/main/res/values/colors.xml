@@ -9,5 +9,6 @@
     <color name="transparent">#00000000</color>
     <color name="dark_green">#558B2F</color>
     <color name="primary_buttons">#76c893</color>
+    <color name="arrow_gray">#E0E0E0</color>
 
 </resources>

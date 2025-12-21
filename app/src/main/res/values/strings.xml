@@ -2,5 +2,6 @@
 
     <string name="back">back</string>
     <string name="confirm">confirm</string>
+    <string name="open_category">open_category</string>
 
 </resources>

@@ -11,56 +11,71 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.first_app_version.R
 import com.example.first_app_version.databinding.HomePageLayoutBinding
 import com.example.first_app_version.ui.KitchenViewModel
-import kotlin.getValue
+import com.example.first_app_version.ui.HomeCategoriesAdapter
+import com.example.first_app_version.ui.HomeCategory
 
 class HomePageFragment : Fragment() {
-    private var _binding : HomePageLayoutBinding? = null
+
+    private var _binding: HomePageLayoutBinding? = null
     private val binding get() = _binding!!
 
-    private val viewModel : KitchenViewModel by activityViewModels()
+    private val viewModel: KitchenViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-
+    ): View {
         _binding = HomePageLayoutBinding.inflate(inflater, container, false)
-
         return binding.root
-
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.kitchens?.observe(viewLifecycleOwner) {
+        val categories = listOf(
+            HomeCategory(
+                title = "Italian",
+                previewImages = listOf(
+                    R.drawable.pizza,
+                    R.drawable.pasta,
+                    R.drawable.lasagna
+                )
+            ),
+            HomeCategory(
+                title = "Asian",
+                previewImages = listOf(
+                    R.drawable.sushi,
+                    R.drawable.noodles,
+                    R.drawable.ramen
+                )
+            ),
+            HomeCategory(
+                title = "Vegan",
+                previewImages = listOf(
+                    R.drawable.salad,
+                    R.drawable.vegan_burger,
+                    R.drawable.smoothie
+                )
+            )
+        )
 
-            binding.recyclerKitchens.adapter = KitchenAdapter(it, object : KitchenAdapter.KitchenListener {
+        val adapter = HomeCategoriesAdapter(
+            categories = categories,
+            onCategoryClick = { category ->
 
-                override fun onKitchenClicked(index: Int) {
-                    val item = (binding.recyclerKitchens.adapter as KitchenAdapter).kitchenAt(index)
 
-                    viewModel.setKitchen(item)
-                    findNavController().navigate(
-                        R.id.action_homePageFragment_to_dishesTypesFragment,
-                    )
-                }
 
-                override fun onKitchenLongClicked(index: Int) {
-                    val item = (binding.recyclerKitchens.adapter as KitchenAdapter).kitchenAt(index)
+                findNavController().navigate(
+                    R.id.action_homePageFragment_to_dishesTypesFragment
+                )
+            }
+        )
 
-                    viewModel.setKitchen(item)
-                    findNavController().navigate(
-                        R.id.action_homePageFragment_to_dishesTypesFragment,
-                    )
-                }
+        binding.homeRecyclerView.layoutManager =
+            LinearLayoutManager(requireContext())
 
-            })
-            binding.recyclerKitchens.layoutManager = LinearLayoutManager(requireContext())
-
-        }
-
+        binding.homeRecyclerView.adapter = adapter
     }
 
     override fun onDestroyView() {
