@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -12,9 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.first_app_version.R
 import com.example.first_app_version.databinding.HomePageLayoutBinding
 import com.example.first_app_version.ui.KitchenViewModel
-import com.example.first_app_version.ui.HomeCategoriesAdapter
-import com.example.first_app_version.ui.HomeCategory
-import com.google.android.material.appbar.AppBarLayout
+import com.example.first_app_version.data.models.HomeCategory
 
 class HomePageFragment : Fragment() {
 
@@ -22,7 +19,6 @@ class HomePageFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val viewModel: KitchenViewModel by activityViewModels()
-
 
 
     override fun onCreateView(
@@ -69,8 +65,6 @@ class HomePageFragment : Fragment() {
         val adapter = HomeCategoriesAdapter(
             categories = categories,
             onCategoryClick = { category ->
-
-
 
                 findNavController().navigate(
                     R.id.action_homePageFragment_to_dishesTypesFragment
