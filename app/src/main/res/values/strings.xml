@@ -3,5 +3,7 @@
     <string name="back">back</string>
     <string name="confirm">confirm</string>
     <string name="open_category">open_category</string>
+    <string name="open_dish">open_dish</string>
+
 
 </resources>
