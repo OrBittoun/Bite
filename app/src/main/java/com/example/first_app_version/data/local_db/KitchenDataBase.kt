@@ -1,122 +1,3 @@
-//package com.example.first_app_version.data.local_db
-//
-//import android.content.Context
-//import android.util.Log
-//import androidx.room.Database
-//import androidx.room.Room
-//import androidx.room.RoomDatabase
-//import androidx.sqlite.db.SupportSQLiteDatabase
-//import com.example.first_app_version.R
-//import com.example.first_app_version.data.models.Dish
-//import com.example.first_app_version.data.models.DishType
-//import com.example.first_app_version.data.models.Kitchen
-//
-//@Database(
-//    entities = [Kitchen::class, DishType::class, Dish::class],
-//    version = 4,
-//    exportSchema = false
-//)
-//abstract class KitchenDataBase : RoomDatabase() {
-//
-//    abstract fun kitchensDao(): KitchenDao
-//    abstract fun dishTypesDao(): DishTypeDao
-//    abstract fun dishesDao(): DishDao
-//
-//    companion object {
-//        @Volatile
-//        private var instance: KitchenDataBase? = null
-//
-//        fun getDataBase(context: Context): KitchenDataBase =
-//            instance ?: synchronized(this) {
-//                val db = Room.databaseBuilder(
-//                    context.applicationContext,
-//                    KitchenDataBase::class.java,
-//                    "bite_db"
-//                )
-//                    .allowMainThreadQueries()
-//                    .addCallback(object : Callback() {
-//                        override fun onCreate(db: SupportSQLiteDatabase) {
-//                            super.onCreate(db)
-//                            Log.d("DB_CREATE", "KitchenDataBase onCreate CALLED")
-//
-//                            //Kitchens Images
-//                            val pizzaImg = R.drawable.pizza
-//                            val pastaImg = R.drawable.pasta
-//                            val sushiImg = R.drawable.sushi
-//                            val lasagnaImg= R.drawable.lasagna
-//
-//                            //Betty
-//                            val napoliPizzaImg = R.drawable.napoli_pizza;
-//                            val pepperoniPizzaImg = R.drawable.pepperoni_pizza;
-//                            val pineapplePizzaImg = R.drawable.pineapple_pizza;
-//                            val pestoPizzaImg = R.drawable.pesto_pizza;
-//                            val whitePizzaImg = R.drawable.white_cheese_pizza;
-//
-//
-//                            // Seed Kitchens
-//                            db.execSQL("INSERT INTO kitchens (id, name, image_res, description) VALUES (1, 'Italian', NULL, NULL)")
-//                            db.execSQL("INSERT INTO kitchens (id, name, image_res, description) VALUES (2, 'Asian', NULL, NULL)")
-//                            db.execSQL("INSERT INTO kitchens (id, name, image_res, description) VALUES (3, 'Vegan', NULL, NULL)")
-//                            db.execSQL("INSERT INTO kitchens (id, name, image_res, description) VALUES (4, 'Meat', NULL, NULL)")
-//                            db.execSQL("INSERT INTO kitchens (id, name, image_res, description) VALUES (5, 'Deserts', NULL, NULL)")
-//
-//
-//
-//                            // Seed Dish Types for Italian (kitchen_id = 1)
-//                            db.execSQL("INSERT INTO dish_types (id, kitchen_id, name, image_res, description) VALUES (1, 1, 'Pizza', $pizzaImg, NULL)")
-//                            db.execSQL("INSERT INTO dish_types (id, kitchen_id, name, image_res, description) VALUES (2, 1, 'Pasta', $pastaImg, NULL)")
-//                            db.execSQL("INSERT INTO dish_types (id, kitchen_id, name, image_res, description) VALUES (3, 1, 'Lasagna', $lasagnaImg, NULL)")
-//
-//                            // Seed Dish Types for Asian (kitchen_id = 2)
-//                            db.execSQL("INSERT INTO dish_types (id, kitchen_id, name, image_res, description) VALUES (4, 2, 'Sushi', NULL, NULL)")
-//                            db.execSQL("INSERT INTO dish_types (id, kitchen_id, name, image_res, description) VALUES (5, 2, 'Dim Sum', NULL, NULL)")
-//                            db.execSQL("INSERT INTO dish_types (id, kitchen_id, name, image_res, description) VALUES (6, 2, 'Ramen', NULL, NULL)")
-//
-//                            // Seed Dish Types for Vegan (kitchen_id = 3)
-//                            db.execSQL("INSERT INTO dish_types (id, kitchen_id, name, image_res, description) VALUES (7, 3, 'Salads', NULL, NULL)")
-//
-//
-//                            // Seed Dishes for Italian -> Pizza (dish_type_id = 1)
-////                            db.execSQL("INSERT INTO dishes (id, dish_type_id, name, image_res, description) VALUES (1, 1, 'Neapolitan Pizza', NULL, 'Classic Neapolitan pizza with thin, soft crust.')")
-////                            db.execSQL("INSERT INTO dishes (id, dish_type_id, name, image_res, description) VALUES (2, 1, 'Pepperoni Pizza', NULL, 'Crispier Roman-style pizza.')")
-////                            db.execSQL("INSERT INTO dishes (id, dish_type_id, name, image_res, description) VALUES (3, 1, 'Pineapple Pizza', NULL, 'Thick-crust Sicilian square pizza.')")
-//
-//
-//                            // Seed Dishes for Italian -> Pizza (dish_type_id = 1)
-//                            db.execSQL(
-//                                "INSERT INTO dishes (id, dish_type_id, name, image_res, description) VALUES " +
-//                                        "(1, 1, 'Neapolitan Pizza | RISHON LEZION' ,'Vivino', $napoliPizzaImg, 'Traditional Neapolitan pizza with a soft, airy crust, fresh tomato sauce, mozzarella cheese, and basil.')"
-//                            )
-//
-//                            db.execSQL(
-//                                "INSERT INTO dishes (id, dish_type_id, name, image_res, description) VALUES " +
-//                                        "(2, 1, 'Pepperoni Pizza | GIVATAYIM','Tony Vespa', $pepperoniPizzaImg, 'Classic pizza topped with mozzarella cheese, rich tomato sauce, and spicy pepperoni slices.')"
-//                            )
-//
-//                            db.execSQL(
-//                                "INSERT INTO dishes (id, dish_type_id, name, image_res, description) VALUES " +
-//                                        "(3, 1, 'Pineapple Pizza | HERZLIYA','Pizza Yoav', $pineapplePizzaImg, 'Sweet and savory pizza with mozzarella cheese, tomato sauce, and juicy pineapple pieces.')"
-//                            )
-//
-//                            db.execSQL(
-//                                "INSERT INTO dishes (id, dish_type_id, name, image_res, description) VALUES " +
-//                                        "(4, 1, 'Pesto Pizza | TLV','RUSTICO', $whitePizzaImg, 'Pizza topped with fresh basil pesto, mozzarella cheese, and a drizzle of olive oil.')"
-//                            )
-//
-//                            db.execSQL(
-//                                "INSERT INTO dishes (id, dish_type_id, name, image_res, description) VALUES " +
-//                                        "(5, 1, 'White Pizza | TLV','FIFTY & ONE', $pestoPizzaImg, 'Creamy white pizza without tomato sauce, made with mozzarella, ricotta cheese, garlic, and olive oil.')"
-//                            )
-//
-//
-//                        }
-//                    })
-//                    .build()
-//                instance = db
-//                db
-//            }
-//    }
-//}
 
 package com.example.first_app_version.data.local_db
 
@@ -165,6 +46,7 @@ abstract class KitchenDataBase : RoomDatabase() {
                             val lasagnaImg = R.drawable.lasagna_bolognese
                             val sushiImg = R.drawable.sushi
                             val ramenImg = R.drawable.ramen
+                            val dimSumImg = R.drawable.dim_sum_steamed_buns
 
 
 
@@ -204,6 +86,13 @@ abstract class KitchenDataBase : RoomDatabase() {
                             val spicyRamenImg = R.drawable.ramen_spicy
                             val vegetableRamenImg = R.drawable.ramen_vegetable
 
+                            // Dim Sum images (dish_type_id = 5)
+                            val shrimpDumplingsImg = R.drawable.dim_sum_shrimp_dumplings
+                            val vegetableDumplingsImg = R.drawable.dim_sum_vegetable_dumplings
+                            val steamedBunsImg = R.drawable.dim_sum_steamed_buns
+                            val beefDumplingsImg = R.drawable.dim_sum_beef_dumplings
+                            val chickenWontonsImg = R.drawable.dim_sum_chicken_wontons
+
 
                             // Seed Kitchens
                             db.execSQL("INSERT INTO kitchens (id, name, image_res, description) VALUES (1, 'Italian', NULL, NULL)")
@@ -219,7 +108,7 @@ abstract class KitchenDataBase : RoomDatabase() {
 
                             // Seed Dish Types for Asian (kitchen_id = 2)
                             db.execSQL("INSERT INTO dish_types (id, kitchen_id, name, image_res, description) VALUES (4, 2, 'Sushi', $sushiImg, NULL)")
-                            db.execSQL("INSERT INTO dish_types (id, kitchen_id, name, image_res, description) VALUES (5, 2, 'Dim Sum', NULL, NULL)")
+                            db.execSQL("INSERT INTO dish_types (id, kitchen_id, name, image_res, description) VALUES (5, 2, 'Dim Sum', $dimSumImg, NULL)")
                             db.execSQL("INSERT INTO dish_types (id, kitchen_id, name, image_res, description) VALUES (6, 2, 'Ramen', $ramenImg, NULL)")
 
                             // Seed Dish Types for Vegan (kitchen_id = 3)
@@ -348,6 +237,33 @@ abstract class KitchenDataBase : RoomDatabase() {
                             db.execSQL(
                                 "INSERT INTO dishes (id, dish_type_id, name, restaurantName, image_res, description) VALUES " +
                                         "(25, 6, 'Vegetable Ramen', 'Green Asia | Ramat Gan', $vegetableRamenImg, 'Light vegetable-based broth with noodles, mushrooms, greens, and aromatic herbs.')"
+                            )
+
+
+// Seed Dishes for Asian -> Dim Sum (dish_type_id = 5)
+                            db.execSQL(
+                                "INSERT INTO dishes (id, dish_type_id, name, restaurantName, image_res, description) VALUES " +
+                                        "(26, 5, 'Shrimp Dumplings', 'China Court | Tel Aviv', $shrimpDumplingsImg, 'Delicate steamed dumplings filled with shrimp, served with a light soy-based dipping sauce.')"
+                            )
+
+                            db.execSQL(
+                                "INSERT INTO dishes (id, dish_type_id, name, restaurantName, image_res, description) VALUES " +
+                                        "(27, 5, 'Vegetable Dumplings', 'Green Wok | Ra’anana', $vegetableDumplingsImg, 'Steamed dumplings filled with mixed vegetables and Asian spices, light and flavorful.')"
+                            )
+
+                            db.execSQL(
+                                "INSERT INTO dishes (id, dish_type_id, name, restaurantName, image_res, description) VALUES " +
+                                        "(28, 5, 'Steamed Buns', 'Little Asia | Ramat Gan', $steamedBunsImg, 'Soft steamed buns filled with savory meat and sauce, warm and comforting.')"
+                            )
+
+                            db.execSQL(
+                                "INSERT INTO dishes (id, dish_type_id, name, restaurantName, image_res, description) VALUES " +
+                                        "(29, 5, 'Beef Dumplings', 'Red Dragon | Haifa', $beefDumplingsImg, 'Juicy beef-filled dumplings steamed to perfection with aromatic herbs and spices.')"
+                            )
+
+                            db.execSQL(
+                                "INSERT INTO dishes (id, dish_type_id, name, restaurantName, image_res, description) VALUES " +
+                                        "(30, 5, 'Chicken Wontons', 'Asia Kitchen | Ashkelon', $chickenWontonsImg, 'Light wontons filled with seasoned chicken, served steamed with a delicate dipping sauce.')"
                             )
                         }
                     })
