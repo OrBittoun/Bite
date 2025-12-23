@@ -188,6 +188,14 @@ abstract class KitchenDataBase : RoomDatabase() {
                             val lasagnaMushroomCreamImg = R.drawable.lasagna_mushroom_cream
                             val lasagnaEggplantParmesanImg = R.drawable.lasagna_eggplant_parmesan
 
+                            // Sushi images (dish_type_id = 4)
+                            val salmonNigiriImg = R.drawable.sushi_salmon_nigiri
+                            val tunaNigiriImg = R.drawable.sushi_tuna_nigiri
+                            val californiaRollImg = R.drawable.sushi_california_roll
+                            val spicyTunaRollImg = R.drawable.sushi_spicy_tuna_roll
+                            val tempuraRollImg = R.drawable.sushi_tempura_roll
+
+
                             // Seed Kitchens
                             db.execSQL("INSERT INTO kitchens (id, name, image_res, description) VALUES (1, 'Italian', NULL, NULL)")
                             db.execSQL("INSERT INTO kitchens (id, name, image_res, description) VALUES (2, 'Asian', NULL, NULL)")
@@ -279,6 +287,32 @@ abstract class KitchenDataBase : RoomDatabase() {
                                         "(15, 3, 'Eggplant & Parmesan Lasagna', 'Bella Napoli | Bat Yam', $lasagnaEggplantParmesanImg, 'Layered lasagna with roasted eggplant, tomato sauce, parmesan cheese, and Italian herbs.')"
                             )
 
+
+                        // Seed Dishes for Asian -> Sushi (dish_type_id = 4)
+                            db.execSQL(
+                                "INSERT INTO dishes (id, dish_type_id, name, restaurantName, image_res, description) VALUES " +
+                                        "(16, 4, 'Salmon Nigiri', 'Taizu | Tel Aviv', $salmonNigiriImg, 'Fresh salmon served over seasoned sushi rice, topped with a light brush of soy-based glaze.')"
+                            )
+
+                            db.execSQL(
+                                "INSERT INTO dishes (id, dish_type_id, name, restaurantName, image_res, description) VALUES " +
+                                        "(17, 4, 'Tuna Nigiri', 'Nini Hachi | Herzliya', $tunaNigiriImg, 'Tender tuna slices placed on sushi rice for a clean, classic bite with delicate flavor.')"
+                            )
+
+                            db.execSQL(
+                                "INSERT INTO dishes (id, dish_type_id, name, restaurantName, image_res, description) VALUES " +
+                                        "(18, 4, 'California Roll', 'Sushi Room | Rishon LeZion', $californiaRollImg, 'Inside-out roll with crab-style filling, avocado, and cucumber, rolled with rice and sesame.')"
+                            )
+
+                            db.execSQL(
+                                "INSERT INTO dishes (id, dish_type_id, name, restaurantName, image_res, description) VALUES " +
+                                        "(19, 4, 'Spicy Tuna Roll', 'Sushi Samba | Haifa', $spicyTunaRollImg, 'Tuna mixed with spicy mayo, rolled with cucumber and rice for a bold and flavorful roll.')"
+                            )
+
+                            db.execSQL(
+                                "INSERT INTO dishes (id, dish_type_id, name, restaurantName, image_res, description) VALUES " +
+                                        "(20, 4, 'Tempura Roll', 'Japanika | Be’er Sheva', $tempuraRollImg, 'Crispy tempura-style filling with fresh vegetables, rolled and finished with a light sweet-savory sauce.')"
+                            )
                         }
                     })
                     .build()
