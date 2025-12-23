@@ -154,7 +154,6 @@ abstract class KitchenDataBase : RoomDatabase() {
                     "bite_db"
                 )
                     .allowMainThreadQueries()
-                    .fallbackToDestructiveMigration()
                     .addCallback(object : Callback() {
                         override fun onCreate(db: SupportSQLiteDatabase) {
                             super.onCreate(db)
@@ -163,8 +162,11 @@ abstract class KitchenDataBase : RoomDatabase() {
                             // Kitchens Images
                             val pizzaImg = R.drawable.pizza
                             val pastaImg = R.drawable.pasta
-                            val sushiImg = R.drawable.sushi
                             val lasagnaImg = R.drawable.lasagna_bolognese
+                            val sushiImg = R.drawable.sushi
+                            val ramenImg = R.drawable.ramen
+
+
 
                             // Dishes Images
                             //Pizza
@@ -195,6 +197,13 @@ abstract class KitchenDataBase : RoomDatabase() {
                             val spicyTunaRollImg = R.drawable.sushi_spicy_tuna_roll
                             val tempuraRollImg = R.drawable.sushi_tempura_roll
 
+                            // Ramen images (dish_type_id = 6)
+                            val tonkotsuRamenImg = R.drawable.ramen_tonkotsu
+                            val misoRamenImg = R.drawable.ramen_miso
+                            val shoyuRamenImg = R.drawable.ramen_shoyu
+                            val spicyRamenImg = R.drawable.ramen_spicy
+                            val vegetableRamenImg = R.drawable.ramen_vegetable
+
 
                             // Seed Kitchens
                             db.execSQL("INSERT INTO kitchens (id, name, image_res, description) VALUES (1, 'Italian', NULL, NULL)")
@@ -209,9 +218,9 @@ abstract class KitchenDataBase : RoomDatabase() {
                             db.execSQL("INSERT INTO dish_types (id, kitchen_id, name, image_res, description) VALUES (3, 1, 'Lasagna', $lasagnaImg, NULL)")
 
                             // Seed Dish Types for Asian (kitchen_id = 2)
-                            db.execSQL("INSERT INTO dish_types (id, kitchen_id, name, image_res, description) VALUES (4, 2, 'Sushi', NULL, NULL)")
+                            db.execSQL("INSERT INTO dish_types (id, kitchen_id, name, image_res, description) VALUES (4, 2, 'Sushi', $sushiImg, NULL)")
                             db.execSQL("INSERT INTO dish_types (id, kitchen_id, name, image_res, description) VALUES (5, 2, 'Dim Sum', NULL, NULL)")
-                            db.execSQL("INSERT INTO dish_types (id, kitchen_id, name, image_res, description) VALUES (6, 2, 'Ramen', NULL, NULL)")
+                            db.execSQL("INSERT INTO dish_types (id, kitchen_id, name, image_res, description) VALUES (6, 2, 'Ramen', $ramenImg, NULL)")
 
                             // Seed Dish Types for Vegan (kitchen_id = 3)
                             db.execSQL("INSERT INTO dish_types (id, kitchen_id, name, image_res, description) VALUES (7, 3, 'Salads', NULL, NULL)")
@@ -312,6 +321,33 @@ abstract class KitchenDataBase : RoomDatabase() {
                             db.execSQL(
                                 "INSERT INTO dishes (id, dish_type_id, name, restaurantName, image_res, description) VALUES " +
                                         "(20, 4, 'Tempura Roll', 'Japanika | Be’er Sheva', $tempuraRollImg, 'Crispy tempura-style filling with fresh vegetables, rolled and finished with a light sweet-savory sauce.')"
+                            )
+
+
+// Seed Dishes for Asian -> Ramen (dish_type_id = 6)
+                            db.execSQL(
+                                "INSERT INTO dishes (id, dish_type_id, name, restaurantName, image_res, description) VALUES " +
+                                        "(21, 6, 'Tonkotsu Ramen', 'Japanika | Tel Aviv', $tonkotsuRamenImg, 'Rich pork-based broth simmered for hours, served with noodles, sliced pork, and green onions.')"
+                            )
+
+                            db.execSQL(
+                                "INSERT INTO dishes (id, dish_type_id, name, restaurantName, image_res, description) VALUES " +
+                                        "(22, 6, 'Miso Ramen', 'Ramen Ya | Jerusalem', $misoRamenImg, 'Savory miso-based broth with noodles, vegetables, and a deep, comforting umami flavor.')"
+                            )
+
+                            db.execSQL(
+                                "INSERT INTO dishes (id, dish_type_id, name, restaurantName, image_res, description) VALUES " +
+                                        "(23, 6, 'Shoyu Ramen', 'Nini Hachi | Herzliya', $shoyuRamenImg, 'Soy sauce-based broth with a clear, balanced taste, served with noodles and classic toppings.')"
+                            )
+
+                            db.execSQL(
+                                "INSERT INTO dishes (id, dish_type_id, name, restaurantName, image_res, description) VALUES " +
+                                        "(24, 6, 'Spicy Ramen', 'Sushi Samba | Haifa', $spicyRamenImg, 'Spicy chili-infused broth with noodles and vegetables for a bold and warming kick.')"
+                            )
+
+                            db.execSQL(
+                                "INSERT INTO dishes (id, dish_type_id, name, restaurantName, image_res, description) VALUES " +
+                                        "(25, 6, 'Vegetable Ramen', 'Green Asia | Ramat Gan', $vegetableRamenImg, 'Light vegetable-based broth with noodles, mushrooms, greens, and aromatic herbs.')"
                             )
                         }
                     })
