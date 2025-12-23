@@ -50,6 +50,7 @@ package com.example.first_app_version.ui.all_dishes_types
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.first_app_version.R
 import com.example.first_app_version.data.models.DishType
 import com.example.first_app_version.databinding.DishTypeLayoutBinding
 
@@ -70,9 +71,15 @@ class DishTypeAdapter(
     ) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: DishType) {
-            binding.dishTypeTitle.text = item.name
+            binding.mealTitle.text = item.name
+
+            binding.mealImage.setImageResource(
+                item.imageRes ?: R.drawable.default_dish
+            )
+
             binding.root.setOnClickListener { onClick(item) }
         }
+
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DishTypeViewHolder {

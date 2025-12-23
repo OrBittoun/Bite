@@ -7,17 +7,19 @@ import androidx.room.ForeignKey
 import androidx.room.Index
 import androidx.room.PrimaryKey
 
-@Entity(
+@Entity( //table rules
     tableName = "dish_types",
     foreignKeys = [
         ForeignKey(
             entity = Kitchen::class,
             parentColumns = ["id"],
             childColumns = ["kitchen_id"],
-            onDelete = ForeignKey.CASCADE
+            onDelete = ForeignKey.CASCADE //if we delete a kitchen, we delete all the dish types that belong to it
         )
     ],
     indices = [Index(value = ["kitchen_id"])])
+
+
 data class DishType(
     @PrimaryKey(autoGenerate = true)
     val id: Int = 0,

@@ -173,7 +173,26 @@ class HomePageFragment : Fragment() {
                     R.drawable.vegan_burger,
                     R.drawable.smoothie
                 )
+            ),
+
+            HomeCategory(
+                title = "Meat",
+                previewImages = listOf(
+                R.drawable.salad,
+                R.drawable.vegan_burger,
+                R.drawable.smoothie
             )
+        ),
+            HomeCategory(
+                title = "Desert",
+                previewImages = listOf(
+                    R.drawable.salad,
+                    R.drawable.vegan_burger,
+                    R.drawable.smoothie
+                )
+            )
+
+
         )
 
         val adapter = HomeCategoriesAdapter(
