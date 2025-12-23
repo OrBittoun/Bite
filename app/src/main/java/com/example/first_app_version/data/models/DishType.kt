@@ -35,3 +35,6 @@ data class DishType(
     @ColumnInfo(name = "description")
     val description: String? = null
 )
+
+
+

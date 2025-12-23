@@ -19,3 +19,5 @@ data class Kitchen(
     @ColumnInfo(name = "description")
     val description: String? = null
 )
+
+
