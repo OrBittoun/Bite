@@ -28,9 +28,7 @@
             android:layout_margin="12dp"
             android:text="Dish type"
             android:textSize="20sp"
-            android:textStyle="bold"
-            android:textColor="@android:color/white"
-            android:background="#66000000"/>
+            android:textStyle="bold" />
 
 
 
