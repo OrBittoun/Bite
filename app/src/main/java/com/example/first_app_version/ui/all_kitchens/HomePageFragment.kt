@@ -155,7 +155,7 @@ class HomePageFragment : Fragment() {
                 previewImages = listOf(
                     R.drawable.pizza,
                     R.drawable.pasta,
-                    R.drawable.lasagna
+                    R.drawable.lasagna_bolognese
                 )
             ),
             HomeCategory(
