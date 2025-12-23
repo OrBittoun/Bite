@@ -6,7 +6,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:cardUseCompatPadding="true"
     app:contentPadding="10dp"
-    app:cardCornerRadius="10dp">
+    app:cardCornerRadius="10dp"
+    >
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -16,7 +17,8 @@
             android:id="@+id/dish_type_img"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:src="@mipmap/pizza_foreground"/>
+            android:src="@mipmap/pizza_foreground"
+            />
 
         <TextView
             android:id="@+id/dish_type_title"
@@ -27,7 +29,10 @@
             android:text="Dish type"
             android:textSize="20sp"
             android:textStyle="bold"
-            />
+            android:textColor="@android:color/white"
+            android:background="#66000000"/>
+
+
 
     </FrameLayout>
 
