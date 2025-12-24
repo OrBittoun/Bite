@@ -117,6 +117,31 @@ abstract class KitchenDataBase : RoomDatabase() {
                             val veggieMeatballsImg = R.drawable.vegan_veggie_meatballs
                             val stuffedZucchiniImg = R.drawable.vegan_stuffed_zucchini
 
+                            // Meat -> Grill
+                            val ribeyeImg = R.drawable.meat_ribeye
+                            val entrecoteImg = R.drawable.meat_entrecote
+                            val lambChopsImg = R.drawable.meat_lamb_chops
+                            val beefSkewersImg = R.drawable.meat_beef_skewers
+
+                            // Meat -> Burgers
+                            val classicBurgerImg = R.drawable.meat_classic_burger
+                            val cheeseBurgerImg = R.drawable.meat_cheese_burger
+                            val bbqBurgerImg = R.drawable.meat_bbq_burger
+                            val doubleBurgerImg = R.drawable.meat_double_burger
+
+                            // Meat -> Stews
+                            val beefStewImg = R.drawable.meat_beef_stew
+                            val lambStewImg = R.drawable.meat_lamb_stew
+                            val goulashImg = R.drawable.meat_goulash
+                            val ossobucoImg = R.drawable.meat_ossobuco
+
+
+                            // Meat -> Chicken
+                            val grilledChickenImg = R.drawable.grilled_chicken
+                            val schnitzelImg = R.drawable.schnitzel
+                            val chickenSkewersImg = R.drawable.chicken_skewers
+                            val chickenNuggetsImg = R.drawable.chicken_nuggets
+
                             // Seed Kitchens
                             db.execSQL("INSERT INTO kitchens (id, name, image_res, description) VALUES (1, 'Italian', NULL, NULL)")
                             db.execSQL("INSERT INTO kitchens (id, name, image_res, description) VALUES (2, 'Asian', NULL, NULL)")
@@ -138,6 +163,14 @@ abstract class KitchenDataBase : RoomDatabase() {
                             db.execSQL("INSERT INTO dish_types (id, kitchen_id, name, image_res, description) VALUES (7, 3, 'Vegan Bowls', $veganBowlsImg, NULL)")
                             db.execSQL("INSERT INTO dish_types (id, kitchen_id, name, image_res, description) VALUES (8, 3, 'Vegan Salads', $veganSaladsImg, NULL)")
                             db.execSQL("INSERT INTO dish_types (id, kitchen_id, name, image_res, description) VALUES (9, 3, 'Vegan Mains', $veganMainsImg, NULL)")
+
+                            // Seed Dish Types for Meat (kitchen_id = 4)
+                            db.execSQL("INSERT INTO dish_types (id, kitchen_id, name, image_res, description) VALUES (10, 4, 'Grill', NULL, NULL)")
+                            db.execSQL("INSERT INTO dish_types (id, kitchen_id, name, image_res, description) VALUES (11, 4, 'Burgers', NULL, NULL)")
+                            db.execSQL("INSERT INTO dish_types (id, kitchen_id, name, image_res, description) VALUES (12, 4, 'Stews', NULL, NULL)")
+                            db.execSQL("INSERT INTO dish_types (id, kitchen_id, name, image_res, description) VALUES (13, 4, 'Chicken', NULL, NULL)")
+
+
 
                             // Seed Dishes for Italian -> Pizza (dish_type_id = 1)
                             db.execSQL(
@@ -370,6 +403,77 @@ abstract class KitchenDataBase : RoomDatabase() {
                             db.execSQL(
                                 "INSERT INTO dishes (id, dish_type_id, name, restaurantName, image_res, description) VALUES " +
                                         "(46, 9, 'Stuffed Zucchini', 'Green Spot | Raanana', $stuffedZucchiniImg, 'Zucchini stuffed with rice, herbs, and vegetables, simmered in a light tomato sauce.')"
+                            )
+
+
+                            // Seed Dishes for Meet and fish -> Grill (dish_type_id = 10)
+                            db.execSQL(
+                                "INSERT INTO dishes VALUES (47, 10, 'Ribeye Steak', 'Hudson | Tel Aviv', $ribeyeImg, 'Juicy ribeye steak grilled to perfection with coarse salt and herbs.')"
+                            )
+
+                            db.execSQL(
+                                "INSERT INTO dishes VALUES (48, 10, 'Entrecôte Steak', 'Meat Bar | Rishon LeZion', $entrecoteImg, 'Classic grilled entrecôte steak served with roasted vegetables.')"
+                            )
+
+                            db.execSQL(
+                                "INSERT INTO dishes VALUES (49, 10, 'Lamb Chops', 'M25 | Tel Aviv', $lambChopsImg, 'Grilled lamb chops seasoned with garlic, rosemary, and olive oil.')"
+                            )
+
+                            db.execSQL(
+                                "INSERT INTO dishes VALUES (50, 10, 'Beef Skewers', 'Ashkara Grill | Ashdod', $beefSkewersImg, 'Tender beef skewers grilled over open flame.')"
+                            )
+
+
+                            // Seed Dishes for Meet and fish -> burger (dish_type_id = 11)
+                            db.execSQL(
+                                "INSERT INTO dishes VALUES (51, 11, 'Classic Burger', 'Burger Room | Tel Aviv', $classicBurgerImg, 'Beef patty served with lettuce, tomato, and house sauce.')"
+                            )
+
+                            db.execSQL(
+                                "INSERT INTO dishes VALUES (52, 11, 'Cheeseburger', 'BBB | Herzliya', $cheeseBurgerImg, 'Juicy beef burger topped with melted cheddar cheese.')"
+                            )
+
+                            db.execSQL(
+                                "INSERT INTO dishes VALUES (53, 11, 'BBQ Burger', 'Burger Saloon | Netanya', $bbqBurgerImg, 'Beef burger with smoky BBQ sauce and caramelized onions.')"
+                            )
+
+                            db.execSQL(
+                                "INSERT INTO dishes VALUES (54, 11, 'Double Burger', 'Moses | Jerusalem', $doubleBurgerImg, 'Two beef patties stacked with cheese and signature sauce.')"
+                            )
+
+                            // Seed Dishes for Meet and fish -> stew (dish_type_id = 12)
+                            db.execSQL(
+                                "INSERT INTO dishes VALUES (55, 12, 'Beef Stew', 'Mitti | Haifa', $beefStewImg, 'Slow-cooked beef stew with vegetables and rich gravy.')"
+                            )
+
+                            db.execSQL(
+                                "INSERT INTO dishes VALUES (56, 12, 'Lamb Stew', 'HaBokrim | Be’er Sheva', $lambStewImg, 'Tender lamb cooked slowly with herbs and root vegetables.')"
+                            )
+
+                            db.execSQL(
+                                "INSERT INTO dishes VALUES (57, 12, 'Goulash', 'Hungarian House | Tel Aviv', $goulashImg, 'Traditional goulash with beef, paprika, and potatoes.')"
+                            )
+
+                            db.execSQL(
+                                "INSERT INTO dishes VALUES (58, 12, 'Osso Buco', 'Trattoria Toscana | Jerusalem', $ossobucoImg, 'Braised veal shank cooked in tomato and wine sauce.')"
+                            )
+
+                            // Seed Dishes for Meet and fish -> chicken (dish_type_id = 13)
+                            db.execSQL(
+                                "INSERT INTO dishes VALUES (59, 13, 'Grilled Chicken Breast', 'Hudson | Tel Aviv', $grilledChickenImg, 'Grilled chicken breast seasoned with herbs and olive oil.')"
+                            )
+
+                            db.execSQL(
+                                "INSERT INTO dishes VALUES (60, 13, 'Chicken Schnitzel', 'Cafe Cafe | Ramat Gan', $schnitzelImg, 'Crispy breaded chicken schnitzel served golden and crunchy.')"
+                            )
+
+                            db.execSQL(
+                                "INSERT INTO dishes VALUES (61, 13, 'Chicken Skewers', 'Ashkara Grill | Ashdod', $chickenSkewersImg, 'Marinated chicken skewers grilled over charcoal.')"
+                            )
+
+                            db.execSQL(
+                                "INSERT INTO dishes (id, dish_type_id, name, restaurantName, image_res, description) VALUES " +
+                                        "(63, 13, 'Chicken Nuggets', 'Burger Ranch | Tel Aviv', $chickenNuggetsImg, 'Crispy golden chicken nuggets served with dipping sauce, crunchy on the outside and tender inside.')"
                             )
 
 
