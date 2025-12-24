@@ -23,6 +23,9 @@ class DishAdapter(
             binding.dishTitle.text = item.name
             val res = item.imageRes ?: R.mipmap.pizza_foreground
             binding.dishImg.setImageResource(res)
+            binding.restaurantName.text = item.restaurantName
+            binding.dishDesc.text = item.description ?: ""
+
         }
 
         override fun onClick(v: View?) {

@@ -12,30 +12,26 @@ class CommentRepository(application: Application) {
 
     private val commentDao: CommentDao = KitchenDataBase.getDataBase(application).commentsDao()
 
-    fun getCommentsForDish(dishId: Int) =
+    fun observeMyComment(dishId: Int, authorName: String = "You") =
+        commentDao.getMyCommentForDish(dishId, authorName)
+
+    fun observeComments(dishId: Int) =
         commentDao.getCommentsForDish(dishId)
 
-    suspend fun addComment(comment: Comment) =
-        commentDao.insert(comment)
-
-    suspend fun deleteComment(comment: Comment) =
-        commentDao.delete(comment)
-
-    suspend fun upvoteComment(commentId: Int) =
-        commentDao.incrementUpvotes(commentId)
-
-    // Helper to create a Comment with a properly formatted createdAt string.
-    // Usage: val c = repo.newComment(dishId, rating, text); repo.addComment(c)
-    fun newComment(dishId: Int, rating: Int, text: String, authorName: String = "You"): Comment {
+    suspend fun saveMyComment(dishId: Int, rating: Int, text: String, authorName: String = "You") {
+        // createdAt at the time of submit
         val formatter = SimpleDateFormat("dd-MM-yyyy, HH:mm", Locale.getDefault())
         val timestamp = formatter.format(Date())
-        return Comment(
+        val comment = Comment(
             dishId = dishId,
             authorName = authorName,
             rating = rating,
             text = text,
             createdAt = timestamp,
-            upvotes = 0
+            upvotes = 0 // reset on create/edit
         )
+        commentDao.insertOrReplace(comment)
     }
+
+    suspend fun upvote(commentId: Int) = commentDao.incrementUpvotes(commentId)
 }

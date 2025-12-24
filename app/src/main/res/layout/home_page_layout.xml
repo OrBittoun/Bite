@@ -11,37 +11,27 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-<com.google.android.material.appbar.MaterialToolbar
-    android:id="@+id/topAppBar"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:minHeight="?attr/actionBarSize"
-    app:title="@null">
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/topAppBar"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:minHeight="?attr/actionBarSize"
+        app:title="@null">
 
-    <FrameLayout
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_gravity="center">
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center">
 
-        <ImageView
-            android:id = "@+id/AppHomeLogo"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_gravity="center"
-            android:src="@mipmap/bite_rounded"
-            />
+            <ImageView
+                android:id="@+id/AppCropHomeLogo"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_gravity="center"
+                android:src="@mipmap/bite_crop_icon_final" />
+        </FrameLayout>
 
-        <ImageView
-            android:id = "@+id/AppCropHomeLogo"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_gravity="center"
-            android:alpha="0"
-            android:src="@mipmap/bite_crop_icon"
-            />
-    </FrameLayout>
-
-</com.google.android.material.appbar.MaterialToolbar>
+    </com.google.android.material.appbar.MaterialToolbar>
 </com.google.android.material.appbar.AppBarLayout>
 
 
@@ -49,7 +39,6 @@
         android:id="@+id/homeRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="40dp"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
     </androidx.recyclerview.widget.RecyclerView>

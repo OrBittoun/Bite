@@ -16,25 +16,25 @@ import androidx.room.PrimaryKey
             onDelete = ForeignKey.CASCADE
         )
     ],
-    indices = [Index(value = ["dish_id"])]
+    indices = [
+        Index(value = ["dish_id"]),
+        // Enforce "one comment per author per dish"
+        Index(value = ["dish_id", "author_name"], unique = true)
+    ]
 )
 data class Comment(
     @PrimaryKey(autoGenerate = true)
     val id: Int = 0,
 
-    // Link to the dish this comment is about
     @ColumnInfo(name = "dish_id")
     val dishId: Int,
 
-    // For now, local-only: default author name is "You"
     @ColumnInfo(name = "author_name")
     val authorName: String = "You",
 
-    // Rating 1–5 (if you want ratings; can be optional if not needed yet)
     @ColumnInfo(name = "rating")
     val rating: Int,
 
-    // The comment text content
     @ColumnInfo(name = "text")
     val text: String,
 
@@ -42,7 +42,6 @@ data class Comment(
     @ColumnInfo(name = "created_at")
     val createdAt: String,
 
-    // Upvotes counter
     @ColumnInfo(name = "upvotes")
     val upvotes: Int = 0
 )

@@ -5,6 +5,7 @@
     <string name="confirm">אישור</string>
     <string name="open_category">פתח קטגוריה</string>
     <string name="open_dish">פתח מנה</string>
+    <string name="meal_image">תמונת מאכל</string>
 
 
 </resources>

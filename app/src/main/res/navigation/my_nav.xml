@@ -44,6 +44,6 @@
     <fragment
         android:id="@+id/addCommentFragment"
         android:name="com.example.first_app_version.ui.add_comment.AddCommentFragment"
-        android:label="new_comment_layout"
-        tools:layout="@layout/new_comment_layout" />
+        android:label="add_comment_layout"
+        tools:layout="@layout/add_comment_layout" />
 </navigation>

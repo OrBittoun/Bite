@@ -6,7 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.first_app_version.R
 import com.example.first_app_version.databinding.DishDisplayLayoutBinding
 import com.example.first_app_version.ui.SelectionViewModel
@@ -17,6 +19,9 @@ class DishDisplayPageFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val selectionViewModel: SelectionViewModel by activityViewModels()
+    private val commentsViewModel: CommentsViewModel by viewModels()
+
+    private val commentAdapter = CommentAdapter()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -35,6 +40,13 @@ class DishDisplayPageFragment : Fragment() {
             binding.dishDesc.text = dish.description ?: ""
             val img = dish.imageRes ?: R.mipmap.pizza_foreground
             binding.dishImg.setImageResource(img)
+
+            binding.recyclerDishComments.layoutManager = LinearLayoutManager(requireContext())
+            binding.recyclerDishComments.adapter = commentAdapter
+
+            commentsViewModel.commentsForDish(dish.id).observe(viewLifecycleOwner) { comments ->
+                commentAdapter.submitList(comments)
+            }
         }
 
         binding.addComment.setOnClickListener {

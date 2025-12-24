@@ -29,6 +29,9 @@ data class Dish(
     @ColumnInfo(name = "name")
     val name: String,
 
+    @ColumnInfo(name = "restaurantName")
+    val restaurantName: String,
+
     @ColumnInfo(name = "image_res")
     @DrawableRes val imageRes: Int? = null,
 
