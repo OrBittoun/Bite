@@ -47,18 +47,21 @@ abstract class KitchenDataBase : RoomDatabase() {
                             val sushiImg = R.drawable.sushi
                             val ramenImg = R.drawable.ramen
                             val dimSumImg = R.drawable.dim_sum_steamed_buns
+                            val veganSaladsImg = R.drawable.vegan_green_salad
+                            val veganBowlsImg = R.drawable.vegan_buddha_bowl
+                            val veganMainsImg = R.drawable.vegan_lentil_stew
 
 
 
                             // Dishes Images
-                            //Pizza
+                            //Seed Dishes for Italian -> Pizza (dish_type_id = 1)
                             val napoliPizzaImg = R.drawable.napoli_pizza
                             val pepperoniPizzaImg = R.drawable.pepperoni_pizza
                             val pineapplePizzaImg = R.drawable.pineapple_pizza
                             val pestoPizzaImg = R.drawable.pesto_pizza
                             val whitePizzaImg = R.drawable.white_cheese_pizza
 
-                            //Pasta
+                            //Seed Dishes for Italian -> Pasta (dish_type_id = 2)
                             val carbonaraImg = R.drawable.pasta_carbonara
                             val rosaImg = R.drawable.pasta_rosa
                             val alfredoImg = R.drawable.pasta_alfredo
@@ -79,13 +82,6 @@ abstract class KitchenDataBase : RoomDatabase() {
                             val spicyTunaRollImg = R.drawable.sushi_spicy_tuna_roll
                             val tempuraRollImg = R.drawable.sushi_tempura_roll
 
-                            // Ramen images (dish_type_id = 6)
-                            val tonkotsuRamenImg = R.drawable.ramen_tonkotsu
-                            val misoRamenImg = R.drawable.ramen_miso
-                            val shoyuRamenImg = R.drawable.ramen_shoyu
-                            val spicyRamenImg = R.drawable.ramen_spicy
-                            val vegetableRamenImg = R.drawable.ramen_vegetable
-
                             // Dim Sum images (dish_type_id = 5)
                             val shrimpDumplingsImg = R.drawable.dim_sum_shrimp_dumplings
                             val vegetableDumplingsImg = R.drawable.dim_sum_vegetable_dumplings
@@ -93,6 +89,33 @@ abstract class KitchenDataBase : RoomDatabase() {
                             val beefDumplingsImg = R.drawable.dim_sum_beef_dumplings
                             val chickenWontonsImg = R.drawable.dim_sum_chicken_wontons
 
+                            // Ramen images (dish_type_id = 6)
+                            val tonkotsuRamenImg = R.drawable.ramen_tonkotsu
+                            val misoRamenImg = R.drawable.ramen_miso
+                            val shoyuRamenImg = R.drawable.ramen_shoyu
+                            val spicyRamenImg = R.drawable.ramen_spicy
+                            val vegetableRamenImg = R.drawable.ramen_vegetable
+
+                            // Bowls images (dish_type_id = 7)
+                            val buddhaBowlImg = R.drawable.vegan_buddha_bowl
+                            val falafelBowlImg = R.drawable.vegan_falafel_bowl
+                            val tofuBowlImg = R.drawable.vegan_tofu_bowl
+                            val mediterraneanBowlImg = R.drawable.vegan_mediterranean_bowl
+                            val sweetPotatoBowlImg = R.drawable.vegan_sweet_potato_bowl
+
+                            // Salad images(dish_type_id = 8)
+                            val quinoaSaladImg = R.drawable.vegan_quinoa_salad
+                            val greenSaladImg = R.drawable.vegan_green_salad
+                            val chickpeaSaladImg = R.drawable.vegan_chickpea_salad
+                            val roastedVegSaladImg = R.drawable.vegan_roasted_vegetable_salad
+                            val avocadoSaladImg = R.drawable.vegan_avocado_salad
+
+                            //Vegan Mains images (dish_type_id = 9)
+                            val lentilStewImg = R.drawable.vegan_lentil_stew
+                            val stuffedPeppersImg = R.drawable.vegan_stuffed_peppers
+                            val eggplantPlateImg = R.drawable.vegan_eggplant_plate
+                            val veggieMeatballsImg = R.drawable.vegan_veggie_meatballs
+                            val stuffedZucchiniImg = R.drawable.vegan_stuffed_zucchini
 
                             // Seed Kitchens
                             db.execSQL("INSERT INTO kitchens (id, name, image_res, description) VALUES (1, 'Italian', NULL, NULL)")
@@ -112,7 +135,9 @@ abstract class KitchenDataBase : RoomDatabase() {
                             db.execSQL("INSERT INTO dish_types (id, kitchen_id, name, image_res, description) VALUES (6, 2, 'Ramen', $ramenImg, NULL)")
 
                             // Seed Dish Types for Vegan (kitchen_id = 3)
-                            db.execSQL("INSERT INTO dish_types (id, kitchen_id, name, image_res, description) VALUES (7, 3, 'Salads', NULL, NULL)")
+                            db.execSQL("INSERT INTO dish_types (id, kitchen_id, name, image_res, description) VALUES (7, 3, 'Vegan Bowls', $veganBowlsImg, NULL)")
+                            db.execSQL("INSERT INTO dish_types (id, kitchen_id, name, image_res, description) VALUES (8, 3, 'Vegan Salads', $veganSaladsImg, NULL)")
+                            db.execSQL("INSERT INTO dish_types (id, kitchen_id, name, image_res, description) VALUES (9, 3, 'Vegan Mains', $veganMainsImg, NULL)")
 
                             // Seed Dishes for Italian -> Pizza (dish_type_id = 1)
                             db.execSQL(
@@ -213,7 +238,7 @@ abstract class KitchenDataBase : RoomDatabase() {
                             )
 
 
-// Seed Dishes for Asian -> Ramen (dish_type_id = 6)
+                            // Seed Dishes for Asian -> Ramen (dish_type_id = 6)
                             db.execSQL(
                                 "INSERT INTO dishes (id, dish_type_id, name, restaurantName, image_res, description) VALUES " +
                                         "(21, 6, 'Tonkotsu Ramen', 'Japanika | Tel Aviv', $tonkotsuRamenImg, 'Rich pork-based broth simmered for hours, served with noodles, sliced pork, and green onions.')"
@@ -240,7 +265,7 @@ abstract class KitchenDataBase : RoomDatabase() {
                             )
 
 
-// Seed Dishes for Asian -> Dim Sum (dish_type_id = 5)
+                        // Seed Dishes for Asian -> Dim Sum (dish_type_id = 5)
                             db.execSQL(
                                 "INSERT INTO dishes (id, dish_type_id, name, restaurantName, image_res, description) VALUES " +
                                         "(26, 5, 'Shrimp Dumplings', 'China Court | Tel Aviv', $shrimpDumplingsImg, 'Delicate steamed dumplings filled with shrimp, served with a light soy-based dipping sauce.')"
@@ -265,7 +290,92 @@ abstract class KitchenDataBase : RoomDatabase() {
                                 "INSERT INTO dishes (id, dish_type_id, name, restaurantName, image_res, description) VALUES " +
                                         "(30, 5, 'Chicken Wontons', 'Asia Kitchen | Ashkelon', $chickenWontonsImg, 'Light wontons filled with seasoned chicken, served steamed with a delicate dipping sauce.')"
                             )
+
+                            // Seed Dishes for Vegan -> Bowls (dish_type_id = 7)
+                            db.execSQL(
+                                "INSERT INTO dishes (id, dish_type_id, name, restaurantName, image_res, description) VALUES " +
+                                        "(31, 7, 'Buddha Bowl', 'Anastasia | Tel Aviv', $buddhaBowlImg, 'Colorful vegan bowl with roasted vegetables, grains, chickpeas, and tahini dressing.')"
+                            )
+                            db.execSQL(
+                                "INSERT INTO dishes (id, dish_type_id, name, restaurantName, image_res, description) VALUES " +
+                                        "(40, 7, 'Falafel Bowl', 'Abu Hassan | Tel Aviv', $falafelBowlImg, 'Falafel balls served with hummus, fresh vegetables, tahini, and warm grains.')"
+                            )
+
+                            db.execSQL(
+                                "INSERT INTO dishes (id, dish_type_id, name, restaurantName, image_res, description) VALUES " +
+                                        "(41, 7, 'Tofu Bowl', 'Green Panda | Ramat Gan', $tofuBowlImg, 'Marinated tofu with rice, steamed vegetables, and sesame soy dressing.')"
+                            )
+
+                            db.execSQL(
+                                "INSERT INTO dishes (id, dish_type_id, name, restaurantName, image_res, description) VALUES " +
+                                        "(42, 7, 'Mediterranean Bowl', 'Levinsky Market | Tel Aviv', $mediterraneanBowlImg, 'Mediterranean-style bowl with chickpeas, roasted vegetables, herbs, and olive oil.')"
+                            )
+
+                            db.execSQL(
+                                "INSERT INTO dishes (id, dish_type_id, name, restaurantName, image_res, description) VALUES " +
+                                        "(43, 7, 'Sweet Potato Bowl', 'Roots & Greens | Herzliya', $sweetPotatoBowlImg, 'Roasted sweet potato served with quinoa, greens, tahini, and pumpkin seeds.')"
+                            )
+
+
+
+                            // Seed Dishes for Vegan -> Salads (dish_type_id = 8)
+
+                            db.execSQL(
+                                "INSERT INTO dishes (id, dish_type_id, name, restaurantName, image_res, description) VALUES " +
+                                        "(32, 8, 'Quinoa Salad', 'Green Cat | Ramat Gan', $quinoaSaladImg, 'Fresh quinoa salad with herbs, vegetables, lemon juice, and olive oil.')"
+                            )
+
+                            // Seed Dishes for Vegan -> Salads (dish_type_id = 8)
+                            db.execSQL(
+                                "INSERT INTO dishes (id, dish_type_id, name, restaurantName, image_res, description) VALUES " +
+                                        "(36, 8, 'Fresh Green Salad', 'Green Leaf | Tel Aviv', $greenSaladImg, 'Crisp mixed greens with cucumber, herbs, lemon juice, and olive oil.')"
+                            )
+
+                            db.execSQL(
+                                "INSERT INTO dishes (id, dish_type_id, name, restaurantName, image_res, description) VALUES " +
+                                        "(37, 8, 'Chickpea Salad', 'Roots | Ramat Gan', $chickpeaSaladImg, 'Protein-rich chickpea salad with tomatoes, parsley, red onion, and fresh lemon dressing.')"
+                            )
+
+                            db.execSQL(
+                                "INSERT INTO dishes (id, dish_type_id, name, restaurantName, image_res, description) VALUES " +
+                                        "(38, 8, 'Roasted Vegetable Salad', 'Urban Vegan | Herzliya', $roastedVegSaladImg, 'Warm roasted vegetables served over fresh greens with balsamic vinaigrette.')"
+                            )
+
+                            db.execSQL(
+                                "INSERT INTO dishes (id, dish_type_id, name, restaurantName, image_res, description) VALUES " +
+                                        "(39, 8, 'Avocado Salad', 'Pure Kitchen | Kfar Saba', $avocadoSaladImg, 'Fresh avocado slices with mixed greens, cherry tomatoes, and a light citrus dressing.')"
+                            )
+
+
+                            // Seed Dishes for Vegan -> Mains (dish_type_id = 9)
+                            db.execSQL(
+                                "INSERT INTO dishes (id, dish_type_id, name, restaurantName, image_res, description) VALUES " +
+                                        "(33, 9, 'Lentil Stew', 'Meshek Barzilay | Tel Aviv', $lentilStewImg, 'Slow-cooked lentil stew with vegetables and warming Middle Eastern spices.')"
+                            )
+
+                            db.execSQL(
+                                "INSERT INTO dishes (id, dish_type_id, name, restaurantName, image_res, description) VALUES " +
+                                        "(34, 9, 'Stuffed Peppers', 'Nana | Haifa', $stuffedPeppersImg, 'Bell peppers stuffed with rice, herbs, and vegetables, baked in tomato sauce.')"
+                            )
+
+                            db.execSQL(
+                                "INSERT INTO dishes (id, dish_type_id, name, restaurantName, image_res, description) VALUES " +
+                                        "(35, 9, 'Roasted Eggplant Plate', 'Opa | Jerusalem', $eggplantPlateImg, 'Roasted eggplant served with tahini, tomato salsa, herbs, and olive oil.')"
+                            )
+                            db.execSQL(
+                                "INSERT INTO dishes (id, dish_type_id, name, restaurantName, image_res, description) VALUES " +
+                                        "(45, 9, 'Vegetable Meatballs', 'Anastasia | Tel Aviv', $veggieMeatballsImg, 'Baked vegetable-based meatballs served with tomato sauce and fresh herbs.')"
+                            )
+
+                            db.execSQL(
+                                "INSERT INTO dishes (id, dish_type_id, name, restaurantName, image_res, description) VALUES " +
+                                        "(46, 9, 'Stuffed Zucchini', 'Green Spot | Raanana', $stuffedZucchiniImg, 'Zucchini stuffed with rice, herbs, and vegetables, simmered in a light tomato sauce.')"
+                            )
+
+
                         }
+
+
                     })
                     .build()
 
