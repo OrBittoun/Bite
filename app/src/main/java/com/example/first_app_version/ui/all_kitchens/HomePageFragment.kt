@@ -162,7 +162,7 @@ class HomePageFragment : Fragment() {
                 title = "Asian",
                 previewImages = listOf(
                     R.drawable.sushi_california_roll,
-                    R.drawable.ramen_miso,
+                    R.drawable.ramen_tonkotsu,
                     R.drawable.dim_sum_beef_dumplings
                 )
             ),
@@ -170,18 +170,19 @@ class HomePageFragment : Fragment() {
             HomeCategory(
                 title = "Meat & Fish",
                 previewImages = listOf(
-                    R.drawable.chickenwarp,
-                    R.drawable.gdb,
-                    R.drawable.dixie,
-                    R.drawable.fish
+                    R.drawable.meat_goulash,
+                    R.drawable.meat_classic_burger,
+                    R.drawable.meat_entrecote,
+                    R.drawable.fish_teriyaki
                 )
             ),
 
             HomeCategory(
                 title = "Vegan",
                 previewImages = listOf(
-                    R.drawable.salad,
-                    R.drawable.vegan_burger,
+                    R.drawable.vegan_chickpea_salad,
+                    R.drawable.vegan_stuffed_zucchini,
+                    R.drawable.vegan_buddha_bowl
                 )
             ),
 

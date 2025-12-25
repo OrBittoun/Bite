@@ -41,16 +41,15 @@ abstract class KitchenDataBase : RoomDatabase() {
                             Log.d("DB_CREATE", "KitchenDataBase onCreate CALLED")
 
                             // Kitchens Images
-                            val pizzaImg = R.drawable.pizza
+//                            val pizzaImg = R.drawable.pizza
                             val pastaImg = R.drawable.pasta
                             val lasagnaImg = R.drawable.lasagna_bolognese
                             val sushiImg = R.drawable.sushi
-                            val ramenImg = R.drawable.ramen
+//                            val ramenImg = R.drawable.ramen
                             val dimSumImg = R.drawable.dim_sum_steamed_buns
                             val veganSaladsImg = R.drawable.vegan_green_salad
                             val veganBowlsImg = R.drawable.vegan_buddha_bowl
                             val veganMainsImg = R.drawable.vegan_lentil_stew
-
 
 
                             // Dishes Images
@@ -142,6 +141,12 @@ abstract class KitchenDataBase : RoomDatabase() {
                             val chickenSkewersImg = R.drawable.chicken_skewers
                             val chickenNuggetsImg = R.drawable.chicken_nuggets
 
+                            // Fish -> Chicken
+                            val grilledSalmonImg = R.drawable.fish_grilled_salmon
+                            val seabassFilletImg = R.drawable.fish_seabass
+                            val salmonTeriyakiImg = R.drawable.fish_teriyaki
+                            val fishAndChipsImg = R.drawable.fish_and_chips
+
                             // Seed Kitchens
                             db.execSQL("INSERT INTO kitchens (id, name, image_res, description) VALUES (1, 'Italian', NULL, NULL)")
                             db.execSQL("INSERT INTO kitchens (id, name, image_res, description) VALUES (2, 'Asian', NULL, NULL)")
@@ -150,14 +155,14 @@ abstract class KitchenDataBase : RoomDatabase() {
                             db.execSQL("INSERT INTO kitchens (id, name, image_res, description) VALUES (5, 'Desserts', NULL, NULL)")
 
                             // Seed Dish Types for Italian (kitchen_id = 1)
-                            db.execSQL("INSERT INTO dish_types (id, kitchen_id, name, image_res, description) VALUES (1, 1, 'Pizza', $pizzaImg, NULL)")
+                            db.execSQL("INSERT INTO dish_types (id, kitchen_id, name, image_res, description) VALUES (1, 1, 'Pizza', $pepperoniPizzaImg, NULL)")
                             db.execSQL("INSERT INTO dish_types (id, kitchen_id, name, image_res, description) VALUES (2, 1, 'Pasta', $pastaImg, NULL)")
                             db.execSQL("INSERT INTO dish_types (id, kitchen_id, name, image_res, description) VALUES (3, 1, 'Lasagna', $lasagnaImg, NULL)")
 
                             // Seed Dish Types for Asian (kitchen_id = 2)
                             db.execSQL("INSERT INTO dish_types (id, kitchen_id, name, image_res, description) VALUES (4, 2, 'Sushi', $sushiImg, NULL)")
                             db.execSQL("INSERT INTO dish_types (id, kitchen_id, name, image_res, description) VALUES (5, 2, 'Dim Sum', $dimSumImg, NULL)")
-                            db.execSQL("INSERT INTO dish_types (id, kitchen_id, name, image_res, description) VALUES (6, 2, 'Ramen', $ramenImg, NULL)")
+                            db.execSQL("INSERT INTO dish_types (id, kitchen_id, name, image_res, description) VALUES (6, 2, 'Ramen', $spicyRamenImg, NULL)")
 
                             // Seed Dish Types for Vegan (kitchen_id = 3)
                             db.execSQL("INSERT INTO dish_types (id, kitchen_id, name, image_res, description) VALUES (7, 3, 'Vegan Bowls', $veganBowlsImg, NULL)")
@@ -169,12 +174,13 @@ abstract class KitchenDataBase : RoomDatabase() {
                             db.execSQL("INSERT INTO dish_types (id, kitchen_id, name, image_res, description) VALUES (11, 4, 'Burgers', $doubleBurgerImg, NULL)")
                             db.execSQL("INSERT INTO dish_types (id, kitchen_id, name, image_res, description) VALUES (12, 4, 'Stews', $lambStewImg, NULL)")
                             db.execSQL("INSERT INTO dish_types (id, kitchen_id, name, image_res, description) VALUES (13, 4, 'Chicken', $schnitzelImg, NULL)")
+                            db.execSQL("INSERT INTO dish_types (id, kitchen_id, name, image_res, description) VALUES (14, 4, 'Fish', $fishAndChipsImg, NULL)")
 
 
                             // Seed Dish Types for Desserts (kitchen_id = 5)
-                            db.execSQL("INSERT INTO dish_types (id, kitchen_id, name, image_res, description) VALUES (14, 5, 'Cakes', NULL, NULL)")
-                            db.execSQL("INSERT INTO dish_types (id, kitchen_id, name, image_res, description) VALUES (15, 5, 'Cookies', NULL, NULL)")
-                            db.execSQL("INSERT INTO dish_types (id, kitchen_id, name, image_res, description) VALUES (16, 5, 'Smoothies', NULL, NULL)")
+                            db.execSQL("INSERT INTO dish_types (id, kitchen_id, name, image_res, description) VALUES (15, 5, 'Cakes', NULL, NULL)")
+                            db.execSQL("INSERT INTO dish_types (id, kitchen_id, name, image_res, description) VALUES (16, 5, 'Cookies', NULL, NULL)")
+                            db.execSQL("INSERT INTO dish_types (id, kitchen_id, name, image_res, description) VALUES (17, 5, 'Smoothies', NULL, NULL)")
 
 
 
@@ -480,6 +486,28 @@ abstract class KitchenDataBase : RoomDatabase() {
                             db.execSQL(
                                 "INSERT INTO dishes (id, dish_type_id, name, restaurantName, image_res, description) VALUES " +
                                         "(63, 13, 'Chicken Nuggets', 'Burger Ranch | Tel Aviv', $chickenNuggetsImg, 'Crispy golden chicken nuggets served with dipping sauce, crunchy on the outside and tender inside.')"
+                            )
+
+
+                            // Seed Fish Dishes (dish_type_id = 14)
+                            db.execSQL(
+                                "INSERT INTO dishes (id, dish_type_id, name, restaurantName, image_res, description) VALUES " +
+                                        "(64, 14, 'Grilled Salmon', 'Blue Wave | Tel Aviv', $grilledSalmonImg, 'Fresh salmon fillet grilled with herbs, lemon, and olive oil.')"
+                            )
+
+                            db.execSQL(
+                                "INSERT INTO dishes (id, dish_type_id, name, restaurantName, image_res, description) VALUES " +
+                                        "(65, 14, 'Sea Bass Fillet', 'Ocean Grill | Herzliya', $seabassFilletImg, 'Pan-seared sea bass with seasonal vegetables and citrus sauce.')"
+                            )
+
+                            db.execSQL(
+                                "INSERT INTO dishes (id, dish_type_id, name, restaurantName, image_res, description) VALUES " +
+                                        "(66, 14, 'Teriyaki Salmon', 'Tokyo Fish | Ramat Gan', $salmonTeriyakiImg, 'Salmon glazed with sweet teriyaki sauce served with rice and greens.')"
+                            )
+
+                            db.execSQL(
+                                "INSERT INTO dishes (id, dish_type_id, name, restaurantName, image_res, description) VALUES " +
+                                        "(67, 14, 'Fish and Chips', 'London Fish Bar | Tel Aviv', $fishAndChipsImg, 'Crispy battered fish served with golden fries and tartar sauce.')"
                             )
 
 
