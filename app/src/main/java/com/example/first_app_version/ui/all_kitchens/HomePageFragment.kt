@@ -153,41 +153,43 @@ class HomePageFragment : Fragment() {
             HomeCategory(
                 title = "Italian",
                 previewImages = listOf(
-                    R.drawable.pizza,
-                    R.drawable.pasta,
-                    R.drawable.lasagna_bolognese
+                    R.drawable.napoli_pizza,
+                    R.drawable.pasta_alfredo,
+                    R.drawable.lasagna_eggplant_parmesan
                 )
             ),
             HomeCategory(
                 title = "Asian",
                 previewImages = listOf(
-                    R.drawable.sushi,
-                    R.drawable.noodles,
-                    R.drawable.ramen
+                    R.drawable.sushi_california_roll,
+                    R.drawable.ramen_miso,
+                    R.drawable.dim_sum_beef_dumplings
                 )
             ),
+
+            HomeCategory(
+                title = "Meat & Fish",
+                previewImages = listOf(
+                    R.drawable.chickenwarp,
+                    R.drawable.gdb,
+                    R.drawable.dixie,
+                    R.drawable.fish
+                )
+            ),
+
             HomeCategory(
                 title = "Vegan",
                 previewImages = listOf(
                     R.drawable.salad,
                     R.drawable.vegan_burger,
-                    R.drawable.smoothie
                 )
             ),
 
             HomeCategory(
-                title = "Meat",
+                title = "Desserts",
                 previewImages = listOf(
-                R.drawable.salad,
-                R.drawable.vegan_burger,
-                R.drawable.smoothie
-            )
-        ),
-            HomeCategory(
-                title = "Desert",
-                previewImages = listOf(
-                    R.drawable.salad,
-                    R.drawable.vegan_burger,
+                    R.drawable.cake,
+                    R.drawable.cookies,
                     R.drawable.smoothie
                 )
             )

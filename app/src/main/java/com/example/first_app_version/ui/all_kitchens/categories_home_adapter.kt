@@ -45,10 +45,10 @@ class HomeCategoriesAdapter(
                 images = category.previewImages,
 
                 onImageClick = {
-                    onCategoryClick(category)
+                    onCategoryClick(category) //move to the next fragment
                 },
                 onExploreClick = {
-                    onCategoryClick(category)
+                    onCategoryClick(category) //move to the next fragment
                 }
             )
             categoryRecyclerView.layoutManager =

@@ -146,8 +146,8 @@ abstract class KitchenDataBase : RoomDatabase() {
                             db.execSQL("INSERT INTO kitchens (id, name, image_res, description) VALUES (1, 'Italian', NULL, NULL)")
                             db.execSQL("INSERT INTO kitchens (id, name, image_res, description) VALUES (2, 'Asian', NULL, NULL)")
                             db.execSQL("INSERT INTO kitchens (id, name, image_res, description) VALUES (3, 'Vegan', NULL, NULL)")
-                            db.execSQL("INSERT INTO kitchens (id, name, image_res, description) VALUES (4, 'Meat', NULL, NULL)")
-                            db.execSQL("INSERT INTO kitchens (id, name, image_res, description) VALUES (5, 'Deserts', NULL, NULL)")
+                            db.execSQL("INSERT INTO kitchens (id, name, image_res, description) VALUES (4, 'Meat & Fish', NULL, NULL)")
+                            db.execSQL("INSERT INTO kitchens (id, name, image_res, description) VALUES (5, 'Desserts', NULL, NULL)")
 
                             // Seed Dish Types for Italian (kitchen_id = 1)
                             db.execSQL("INSERT INTO dish_types (id, kitchen_id, name, image_res, description) VALUES (1, 1, 'Pizza', $pizzaImg, NULL)")
@@ -164,11 +164,17 @@ abstract class KitchenDataBase : RoomDatabase() {
                             db.execSQL("INSERT INTO dish_types (id, kitchen_id, name, image_res, description) VALUES (8, 3, 'Vegan Salads', $veganSaladsImg, NULL)")
                             db.execSQL("INSERT INTO dish_types (id, kitchen_id, name, image_res, description) VALUES (9, 3, 'Vegan Mains', $veganMainsImg, NULL)")
 
-                            // Seed Dish Types for Meat (kitchen_id = 4)
-                            db.execSQL("INSERT INTO dish_types (id, kitchen_id, name, image_res, description) VALUES (10, 4, 'Grill', NULL, NULL)")
-                            db.execSQL("INSERT INTO dish_types (id, kitchen_id, name, image_res, description) VALUES (11, 4, 'Burgers', NULL, NULL)")
-                            db.execSQL("INSERT INTO dish_types (id, kitchen_id, name, image_res, description) VALUES (12, 4, 'Stews', NULL, NULL)")
-                            db.execSQL("INSERT INTO dish_types (id, kitchen_id, name, image_res, description) VALUES (13, 4, 'Chicken', NULL, NULL)")
+                            // Seed Dish Types for Meat & Fish (kitchen_id = 4)
+                            db.execSQL("INSERT INTO dish_types (id, kitchen_id, name, image_res, description) VALUES (10, 4, 'Grill', $beefSkewersImg, NULL)")
+                            db.execSQL("INSERT INTO dish_types (id, kitchen_id, name, image_res, description) VALUES (11, 4, 'Burgers', $doubleBurgerImg, NULL)")
+                            db.execSQL("INSERT INTO dish_types (id, kitchen_id, name, image_res, description) VALUES (12, 4, 'Stews', $lambStewImg, NULL)")
+                            db.execSQL("INSERT INTO dish_types (id, kitchen_id, name, image_res, description) VALUES (13, 4, 'Chicken', $schnitzelImg, NULL)")
+
+
+                            // Seed Dish Types for Desserts (kitchen_id = 5)
+                            db.execSQL("INSERT INTO dish_types (id, kitchen_id, name, image_res, description) VALUES (14, 5, 'Cakes', NULL, NULL)")
+                            db.execSQL("INSERT INTO dish_types (id, kitchen_id, name, image_res, description) VALUES (15, 5, 'Cookies', NULL, NULL)")
+                            db.execSQL("INSERT INTO dish_types (id, kitchen_id, name, image_res, description) VALUES (16, 5, 'Smoothies', NULL, NULL)")
 
 
 

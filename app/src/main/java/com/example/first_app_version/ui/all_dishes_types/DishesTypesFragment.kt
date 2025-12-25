@@ -46,7 +46,7 @@ class DishesTypesFragment : Fragment() {
         }
 
         binding.recyclerDishesTypes.layoutManager =
-            GridLayoutManager(requireContext(), 2)
+            GridLayoutManager(requireContext(), 1)
 
         binding.recyclerDishesTypes.adapter = adapter
 
