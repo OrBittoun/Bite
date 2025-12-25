@@ -41,15 +41,16 @@ abstract class KitchenDataBase : RoomDatabase() {
                             Log.d("DB_CREATE", "KitchenDataBase onCreate CALLED")
 
                             // Kitchens Images
-//                            val pizzaImg = R.drawable.pizza
-                            val pastaImg = R.drawable.pasta
-                            val lasagnaImg = R.drawable.lasagna_bolognese
-                            val sushiImg = R.drawable.sushi
+//                            val pizzaImg = R.drawable.napoli_pizza
+//                            val pastaImg = R.drawable.pasta_rosa
+//                            val lasagnaImg = R.drawable.lasagna_bolognese
+//
 //                            val ramenImg = R.drawable.ramen
-                            val dimSumImg = R.drawable.dim_sum_steamed_buns
-                            val veganSaladsImg = R.drawable.vegan_green_salad
-                            val veganBowlsImg = R.drawable.vegan_buddha_bowl
-                            val veganMainsImg = R.drawable.vegan_lentil_stew
+//                            val dimSumImg = R.drawable.dim_sum_steamed_buns
+//
+//                            val veganSaladsImg = R.drawable.vegan_green_salad
+//                            val veganBowlsImg = R.drawable.vegan_buddha_bowl
+//                            val veganMainsImg = R.drawable.vegan_lentil_stew
 
 
                             // Dishes Images
@@ -80,6 +81,8 @@ abstract class KitchenDataBase : RoomDatabase() {
                             val californiaRollImg = R.drawable.sushi_california_roll
                             val spicyTunaRollImg = R.drawable.sushi_spicy_tuna_roll
                             val tempuraRollImg = R.drawable.sushi_tempura_roll
+                            val sushiImg = R.drawable.sushi
+
 
                             // Dim Sum images (dish_type_id = 5)
                             val shrimpDumplingsImg = R.drawable.dim_sum_shrimp_dumplings
@@ -116,36 +119,54 @@ abstract class KitchenDataBase : RoomDatabase() {
                             val veggieMeatballsImg = R.drawable.vegan_veggie_meatballs
                             val stuffedZucchiniImg = R.drawable.vegan_stuffed_zucchini
 
-                            // Meat -> Grill
+                            // Meat Grill images (dish_type_id = 10)
                             val ribeyeImg = R.drawable.meat_ribeye
                             val entrecoteImg = R.drawable.meat_entrecote
                             val lambChopsImg = R.drawable.meat_lamb_chops
                             val beefSkewersImg = R.drawable.meat_beef_skewers
 
-                            // Meat -> Burgers
+                            // Meat Burgers images (dish_type_id = 11)
                             val classicBurgerImg = R.drawable.meat_classic_burger
                             val cheeseBurgerImg = R.drawable.meat_cheese_burger
                             val bbqBurgerImg = R.drawable.meat_bbq_burger
                             val doubleBurgerImg = R.drawable.meat_double_burger
 
-                            // Meat -> Stews
+                            //Meat Stews images (dish_type_id = 12)
                             val beefStewImg = R.drawable.meat_beef_stew
                             val lambStewImg = R.drawable.meat_lamb_stew
                             val goulashImg = R.drawable.meat_goulash
                             val ossobucoImg = R.drawable.meat_ossobuco
 
-
-                            // Meat -> Chicken
+                            // Meat Chicken images (dish_type_id = 13)
                             val grilledChickenImg = R.drawable.grilled_chicken
                             val schnitzelImg = R.drawable.schnitzel
                             val chickenSkewersImg = R.drawable.chicken_skewers
                             val chickenNuggetsImg = R.drawable.chicken_nuggets
 
-                            // Fish -> Chicken
+                            // Fish images (dish_type_id = 14)
                             val grilledSalmonImg = R.drawable.fish_grilled_salmon
                             val seabassFilletImg = R.drawable.fish_seabass
                             val salmonTeriyakiImg = R.drawable.fish_teriyaki
                             val fishAndChipsImg = R.drawable.fish_and_chips
+
+                            // לCakes images (dish_type_id = 15
+                            val chocolateCakeImg = R.drawable.chocolate_cake
+                            val cheesecakeImg = R.drawable.cheesecake
+                            val carrotCakeImg = R.drawable.carrot_cake
+                            val lavaCakeImg = R.drawable.lava_cake
+
+                            // Ice Cream & Frozen images (dish_type_id = 16)
+                            val vanillaIceCreamImg = R.drawable.vanilla_ice_cream
+                            val chocolateIceCreamImg = R.drawable.chocolate_ice_cream
+                            val strawberrySorbetImg = R.drawable.strawberry_sorbet
+                            val frozenYogurtImg = R.drawable.frozen_yogurt
+
+                            // Pastries images (dish_type_id = 17)
+                            val croissantImg = R.drawable.croissant
+                            val chocolateCroissantImg = R.drawable.chocolate_croissant
+                            val appleTartImg = R.drawable.apple_tart
+                            val cinnamonRollImg = R.drawable.cinnamon_roll
+
 
                             // Seed Kitchens
                             db.execSQL("INSERT INTO kitchens (id, name, image_res, description) VALUES (1, 'Italian', NULL, NULL)")
@@ -156,18 +177,18 @@ abstract class KitchenDataBase : RoomDatabase() {
 
                             // Seed Dish Types for Italian (kitchen_id = 1)
                             db.execSQL("INSERT INTO dish_types (id, kitchen_id, name, image_res, description) VALUES (1, 1, 'Pizza', $pepperoniPizzaImg, NULL)")
-                            db.execSQL("INSERT INTO dish_types (id, kitchen_id, name, image_res, description) VALUES (2, 1, 'Pasta', $pastaImg, NULL)")
-                            db.execSQL("INSERT INTO dish_types (id, kitchen_id, name, image_res, description) VALUES (3, 1, 'Lasagna', $lasagnaImg, NULL)")
+                            db.execSQL("INSERT INTO dish_types (id, kitchen_id, name, image_res, description) VALUES (2, 1, 'Pasta', $rosaImg, NULL)")
+                            db.execSQL("INSERT INTO dish_types (id, kitchen_id, name, image_res, description) VALUES (3, 1, 'Lasagna', $lasagnaBologneseImg, NULL)")
 
                             // Seed Dish Types for Asian (kitchen_id = 2)
                             db.execSQL("INSERT INTO dish_types (id, kitchen_id, name, image_res, description) VALUES (4, 2, 'Sushi', $sushiImg, NULL)")
-                            db.execSQL("INSERT INTO dish_types (id, kitchen_id, name, image_res, description) VALUES (5, 2, 'Dim Sum', $dimSumImg, NULL)")
+                            db.execSQL("INSERT INTO dish_types (id, kitchen_id, name, image_res, description) VALUES (5, 2, 'Dim Sum', $steamedBunsImg, NULL)")
                             db.execSQL("INSERT INTO dish_types (id, kitchen_id, name, image_res, description) VALUES (6, 2, 'Ramen', $spicyRamenImg, NULL)")
 
                             // Seed Dish Types for Vegan (kitchen_id = 3)
-                            db.execSQL("INSERT INTO dish_types (id, kitchen_id, name, image_res, description) VALUES (7, 3, 'Vegan Bowls', $veganBowlsImg, NULL)")
-                            db.execSQL("INSERT INTO dish_types (id, kitchen_id, name, image_res, description) VALUES (8, 3, 'Vegan Salads', $veganSaladsImg, NULL)")
-                            db.execSQL("INSERT INTO dish_types (id, kitchen_id, name, image_res, description) VALUES (9, 3, 'Vegan Mains', $veganMainsImg, NULL)")
+                            db.execSQL("INSERT INTO dish_types (id, kitchen_id, name, image_res, description) VALUES (7, 3, 'Vegan Bowls', $buddhaBowlImg, NULL)")
+                            db.execSQL("INSERT INTO dish_types (id, kitchen_id, name, image_res, description) VALUES (8, 3, 'Vegan Salads', $greenSaladImg, NULL)")
+                            db.execSQL("INSERT INTO dish_types (id, kitchen_id, name, image_res, description) VALUES (9, 3, 'Vegan Mains', $lentilStewImg, NULL)")
 
                             // Seed Dish Types for Meat & Fish (kitchen_id = 4)
                             db.execSQL("INSERT INTO dish_types (id, kitchen_id, name, image_res, description) VALUES (10, 4, 'Grill', $beefSkewersImg, NULL)")
@@ -178,9 +199,9 @@ abstract class KitchenDataBase : RoomDatabase() {
 
 
                             // Seed Dish Types for Desserts (kitchen_id = 5)
-                            db.execSQL("INSERT INTO dish_types (id, kitchen_id, name, image_res, description) VALUES (15, 5, 'Cakes', NULL, NULL)")
-                            db.execSQL("INSERT INTO dish_types (id, kitchen_id, name, image_res, description) VALUES (16, 5, 'Cookies', NULL, NULL)")
-                            db.execSQL("INSERT INTO dish_types (id, kitchen_id, name, image_res, description) VALUES (17, 5, 'Smoothies', NULL, NULL)")
+                            db.execSQL("INSERT INTO dish_types (id, kitchen_id, name, image_res, description) VALUES (15, 5, 'Cakes', $cheesecakeImg, NULL)")
+                            db.execSQL("INSERT INTO dish_types (id, kitchen_id, name, image_res, description) VALUES (16, 5, 'Ice Cream & Frozen', $frozenYogurtImg, NULL)")
+                            db.execSQL("INSERT INTO dish_types (id, kitchen_id, name, image_res, description) VALUES (17, 5, 'Pastries', $appleTartImg, NULL)")
 
 
 
@@ -283,58 +304,58 @@ abstract class KitchenDataBase : RoomDatabase() {
                             )
 
 
-                            // Seed Dishes for Asian -> Ramen (dish_type_id = 6)
-                            db.execSQL(
-                                "INSERT INTO dishes (id, dish_type_id, name, restaurantName, image_res, description) VALUES " +
-                                        "(21, 6, 'Tonkotsu Ramen', 'Japanika | Tel Aviv', $tonkotsuRamenImg, 'Rich pork-based broth simmered for hours, served with noodles, sliced pork, and green onions.')"
-                            )
-
-                            db.execSQL(
-                                "INSERT INTO dishes (id, dish_type_id, name, restaurantName, image_res, description) VALUES " +
-                                        "(22, 6, 'Miso Ramen', 'Ramen Ya | Jerusalem', $misoRamenImg, 'Savory miso-based broth with noodles, vegetables, and a deep, comforting umami flavor.')"
-                            )
-
-                            db.execSQL(
-                                "INSERT INTO dishes (id, dish_type_id, name, restaurantName, image_res, description) VALUES " +
-                                        "(23, 6, 'Shoyu Ramen', 'Nini Hachi | Herzliya', $shoyuRamenImg, 'Soy sauce-based broth with a clear, balanced taste, served with noodles and classic toppings.')"
-                            )
-
-                            db.execSQL(
-                                "INSERT INTO dishes (id, dish_type_id, name, restaurantName, image_res, description) VALUES " +
-                                        "(24, 6, 'Spicy Ramen', 'Sushi Samba | Haifa', $spicyRamenImg, 'Spicy chili-infused broth with noodles and vegetables for a bold and warming kick.')"
-                            )
-
-                            db.execSQL(
-                                "INSERT INTO dishes (id, dish_type_id, name, restaurantName, image_res, description) VALUES " +
-                                        "(25, 6, 'Vegetable Ramen', 'Green Asia | Ramat Gan', $vegetableRamenImg, 'Light vegetable-based broth with noodles, mushrooms, greens, and aromatic herbs.')"
-                            )
-
-
                         // Seed Dishes for Asian -> Dim Sum (dish_type_id = 5)
                             db.execSQL(
                                 "INSERT INTO dishes (id, dish_type_id, name, restaurantName, image_res, description) VALUES " +
-                                        "(26, 5, 'Shrimp Dumplings', 'China Court | Tel Aviv', $shrimpDumplingsImg, 'Delicate steamed dumplings filled with shrimp, served with a light soy-based dipping sauce.')"
+                                        "(21, 5, 'Shrimp Dumplings', 'China Court | Tel Aviv', $shrimpDumplingsImg, 'Delicate steamed dumplings filled with shrimp, served with a light soy-based dipping sauce.')"
                             )
 
                             db.execSQL(
                                 "INSERT INTO dishes (id, dish_type_id, name, restaurantName, image_res, description) VALUES " +
-                                        "(27, 5, 'Vegetable Dumplings', 'Green Wok | Ra’anana', $vegetableDumplingsImg, 'Steamed dumplings filled with mixed vegetables and Asian spices, light and flavorful.')"
+                                        "(22, 5, 'Vegetable Dumplings', 'Green Wok | Ra’anana', $vegetableDumplingsImg, 'Steamed dumplings filled with mixed vegetables and Asian spices, light and flavorful.')"
                             )
 
                             db.execSQL(
                                 "INSERT INTO dishes (id, dish_type_id, name, restaurantName, image_res, description) VALUES " +
-                                        "(28, 5, 'Steamed Buns', 'Little Asia | Ramat Gan', $steamedBunsImg, 'Soft steamed buns filled with savory meat and sauce, warm and comforting.')"
+                                        "(23, 5, 'Steamed Buns', 'Little Asia | Ramat Gan', $steamedBunsImg, 'Soft steamed buns filled with savory meat and sauce, warm and comforting.')"
                             )
 
                             db.execSQL(
                                 "INSERT INTO dishes (id, dish_type_id, name, restaurantName, image_res, description) VALUES " +
-                                        "(29, 5, 'Beef Dumplings', 'Red Dragon | Haifa', $beefDumplingsImg, 'Juicy beef-filled dumplings steamed to perfection with aromatic herbs and spices.')"
+                                        "(24, 5, 'Beef Dumplings', 'Red Dragon | Haifa', $beefDumplingsImg, 'Juicy beef-filled dumplings steamed to perfection with aromatic herbs and spices.')"
                             )
 
                             db.execSQL(
                                 "INSERT INTO dishes (id, dish_type_id, name, restaurantName, image_res, description) VALUES " +
-                                        "(30, 5, 'Chicken Wontons', 'Asia Kitchen | Ashkelon', $chickenWontonsImg, 'Light wontons filled with seasoned chicken, served steamed with a delicate dipping sauce.')"
+                                        "(25, 5, 'Chicken Wontons', 'Asia Kitchen | Ashkelon', $chickenWontonsImg, 'Light wontons filled with seasoned chicken, served steamed with a delicate dipping sauce.')"
                             )
+
+                            // Seed Dishes for Asian -> Ramen (dish_type_id = 6)
+                            db.execSQL(
+                                "INSERT INTO dishes (id, dish_type_id, name, restaurantName, image_res, description) VALUES " +
+                                        "(26, 6, 'Tonkotsu Ramen', 'Japanika | Tel Aviv', $tonkotsuRamenImg, 'Rich pork-based broth simmered for hours, served with noodles, sliced pork, and green onions.')"
+                            )
+
+                            db.execSQL(
+                                "INSERT INTO dishes (id, dish_type_id, name, restaurantName, image_res, description) VALUES " +
+                                        "(27, 6, 'Miso Ramen', 'Ramen Ya | Jerusalem', $misoRamenImg, 'Savory miso-based broth with noodles, vegetables, and a deep, comforting umami flavor.')"
+                            )
+
+                            db.execSQL(
+                                "INSERT INTO dishes (id, dish_type_id, name, restaurantName, image_res, description) VALUES " +
+                                        "(28, 6, 'Shoyu Ramen', 'Nini Hachi | Herzliya', $shoyuRamenImg, 'Soy sauce-based broth with a clear, balanced taste, served with noodles and classic toppings.')"
+                            )
+
+                            db.execSQL(
+                                "INSERT INTO dishes (id, dish_type_id, name, restaurantName, image_res, description) VALUES " +
+                                        "(29, 6, 'Spicy Ramen', 'Sushi Samba | Haifa', $spicyRamenImg, 'Spicy chili-infused broth with noodles and vegetables for a bold and warming kick.')"
+                            )
+
+                            db.execSQL(
+                                "INSERT INTO dishes (id, dish_type_id, name, restaurantName, image_res, description) VALUES " +
+                                        "(30, 6, 'Vegetable Ramen', 'Green Asia | Ramat Gan', $vegetableRamenImg, 'Light vegetable-based broth with noodles, mushrooms, greens, and aromatic herbs.')"
+                            )
+
 
                             // Seed Dishes for Vegan -> Bowls (dish_type_id = 7)
                             db.execSQL(
@@ -343,32 +364,24 @@ abstract class KitchenDataBase : RoomDatabase() {
                             )
                             db.execSQL(
                                 "INSERT INTO dishes (id, dish_type_id, name, restaurantName, image_res, description) VALUES " +
-                                        "(40, 7, 'Falafel Bowl', 'Abu Hassan | Tel Aviv', $falafelBowlImg, 'Falafel balls served with hummus, fresh vegetables, tahini, and warm grains.')"
+                                        "(32, 7, 'Falafel Bowl', 'Abu Hassan | Tel Aviv', $falafelBowlImg, 'Falafel balls served with hummus, fresh vegetables, tahini, and warm grains.')"
                             )
 
                             db.execSQL(
                                 "INSERT INTO dishes (id, dish_type_id, name, restaurantName, image_res, description) VALUES " +
-                                        "(41, 7, 'Tofu Bowl', 'Green Panda | Ramat Gan', $tofuBowlImg, 'Marinated tofu with rice, steamed vegetables, and sesame soy dressing.')"
+                                        "(33, 7, 'Tofu Bowl', 'Green Panda | Ramat Gan', $tofuBowlImg, 'Marinated tofu with rice, steamed vegetables, and sesame soy dressing.')"
                             )
 
                             db.execSQL(
                                 "INSERT INTO dishes (id, dish_type_id, name, restaurantName, image_res, description) VALUES " +
-                                        "(42, 7, 'Mediterranean Bowl', 'Levinsky Market | Tel Aviv', $mediterraneanBowlImg, 'Mediterranean-style bowl with chickpeas, roasted vegetables, herbs, and olive oil.')"
+                                        "(34, 7, 'Mediterranean Bowl', 'Levinsky Market | Tel Aviv', $mediterraneanBowlImg, 'Mediterranean-style bowl with chickpeas, roasted vegetables, herbs, and olive oil.')"
                             )
 
                             db.execSQL(
                                 "INSERT INTO dishes (id, dish_type_id, name, restaurantName, image_res, description) VALUES " +
-                                        "(43, 7, 'Sweet Potato Bowl', 'Roots & Greens | Herzliya', $sweetPotatoBowlImg, 'Roasted sweet potato served with quinoa, greens, tahini, and pumpkin seeds.')"
+                                        "(35, 7, 'Sweet Potato Bowl', 'Roots & Greens | Herzliya', $sweetPotatoBowlImg, 'Roasted sweet potato served with quinoa, greens, tahini, and pumpkin seeds.')"
                             )
 
-
-
-                            // Seed Dishes for Vegan -> Salads (dish_type_id = 8)
-
-                            db.execSQL(
-                                "INSERT INTO dishes (id, dish_type_id, name, restaurantName, image_res, description) VALUES " +
-                                        "(32, 8, 'Quinoa Salad', 'Green Cat | Ramat Gan', $quinoaSaladImg, 'Fresh quinoa salad with herbs, vegetables, lemon juice, and olive oil.')"
-                            )
 
                             // Seed Dishes for Vegan -> Salads (dish_type_id = 8)
                             db.execSQL(
@@ -391,129 +404,212 @@ abstract class KitchenDataBase : RoomDatabase() {
                                         "(39, 8, 'Avocado Salad', 'Pure Kitchen | Kfar Saba', $avocadoSaladImg, 'Fresh avocado slices with mixed greens, cherry tomatoes, and a light citrus dressing.')"
                             )
 
+                            db.execSQL(
+                                "INSERT INTO dishes (id, dish_type_id, name, restaurantName, image_res, description) VALUES " +
+                                        "(40, 8, 'Quinoa Salad', 'Green Cat | Ramat Gan', $quinoaSaladImg, 'Fresh quinoa salad with herbs, vegetables, lemon juice, and olive oil.')"
+                            )
+
 
                             // Seed Dishes for Vegan -> Mains (dish_type_id = 9)
                             db.execSQL(
                                 "INSERT INTO dishes (id, dish_type_id, name, restaurantName, image_res, description) VALUES " +
-                                        "(33, 9, 'Lentil Stew', 'Meshek Barzilay | Tel Aviv', $lentilStewImg, 'Slow-cooked lentil stew with vegetables and warming Middle Eastern spices.')"
+                                        "(41, 9, 'Lentil Stew', 'Meshek Barzilay | Tel Aviv', $lentilStewImg, 'Slow-cooked lentil stew with vegetables and warming Middle Eastern spices.')"
                             )
 
                             db.execSQL(
                                 "INSERT INTO dishes (id, dish_type_id, name, restaurantName, image_res, description) VALUES " +
-                                        "(34, 9, 'Stuffed Peppers', 'Nana | Haifa', $stuffedPeppersImg, 'Bell peppers stuffed with rice, herbs, and vegetables, baked in tomato sauce.')"
+                                        "(42, 9, 'Stuffed Peppers', 'Nana | Haifa', $stuffedPeppersImg, 'Bell peppers stuffed with rice, herbs, and vegetables, baked in tomato sauce.')"
                             )
 
                             db.execSQL(
                                 "INSERT INTO dishes (id, dish_type_id, name, restaurantName, image_res, description) VALUES " +
-                                        "(35, 9, 'Roasted Eggplant Plate', 'Opa | Jerusalem', $eggplantPlateImg, 'Roasted eggplant served with tahini, tomato salsa, herbs, and olive oil.')"
+                                        "(43, 9, 'Roasted Eggplant Plate', 'Opa | Jerusalem', $eggplantPlateImg, 'Roasted eggplant served with tahini, tomato salsa, herbs, and olive oil.')"
                             )
                             db.execSQL(
                                 "INSERT INTO dishes (id, dish_type_id, name, restaurantName, image_res, description) VALUES " +
-                                        "(45, 9, 'Vegetable Meatballs', 'Anastasia | Tel Aviv', $veggieMeatballsImg, 'Baked vegetable-based meatballs served with tomato sauce and fresh herbs.')"
-                            )
-
-                            db.execSQL(
-                                "INSERT INTO dishes (id, dish_type_id, name, restaurantName, image_res, description) VALUES " +
-                                        "(46, 9, 'Stuffed Zucchini', 'Green Spot | Raanana', $stuffedZucchiniImg, 'Zucchini stuffed with rice, herbs, and vegetables, simmered in a light tomato sauce.')"
-                            )
-
-
-                            // Seed Dishes for Meet and fish -> Grill (dish_type_id = 10)
-                            db.execSQL(
-                                "INSERT INTO dishes VALUES (47, 10, 'Ribeye Steak', 'Hudson | Tel Aviv', $ribeyeImg, 'Juicy ribeye steak grilled to perfection with coarse salt and herbs.')"
-                            )
-
-                            db.execSQL(
-                                "INSERT INTO dishes VALUES (48, 10, 'Entrecôte Steak', 'Meat Bar | Rishon LeZion', $entrecoteImg, 'Classic grilled entrecôte steak served with roasted vegetables.')"
-                            )
-
-                            db.execSQL(
-                                "INSERT INTO dishes VALUES (49, 10, 'Lamb Chops', 'M25 | Tel Aviv', $lambChopsImg, 'Grilled lamb chops seasoned with garlic, rosemary, and olive oil.')"
-                            )
-
-                            db.execSQL(
-                                "INSERT INTO dishes VALUES (50, 10, 'Beef Skewers', 'Ashkara Grill | Ashdod', $beefSkewersImg, 'Tender beef skewers grilled over open flame.')"
-                            )
-
-
-                            // Seed Dishes for Meet and fish -> burger (dish_type_id = 11)
-                            db.execSQL(
-                                "INSERT INTO dishes VALUES (51, 11, 'Classic Burger', 'Burger Room | Tel Aviv', $classicBurgerImg, 'Beef patty served with lettuce, tomato, and house sauce.')"
-                            )
-
-                            db.execSQL(
-                                "INSERT INTO dishes VALUES (52, 11, 'Cheeseburger', 'BBB | Herzliya', $cheeseBurgerImg, 'Juicy beef burger topped with melted cheddar cheese.')"
-                            )
-
-                            db.execSQL(
-                                "INSERT INTO dishes VALUES (53, 11, 'BBQ Burger', 'Burger Saloon | Netanya', $bbqBurgerImg, 'Beef burger with smoky BBQ sauce and caramelized onions.')"
-                            )
-
-                            db.execSQL(
-                                "INSERT INTO dishes VALUES (54, 11, 'Double Burger', 'Moses | Jerusalem', $doubleBurgerImg, 'Two beef patties stacked with cheese and signature sauce.')"
-                            )
-
-                            // Seed Dishes for Meet and fish -> stew (dish_type_id = 12)
-                            db.execSQL(
-                                "INSERT INTO dishes VALUES (55, 12, 'Beef Stew', 'Mitti | Haifa', $beefStewImg, 'Slow-cooked beef stew with vegetables and rich gravy.')"
-                            )
-
-                            db.execSQL(
-                                "INSERT INTO dishes VALUES (56, 12, 'Lamb Stew', 'HaBokrim | Be’er Sheva', $lambStewImg, 'Tender lamb cooked slowly with herbs and root vegetables.')"
-                            )
-
-                            db.execSQL(
-                                "INSERT INTO dishes VALUES (57, 12, 'Goulash', 'Hungarian House | Tel Aviv', $goulashImg, 'Traditional goulash with beef, paprika, and potatoes.')"
-                            )
-
-                            db.execSQL(
-                                "INSERT INTO dishes VALUES (58, 12, 'Osso Buco', 'Trattoria Toscana | Jerusalem', $ossobucoImg, 'Braised veal shank cooked in tomato and wine sauce.')"
-                            )
-
-                            // Seed Dishes for Meet and fish -> chicken (dish_type_id = 13)
-                            db.execSQL(
-                                "INSERT INTO dishes VALUES (59, 13, 'Grilled Chicken Breast', 'Hudson | Tel Aviv', $grilledChickenImg, 'Grilled chicken breast seasoned with herbs and olive oil.')"
-                            )
-
-                            db.execSQL(
-                                "INSERT INTO dishes VALUES (60, 13, 'Chicken Schnitzel', 'Cafe Cafe | Ramat Gan', $schnitzelImg, 'Crispy breaded chicken schnitzel served golden and crunchy.')"
-                            )
-
-                            db.execSQL(
-                                "INSERT INTO dishes VALUES (61, 13, 'Chicken Skewers', 'Ashkara Grill | Ashdod', $chickenSkewersImg, 'Marinated chicken skewers grilled over charcoal.')"
+                                        "(44, 9, 'Vegetable Meatballs', 'Anastasia | Tel Aviv', $veggieMeatballsImg, 'Baked vegetable-based meatballs served with tomato sauce and fresh herbs.')"
                             )
 
                             db.execSQL(
                                 "INSERT INTO dishes (id, dish_type_id, name, restaurantName, image_res, description) VALUES " +
-                                        "(63, 13, 'Chicken Nuggets', 'Burger Ranch | Tel Aviv', $chickenNuggetsImg, 'Crispy golden chicken nuggets served with dipping sauce, crunchy on the outside and tender inside.')"
+                                        "(45, 9, 'Stuffed Zucchini', 'Green Spot | Raanana', $stuffedZucchiniImg, 'Zucchini stuffed with rice, herbs, and vegetables, simmered in a light tomato sauce.')"
                             )
 
 
-                            // Seed Fish Dishes (dish_type_id = 14)
+                            // Seed Dishes for Meat & Fish -> Grill (dish_type_id = 10)
                             db.execSQL(
                                 "INSERT INTO dishes (id, dish_type_id, name, restaurantName, image_res, description) VALUES " +
-                                        "(64, 14, 'Grilled Salmon', 'Blue Wave | Tel Aviv', $grilledSalmonImg, 'Fresh salmon fillet grilled with herbs, lemon, and olive oil.')"
-                            )
-
-                            db.execSQL(
-                                "INSERT INTO dishes (id, dish_type_id, name, restaurantName, image_res, description) VALUES " +
-                                        "(65, 14, 'Sea Bass Fillet', 'Ocean Grill | Herzliya', $seabassFilletImg, 'Pan-seared sea bass with seasonal vegetables and citrus sauce.')"
+                                        "(46, 10, 'Beef Skewers', 'Ashkara Grill | Ashdod', $beefSkewersImg, 'Tender beef skewers grilled over open flame.')"
                             )
 
                             db.execSQL(
                                 "INSERT INTO dishes (id, dish_type_id, name, restaurantName, image_res, description) VALUES " +
-                                        "(66, 14, 'Teriyaki Salmon', 'Tokyo Fish | Ramat Gan', $salmonTeriyakiImg, 'Salmon glazed with sweet teriyaki sauce served with rice and greens.')"
+                                        "(47, 10, 'Ribeye Steak', 'Hudson | Tel Aviv', $ribeyeImg, 'Juicy ribeye steak grilled to perfection with coarse salt and herbs.')"
                             )
 
                             db.execSQL(
                                 "INSERT INTO dishes (id, dish_type_id, name, restaurantName, image_res, description) VALUES " +
-                                        "(67, 14, 'Fish and Chips', 'London Fish Bar | Tel Aviv', $fishAndChipsImg, 'Crispy battered fish served with golden fries and tartar sauce.')"
+                                        "(48, 10, 'Entrecôte Steak', 'Meat Bar | Rishon LeZion', $entrecoteImg, 'Classic grilled entrecôte steak served with roasted vegetables.')"
+                            )
+
+                            db.execSQL(
+                                "INSERT INTO dishes (id, dish_type_id, name, restaurantName, image_res, description) VALUES " +
+                                        "(49, 10, 'Lamb Chops', 'M25 | Tel Aviv', $lambChopsImg, 'Grilled lamb chops seasoned with garlic, rosemary, and olive oil.')"
                             )
 
 
+                            // Seed Dishes for Meat & Fish -> Burgers (dish_type_id = 11)
+                            db.execSQL(
+                                "INSERT INTO dishes (id, dish_type_id, name, restaurantName, image_res, description) VALUES " +
+                                        "(50, 11, 'Classic Burger', 'Burger Room | Tel Aviv', $classicBurgerImg, 'Beef patty served with lettuce, tomato, and house sauce.')"
+                            )
+
+                            db.execSQL(
+                                "INSERT INTO dishes (id, dish_type_id, name, restaurantName, image_res, description) VALUES " +
+                                        "(51, 11, 'Cheeseburger', 'BBB | Herzliya', $cheeseBurgerImg, 'Juicy beef burger topped with melted cheddar cheese.')"
+                            )
+
+                            db.execSQL(
+                                "INSERT INTO dishes (id, dish_type_id, name, restaurantName, image_res, description) VALUES " +
+                                        "(52, 11, 'BBQ Burger', 'Burger Saloon | Netanya', $bbqBurgerImg, 'Beef burger with smoky BBQ sauce and caramelized onions.')"
+                            )
+
+                            db.execSQL(
+                                "INSERT INTO dishes (id, dish_type_id, name, restaurantName, image_res, description) VALUES " +
+                                        "(53, 11, 'Double Burger', 'Moses | Jerusalem', $doubleBurgerImg, 'Two beef patties stacked with cheese and signature sauce.')"
+                            )
+
+
+                            // Seed Dishes for Meat & Fish -> Stews (dish_type_id = 12)
+                            db.execSQL(
+                                "INSERT INTO dishes (id, dish_type_id, name, restaurantName, image_res, description) VALUES " +
+                                        "(54, 12, 'Beef Stew', 'Mitti | Haifa', $beefStewImg, 'Slow-cooked beef stew with vegetables and rich gravy.')"
+                            )
+
+                            db.execSQL(
+                                "INSERT INTO dishes (id, dish_type_id, name, restaurantName, image_res, description) VALUES " +
+                                        "(55, 12, 'Lamb Stew', 'HaBokrim | Be’er Sheva', $lambStewImg, 'Tender lamb cooked slowly with herbs and root vegetables.')"
+                            )
+
+                            db.execSQL(
+                                "INSERT INTO dishes (id, dish_type_id, name, restaurantName, image_res, description) VALUES " +
+                                        "(56, 12, 'Goulash', 'Hungarian House | Tel Aviv', $goulashImg, 'Traditional goulash with beef, paprika, and potatoes.')"
+                            )
+
+                            db.execSQL(
+                                "INSERT INTO dishes (id, dish_type_id, name, restaurantName, image_res, description) VALUES " +
+                                        "(57, 12, 'Osso Buco', 'Trattoria Toscana | Jerusalem', $ossobucoImg, 'Braised veal shank cooked in tomato and wine sauce.')"
+                            )
+
+
+                            // Seed Dishes for Meat & Fish -> Chicken (dish_type_id = 13)
+                            db.execSQL(
+                                "INSERT INTO dishes (id, dish_type_id, name, restaurantName, image_res, description) VALUES " +
+                                        "(58, 13, 'Grilled Chicken Breast', 'Hudson | Tel Aviv', $grilledChickenImg, 'Grilled chicken breast seasoned with herbs and olive oil.')"
+                            )
+
+                            db.execSQL(
+                                "INSERT INTO dishes (id, dish_type_id, name, restaurantName, image_res, description) VALUES " +
+                                        "(59, 13, 'Chicken Schnitzel', 'Cafe Cafe | Ramat Gan', $schnitzelImg, 'Crispy breaded chicken schnitzel served golden and crunchy.')"
+                            )
+
+                            db.execSQL(
+                                "INSERT INTO dishes (id, dish_type_id, name, restaurantName, image_res, description) VALUES " +
+                                        "(60, 13, 'Chicken Skewers', 'Ashkara Grill | Ashdod', $chickenSkewersImg, 'Marinated chicken skewers grilled over charcoal.')"
+                            )
+
+
+                            db.execSQL(
+                                "INSERT INTO dishes (id, dish_type_id, name, restaurantName, image_res, description) VALUES " +
+                                        "(61, 13, 'Chicken Nuggets', 'Burger Ranch | Tel Aviv', $chickenNuggetsImg, 'Crispy golden chicken nuggets served with dipping sauce, crunchy on the outside and tender inside.')"
+                            )
+
+
+                            // Seed Dishes for Meat & Fish -> Grill (dish_type_id = 14)
+                            db.execSQL(
+                                "INSERT INTO dishes (id, dish_type_id, name, restaurantName, image_res, description) VALUES " +
+                                        "(62, 14, 'Grilled Salmon', 'Blue Wave | Tel Aviv', $grilledSalmonImg, 'Fresh salmon fillet grilled with herbs, lemon, and olive oil.')"
+                            )
+
+                            db.execSQL(
+                                "INSERT INTO dishes (id, dish_type_id, name, restaurantName, image_res, description) VALUES " +
+                                        "(63, 14, 'Sea Bass Fillet', 'Ocean Grill | Herzliya', $seabassFilletImg, 'Pan-seared sea bass with seasonal vegetables and citrus sauce.')"
+                            )
+
+                            db.execSQL(
+                                "INSERT INTO dishes (id, dish_type_id, name, restaurantName, image_res, description) VALUES " +
+                                        "(64, 14, 'Teriyaki Salmon', 'Tokyo Fish | Ramat Gan', $salmonTeriyakiImg, 'Salmon glazed with sweet teriyaki sauce served with rice and greens.')"
+                            )
+
+                            db.execSQL(
+                                "INSERT INTO dishes (id, dish_type_id, name, restaurantName, image_res, description) VALUES " +
+                                        "(65, 14, 'Fish and Chips', 'London Fish Bar | Tel Aviv', $fishAndChipsImg, 'Crispy battered fish served with golden fries and tartar sauce.')"
+                            )
+
+                            // Seed Dishes for Desserts -> Cakes (dish_type_id = 15)
+                            db.execSQL(
+                                "INSERT INTO dishes (id, dish_type_id, name, restaurantName, image_res, description) VALUES " +
+                                        "(66, 15, 'Chocolate Cake', 'Sweet Home | Tel Aviv', $chocolateCakeImg, 'Rich chocolate cake with creamy chocolate frosting.')"
+                            )
+
+                            db.execSQL(
+                                "INSERT INTO dishes (id, dish_type_id, name, restaurantName, image_res, description) VALUES " +
+                                        "(67, 15, 'Cheesecake', 'Dolce Vita | Ramat Gan', $cheesecakeImg, 'Classic baked cheesecake with a buttery biscuit base.')"
+                            )
+
+                            db.execSQL(
+                                "INSERT INTO dishes (id, dish_type_id, name, restaurantName, image_res, description) VALUES " +
+                                        "(68, 15, 'Carrot Cake', 'Sweet Corner | Herzliya',$carrotCakeImg, 'Moist carrot cake with cream cheese frosting.')"
+                            )
+
+                            db.execSQL(
+                                "INSERT INTO dishes (id, dish_type_id, name, restaurantName, image_res, description) VALUES " +
+                                        "(69, 15, 'Chocolate Lava Cake', 'Cocoa Room | Tel Aviv', $lavaCakeImg, 'Warm chocolate cake with a rich molten center.')"
+                            )
+
+                            // Seed Dishes for Desserts -> Ice Cream & Frozen (dish_type_id = 16)
+
+                            db.execSQL(
+                                "INSERT INTO dishes (id, dish_type_id, name, restaurantName, image_res, description) VALUES " +
+                                        "(70, 16, 'Vanilla Ice Cream', 'Gelato House | Tel Aviv', $vanillaIceCreamImg, 'Classic vanilla ice cream made with real vanilla beans.')"
+                            )
+
+                            db.execSQL(
+                                "INSERT INTO dishes (id, dish_type_id, name, restaurantName, image_res, description) VALUES " +
+                                        "(71, 16, 'Chocolate Ice Cream', 'Sweet Ice | Rishon LeZion', $chocolateIceCreamImg, 'Rich and creamy chocolate ice cream.')"
+                            )
+
+                            db.execSQL(
+                                "INSERT INTO dishes (id, dish_type_id, name, restaurantName, image_res, description) VALUES " +
+                                        "(72, 16, 'Strawberry Sorbet', 'Fruity Bar | Tel Aviv', $strawberrySorbetImg, 'Refreshing dairy-free strawberry sorbet.')"
+                            )
+
+                            db.execSQL(
+                                "INSERT INTO dishes (id, dish_type_id, name, restaurantName, image_res, description) VALUES " +
+                                        "(73, 16, 'Frozen Yogurt', 'Yogo | Herzliya', $frozenYogurtImg, 'Light frozen yogurt with fresh fruit toppings.')"
+                            )
+
+                            // Seed Dishes for Desserts -> Pastries (dish_type_id = 17)
+                            db.execSQL(
+                                "INSERT INTO dishes (id, dish_type_id, name, restaurantName, image_res, description) VALUES " +
+                                        "(74, 17, 'Croissant', 'Paris Bakery | Tel Aviv', $croissantImg, 'Buttery French croissant with flaky layers.')"
+                            )
+
+                            db.execSQL(
+                                "INSERT INTO dishes (id, dish_type_id, name, restaurantName, image_res, description) VALUES " +
+                                        "(75, 17, 'Chocolate Croissant', 'Le Petit Paris | Ramat Gan', $chocolateCroissantImg, 'Flaky croissant filled with rich chocolate.')"
+                            )
+
+                            db.execSQL(
+                                "INSERT INTO dishes (id, dish_type_id, name, restaurantName, image_res, description) VALUES " +
+                                        "(76, 17, 'Apple Tart', 'Maison Douce | Tel Aviv', $appleTartImg, 'Classic French apple tart with buttery crust.')"
+                            )
+
+                            db.execSQL(
+                                "INSERT INTO dishes (id, dish_type_id, name, restaurantName, image_res, description) VALUES " +
+                                        "(77, 17, 'Cinnamon Roll', 'Sweet Corner | Haifa', $cinnamonRollImg, 'Soft cinnamon roll topped with vanilla icing.')"
+                            )
                         }
-
-
                     })
                     .build()
 
