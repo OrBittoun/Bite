@@ -8,9 +8,9 @@ import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.first_app_version.R
 
-class PreviewAdapter(
-    private val images: List<Int>,
-    private val onImageClick: () -> Unit,
+class HomeCategoryRowAdapter(
+    private val items: List<DishPreview>,
+    private val onDishClick: (Int) -> Unit,
     private val onExploreClick: () -> Unit
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
@@ -20,11 +20,11 @@ class PreviewAdapter(
     }
 
     override fun getItemCount(): Int {
-        return images.size + 1 //images + 1 button each card
+        return items.size + 1 //images + 1 button for each card
     }
 
     override fun getItemViewType(position: Int): Int {
-        return if (position < images.size) TYPE_IMAGE else TYPE_BUTTON
+        return if (position < items.size) TYPE_IMAGE else TYPE_BUTTON
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -45,8 +45,7 @@ class PreviewAdapter(
         when (holder) {
 
             is ImageViewHolder -> {
-                holder.bind(images[position]) //if it's an image- take it from the specific position
-            }
+                holder.bind(items[position])            }
             is ButtonViewHolder -> { //take the button
                 holder.bind()
             }
@@ -58,12 +57,13 @@ class PreviewAdapter(
         private val imageView: ImageView = itemView.findViewById(R.id.previewImage) //take the image from preview_image
 
 
-        fun bind(imageResId: Int) {
-            imageView.setImageResource(imageResId) //the specific image
+        fun bind(item: DishPreview) {
+            imageView.setImageResource(item.imageRes)
             imageView.setOnClickListener {
-                onImageClick()
+                onDishClick(item.dishId)
             }
         }
+
     }
 
     inner class ButtonViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

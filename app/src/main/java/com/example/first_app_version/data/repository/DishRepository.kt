@@ -9,4 +9,8 @@ class DishRepository(application: Application) {
 
     fun getDishesForDishType(dishTypeId: Int) =
         dishDao.getDishesForDishType(dishTypeId)
+
+    // ⭐ חדש
+    fun getDishById(dishId: Int) =
+        dishDao.getDishById(dishId)
 }

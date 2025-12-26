@@ -11,59 +11,50 @@ import com.example.first_app_version.data.models.HomeCategory
 
 class HomeCategoriesAdapter(
     private val categories: List<HomeCategory>,
+    private val previewProvider: (HomeCategory) -> List<DishPreview>,
+    private val onDishClick: (Int) -> Unit,
     private val onCategoryClick: (HomeCategory) -> Unit
 ) : RecyclerView.Adapter<HomeCategoriesAdapter.CategoryViewHolder>() {
 
-    override fun getItemCount(): Int {
-        return categories.size
-    }
+    override fun getItemCount(): Int = categories.size
 
-    override fun onCreateViewHolder(
-        parent: ViewGroup,
-        viewType: Int
-    ): CategoryViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoryViewHolder {
         val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.home_cards, parent, false) //creating a card
+            .inflate(R.layout.home_cards, parent, false) // creating a card
         return CategoryViewHolder(view)
     }
 
-
     override fun onBindViewHolder(holder: CategoryViewHolder, position: Int) {
-        val category = categories[position] //take the specific category
-        holder.bind(category)
+        holder.bind(categories[position])
     }
 
     inner class CategoryViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val categoryTitle: TextView = itemView.findViewById(R.id.categoryTitle) //name of the category
-        private val categoryRecyclerView: RecyclerView = itemView.findViewById(R.id.categoryRecyclerView) //recycler of the category
+
+        private val categoryTitle: TextView =
+            itemView.findViewById(R.id.categoryTitle) // name of the category
+
+        private val categoryRecyclerView: RecyclerView =
+            itemView.findViewById(R.id.categoryRecyclerView) // recycler of the category
 
         fun bind(category: HomeCategory) {
 
-            categoryTitle.text = category.title
+            categoryTitle.text = category.kitchenName
 
-            val previewAdapter = PreviewAdapter( //creating preview_home_adapter
-                images = category.previewImages,
+            // 🔹 כאן אנחנו משתמשים ב־previewProvider
+            val previewItems = previewProvider(category)
 
-                onImageClick = {
-                    onCategoryClick(category) //move to the next fragment
-                },
+            val homeCategoryRowAdapter = HomeCategoryRowAdapter(
+                items = previewItems,
+                onDishClick = onDishClick,
                 onExploreClick = {
-                    onCategoryClick(category) //move to the next fragment
+                    onCategoryClick(category)
                 }
             )
+
             categoryRecyclerView.layoutManager =
-                LinearLayoutManager(
-                    itemView.context,
-                    LinearLayoutManager.HORIZONTAL,
-                    false
-                )
-            categoryRecyclerView.adapter = previewAdapter
-        }
-        }
+                LinearLayoutManager(itemView.context, LinearLayoutManager.HORIZONTAL, false)
 
-
+            categoryRecyclerView.adapter = homeCategoryRowAdapter
+        }
     }
-
-
-
-
+}

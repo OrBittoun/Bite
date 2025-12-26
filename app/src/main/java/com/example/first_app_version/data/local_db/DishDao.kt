@@ -15,4 +15,8 @@ interface DishDao {
 
     @Query("SELECT * FROM dishes WHERE dish_type_id = :dishTypeId ORDER BY name ASC")
     fun getDishesForDishType(dishTypeId: Int): LiveData<List<Dish>>
+
+    @Query("SELECT * FROM dishes WHERE id = :dishId LIMIT 1")
+    fun getDishById(dishId: Int): LiveData<Dish>
+
 }

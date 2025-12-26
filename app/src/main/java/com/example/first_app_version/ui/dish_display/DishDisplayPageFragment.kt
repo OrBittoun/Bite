@@ -6,10 +6,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.first_app_version.R
 import com.example.first_app_version.databinding.DishDisplayLayoutBinding
 import com.example.first_app_version.ui.SelectionViewModel
+import com.example.first_app_version.ui.all_dishes.DishesViewModel
 
 class DishDisplayPageFragment : Fragment() {
 
@@ -17,12 +19,13 @@ class DishDisplayPageFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val selectionViewModel: SelectionViewModel by activityViewModels()
+    private val dishesViewModel: DishesViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = DishDisplayLayoutBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -30,15 +33,23 @@ class DishDisplayPageFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        selectionViewModel.selectedDish.observe(viewLifecycleOwner) { dish ->
-            binding.dishTitle.text = dish.name
-            binding.dishDesc.text = dish.description ?: ""
-            val img = dish.imageRes ?: R.mipmap.pizza_foreground
-            binding.dishImg.setImageResource(img)
+        // ⭐ מאזינים ל-ID שנבחר
+        selectionViewModel.selectedDishId.observe(viewLifecycleOwner) { dishId ->
+
+            // ⭐ מביאים את המנה מה-DB לפי ה-ID
+            dishesViewModel.getDishById(dishId).observe(viewLifecycleOwner) { dish ->
+                binding.dishTitle.text = dish.name
+                binding.dishDesc.text = dish.description ?: ""
+                binding.dishImg.setImageResource(
+                    dish.imageRes ?: R.drawable.default_dish
+                )
+            }
         }
 
         binding.addComment.setOnClickListener {
-            findNavController().navigate(R.id.action_dishDisplayPageFragment_to_addCommentFragment)
+            findNavController().navigate(
+                R.id.action_dishDisplayPageFragment_to_addCommentFragment
+            )
         }
     }
 
