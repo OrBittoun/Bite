@@ -6,7 +6,7 @@
     <string name="open_dish">open_dish</string>
     <string name="meal_image">meal image</string>
     <string name="meal_title">meal title</string>
-
+    <string name="author">Comment\'s author</string>
 
 
 </resources>

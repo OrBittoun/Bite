@@ -7,6 +7,7 @@
     <string name="open_dish">פתח מנה</string>
     <string name="meal_image">תמונת מאכל</string>
     <string name="meal_title">שם מאכל</string>
+    <string name="author">שם המגיב</string>
 
 
 </resources>
