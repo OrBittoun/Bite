@@ -39,7 +39,26 @@ abstract class KitchenDataBase : RoomDatabase() {
                         override fun onCreate(db: SupportSQLiteDatabase) {
                             super.onCreate(db)
                             Log.d("DB_CREATE", "KitchenDataBase onCreate CALLED")
+                            seedInitialData(db)
+                        }
 
+                        override fun onOpen(db: SupportSQLiteDatabase) {
+                            super.onOpen(db)
+                            // If a restored DB exists at v4 but is empty, seed now.
+                            val cursor = db.query("SELECT COUNT(*) FROM kitchens")
+                            cursor.use {
+                                if (it.moveToFirst()) {
+                                    val count = it.getInt(0)
+                                    Log.d("DB_OPEN", "kitchens count=$count")
+                                    if (count == 0) {
+                                        Log.d("DB_OPEN", "kitchens empty, seeding initial data")
+                                        seedInitialData(db)
+                                    }
+                                }
+                            }
+                        }
+
+                        private fun seedInitialData(db: SupportSQLiteDatabase) {
                             // Kitchens Images
 //                            val pizzaImg = R.drawable.napoli_pizza
 //                            val pastaImg = R.drawable.pasta_rosa
@@ -277,7 +296,7 @@ abstract class KitchenDataBase : RoomDatabase() {
                             )
 
 
-                        // Seed Dishes for Asian -> Sushi (dish_type_id = 4)
+                            // Seed Dishes for Asian -> Sushi (dish_type_id = 4)
                             db.execSQL(
                                 "INSERT INTO dishes (id, dish_type_id, name, restaurantName, image_res, description) VALUES " +
                                         "(16, 4, 'Salmon Nigiri', 'Taizu | Tel Aviv', $salmonNigiriImg, 'Fresh salmon served over seasoned sushi rice, topped with a light brush of soy-based glaze.')"
@@ -304,7 +323,7 @@ abstract class KitchenDataBase : RoomDatabase() {
                             )
 
 
-                        // Seed Dishes for Asian -> Dim Sum (dish_type_id = 5)
+                            // Seed Dishes for Asian -> Dim Sum (dish_type_id = 5)
                             db.execSQL(
                                 "INSERT INTO dishes (id, dish_type_id, name, restaurantName, image_res, description) VALUES " +
                                         "(21, 5, 'Shrimp Dumplings', 'China Court | Tel Aviv', $shrimpDumplingsImg, 'Delicate steamed dumplings filled with shrimp, served with a light soy-based dipping sauce.')"
