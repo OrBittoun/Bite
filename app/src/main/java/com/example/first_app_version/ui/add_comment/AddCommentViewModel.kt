@@ -3,16 +3,64 @@ package com.example.first_app_version.ui.add_comment
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.example.first_app_version.data.models.Comment
 import com.example.first_app_version.data.repository.CommentRepository
 
 class AddCommentViewModel(application: Application) : AndroidViewModel(application) {
     private val repository = CommentRepository(application)
 
-    fun observeMyComment(dishId: Int): LiveData<Comment?> =
-        repository.observeMyComment(dishId)
+    // Draft state that survives configuration changes
+    private val _draftText = MutableLiveData<String>("")
+    val draftText: LiveData<String> get() = _draftText
+
+    private val _draftRating = MutableLiveData<Int>(3)
+    val draftRating: LiveData<Int> get() = _draftRating
+
+    // Track current dish to optionally reset draft when switching dishes
+    private var currentDishId: Int? = null
+
+    fun observeMyComment(dishId: Int): LiveData<Comment?> {
+        // If we switched dishes, clear draft to prefill from that dish's existing comment
+        if (currentDishId != dishId) {
+            currentDishId = dishId
+            clearDraft() // so we can prefill from existing comment (if any)
+        }
+        return repository.observeMyComment(dishId)
+    }
 
     suspend fun saveMyComment(dishId: Int, rating: Int, text: String) {
         repository.saveMyComment(dishId, rating, text)
+        // Optional: keep saved values as draft so returning to screen shows what was saved
+        _draftRating.value = rating
+        _draftText.value = text
+    }
+
+    fun setDraftText(text: String) {
+        _draftText.value = text
+    }
+
+    fun setDraftRating(rating: Int) {
+        _draftRating.value = rating
+    }
+
+    fun prefillDraftFromExisting(comment: Comment?) {
+        if (comment != null) {
+            _draftRating.value = comment.rating
+            _draftText.value = comment.text
+        } else {
+            clearDraft()
+        }
+    }
+
+    fun isDraftEmpty(): Boolean {
+        val t = _draftText.value
+        val r = _draftRating.value
+        return (t.isNullOrEmpty() && (r == null || r == 3))
+    }
+
+    fun clearDraft() {
+        _draftText.value = ""
+        _draftRating.value = 3
     }
 }
