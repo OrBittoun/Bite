@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.first_app_version.R
 import com.example.first_app_version.databinding.DishDisplayLayoutBinding
 import com.example.first_app_version.ui.SelectionViewModel
+import com.example.first_app_version.ui.all_dishes.DishesViewModel
 
 class DishDisplayPageFragment : Fragment() {
 
@@ -27,7 +28,7 @@ class DishDisplayPageFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = DishDisplayLayoutBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -50,7 +51,9 @@ class DishDisplayPageFragment : Fragment() {
         }
 
         binding.addComment.setOnClickListener {
-            findNavController().navigate(R.id.action_dishDisplayPageFragment_to_addCommentFragment)
+            findNavController().navigate(
+                R.id.action_dishDisplayPageFragment_to_addCommentFragment
+            )
         }
     }
 

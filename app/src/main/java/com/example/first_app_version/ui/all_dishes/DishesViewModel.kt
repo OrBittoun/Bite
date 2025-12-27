@@ -7,8 +7,13 @@ import com.example.first_app_version.data.models.Dish
 import com.example.first_app_version.data.repository.DishRepository
 
 class DishesViewModel(application: Application) : AndroidViewModel(application) {
+
     private val repository = DishRepository(application)
 
     fun getDishesForType(dishTypeId: Int): LiveData<List<Dish>> =
         repository.getDishesForDishType(dishTypeId)
+
+    // ⭐ חדש – מנה בודדת לפי ID
+    fun getDishById(dishId: Int): LiveData<Dish> =
+        repository.getDishById(dishId)
 }

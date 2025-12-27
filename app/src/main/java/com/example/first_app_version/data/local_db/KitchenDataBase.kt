@@ -1,3 +1,4 @@
+
 package com.example.first_app_version.data.local_db
 
 import android.content.Context
@@ -31,7 +32,7 @@ abstract class KitchenDataBase : RoomDatabase() {
 
         fun getDataBase(context: Context): KitchenDataBase =
             instance ?: synchronized(this) {
-                val db = Room.databaseBuilder(
+                val dbInstance = Room.databaseBuilder(
                     context.applicationContext,
                     KitchenDataBase::class.java,
                     "bite_db"
@@ -631,8 +632,9 @@ abstract class KitchenDataBase : RoomDatabase() {
                             )                       }
                     })
                     .build()
-                instance = db
-                db
+
+                instance = dbInstance
+                dbInstance
             }
     }
 }

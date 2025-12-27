@@ -1,6 +1,7 @@
 package com.example.first_app_version.ui.all_kitchens
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,6 +14,7 @@ import com.example.first_app_version.R
 import com.example.first_app_version.data.models.Kitchen
 import com.example.first_app_version.databinding.HomePageLayoutBinding
 import com.example.first_app_version.ui.KitchenViewModel
+import com.example.first_app_version.ui.SelectionViewModel
 
 class HomePageFragment : Fragment() {
 
@@ -45,6 +47,7 @@ class HomePageFragment : Fragment() {
                     Toast.makeText(requireContext(), "לא נמצא מטבח בשם ${category.title} בדאטהבייס", Toast.LENGTH_SHORT).show()
                     return@HomeCategoriesAdapter
                 }
+            },
 
                 viewModel.setKitchen(selectedKitchen)
                 findNavController().navigate(R.id.action_homePageFragment_to_dishesTypesFragment)
