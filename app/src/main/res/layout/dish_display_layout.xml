@@ -2,53 +2,49 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".ui.dish_display.DishDisplayPageFragment"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ui.dish_display.DishDisplayPageFragment"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:gravity="center">
-
+    android:layout_height="match_parent">
 
     <LinearLayout
+        android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
+        android:padding="10dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:padding="10dp"
-        >
+        app:layout_constraintBottom_toBottomOf="parent">
 
         <TextView
             android:id="@+id/dish_title"
-            android:layout_marginTop="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Dish title"
-            android:textSize="20sp"
+            android:layout_marginTop="10dp"
             android:gravity="center"
-            />
+            android:text="Dish title"
+            android:textSize="20sp" />
 
         <ImageView
-            android:layout_marginTop="40dp"
             android:id="@+id/dish_img"
             android:layout_width="200dp"
             android:layout_height="200dp"
-            android:src="@drawable/baseline_fastfood_24"
             android:layout_gravity="center"
+            android:layout_marginTop="40dp"
             android:layout_marginBottom="15dp"
-            />
+            android:src="@drawable/baseline_fastfood_24" />
 
         <TextView
-            android:layout_marginTop="40dp"
             android:id="@+id/dish_desc"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
-            android:textSize="15sp"
+            android:layout_marginTop="40dp"
+            android:gravity="center"
             android:text="Dish's description"
-            android:gravity="center"/>
+            android:textSize="15sp" />
 
         <Button
             android:id="@+id/add_comment"
@@ -64,13 +60,13 @@
             android:textSize="25sp" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:layout_marginTop="30dp"
             android:id="@+id/recycler_dish_comments"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            />
-
+            android:layout_height="0dp"
+            android:layout_marginTop="30dp"
+            android:layout_weight="1"
+            android:clipToPadding="false"
+            android:paddingBottom="24dp" />
     </LinearLayout>
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

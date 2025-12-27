@@ -1,9 +1,12 @@
 package com.example.first_app_version.ui.dish_display
 
 import android.os.Bundle
+import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
@@ -39,6 +42,18 @@ class DishDisplayPageFragment : Fragment() {
         // Setup RecyclerView once
         binding.recyclerDishComments.layoutManager = LinearLayoutManager(requireContext())
         binding.recyclerDishComments.adapter = commentAdapter
+        binding.recyclerDishComments.setHasFixedSize(true)
+
+        // Add bottom system bar inset to RecyclerView padding so last item is fully visible
+        ViewCompat.setOnApplyWindowInsetsListener(binding.recyclerDishComments) { v, insets ->
+            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            // Convert 16dp to px and add system bar bottom
+            val extraBottomPx = TypedValue.applyDimension(
+                TypedValue.COMPLEX_UNIT_DIP, 16f, resources.displayMetrics
+            ).toInt()
+            v.setPadding(v.paddingLeft, v.paddingTop, v.paddingRight, systemBars.bottom + extraBottomPx)
+            insets
+        }
 
         // Observe the selected dish ID, then fetch the dish + its comments
         selectionViewModel.selectedDishId.observe(viewLifecycleOwner) { dishId ->
@@ -55,7 +70,6 @@ class DishDisplayPageFragment : Fragment() {
                 commentAdapter.submitList(comments)
             }
 
-            // Navigate to Add Comment screen (SelectionViewModel already has dishId)
             binding.addComment.setOnClickListener {
                 findNavController().navigate(R.id.action_dishDisplayPageFragment_to_addCommentFragment)
             }
