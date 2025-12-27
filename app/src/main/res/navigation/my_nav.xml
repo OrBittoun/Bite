@@ -42,11 +42,11 @@
         tools:layout="@layout/dish_display_layout" >
         <action
             android:id="@+id/action_dishDisplayPageFragment_to_addCommentFragment"
-            app:destination="@id/addCommentFragment" />
+            app:destination="@id/AddCommentFragment" />
     </fragment>
     <fragment
-        android:id="@+id/addCommentFragment"
+        android:id="@+id/AddCommentFragment"
         android:name="com.example.first_app_version.ui.add_comment.AddCommentFragment"
-        android:label="new_comment_layout"
-        tools:layout="@layout/new_comment_layout" />
+        android:label="add_comment_layout"
+        tools:layout="@layout/add_comment_layout" />
 </navigation>

@@ -8,13 +8,14 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
 import com.example.first_app_version.R
+import com.example.first_app_version.data.models.Comment
 import com.example.first_app_version.data.models.Dish
 import com.example.first_app_version.data.models.DishType
 import com.example.first_app_version.data.models.Kitchen
 
 @Database(
-    entities = [Kitchen::class, DishType::class, Dish::class],
-    version = 4,
+    entities = [Kitchen::class, DishType::class, Dish::class, Comment::class],
+    version = 8,
     exportSchema = false
 )
 abstract class KitchenDataBase : RoomDatabase() {
@@ -22,6 +23,7 @@ abstract class KitchenDataBase : RoomDatabase() {
     abstract fun kitchensDao(): KitchenDao
     abstract fun dishTypesDao(): DishTypeDao
     abstract fun dishesDao(): DishDao
+    abstract fun commentsDao(): CommentDao
 
     companion object {
         @Volatile
@@ -35,6 +37,7 @@ abstract class KitchenDataBase : RoomDatabase() {
                     "bite_db"
                 )
                     .allowMainThreadQueries()
+                    .fallbackToDestructiveMigration(true)
                     .addCallback(object : Callback() {
                         override fun onCreate(db: SupportSQLiteDatabase) {
                             super.onCreate(db)
@@ -628,6 +631,16 @@ abstract class KitchenDataBase : RoomDatabase() {
                                 "INSERT INTO dishes (id, dish_type_id, name, restaurantName, image_res, description) VALUES " +
                                         "(77, 17, 'Cinnamon Roll', 'Sweet Corner | Haifa', $cinnamonRollImg, 'Soft cinnamon roll topped with vanilla icing.')"
                             )
+
+                            // Seed Comments for Neapolitan Pizza dish (dish_id = 1)
+                            db.execSQL("INSERT INTO comments (dish_id, author_name, rating, text, created_at, upvotes) VALUES (1, 'Tal', 5, 'Absolutely loved it — authentic and flavorful.', '20-12-2025, 10:05', 0)")
+                            db.execSQL("INSERT INTO comments (dish_id, author_name, rating, text, created_at, upvotes) VALUES (1, 'Maya', 3, 'Good, but a bit too salty for me.', '20-12-2025, 12:30', 0)")
+                            db.execSQL("INSERT INTO comments (dish_id, author_name, rating, text, created_at, upvotes) VALUES (1, 'Noam', 4, 'Great crust, could use more basil.', '20-12-2025, 18:45', 0)")
+
+                            // Seed Comments for Pepperoni Pizza dish(dish_id = 2)
+                            db.execSQL("INSERT INTO comments (dish_id, author_name, rating, text, created_at, upvotes) VALUES (2, 'Tal', 5, 'Absolutely loved it — authentic and flavorful.', '20-12-2025, 10:05', 0)")
+                            db.execSQL("INSERT INTO comments (dish_id, author_name, rating, text, created_at, upvotes) VALUES (2, 'Maya', 3, 'Good, but a bit too salty for me.', '20-12-2025, 12:30', 0)")
+                            db.execSQL("INSERT INTO comments (dish_id, author_name, rating, text, created_at, upvotes) VALUES (2, 'Noam', 4, 'Great crust, could use more basil.', '20-12-2025, 18:45', 0)")
                         }
                     })
                     .build()

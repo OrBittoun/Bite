@@ -8,10 +8,10 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.first_app_version.R
 import com.example.first_app_version.databinding.DishDisplayLayoutBinding
 import com.example.first_app_version.ui.SelectionViewModel
-import com.example.first_app_version.ui.all_dishes.DishesViewModel
 
 class DishDisplayPageFragment : Fragment() {
 
@@ -19,13 +19,16 @@ class DishDisplayPageFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val selectionViewModel: SelectionViewModel by activityViewModels()
-    private val dishesViewModel: DishesViewModel by viewModels()
+    private val dishDetailsViewModel: DishDetailsViewModel by viewModels()
+    private val commentsViewModel: CommentsViewModel by viewModels()
+
+    private val commentAdapter = CommentAdapter()
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
+    ): View? {
         _binding = DishDisplayLayoutBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -33,23 +36,29 @@ class DishDisplayPageFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // ⭐ מאזינים ל-ID שנבחר
-        selectionViewModel.selectedDishId.observe(viewLifecycleOwner) { dishId ->
+        // Setup RecyclerView once
+        binding.recyclerDishComments.layoutManager = LinearLayoutManager(requireContext())
+        binding.recyclerDishComments.adapter = commentAdapter
 
-            // ⭐ מביאים את המנה מה-DB לפי ה-ID
-            dishesViewModel.getDishById(dishId).observe(viewLifecycleOwner) { dish ->
+        // Observe the selected dish ID, then fetch the dish + its comments
+        selectionViewModel.selectedDishId.observe(viewLifecycleOwner) { dishId ->
+            // Fetch and show dish details by ID
+            dishDetailsViewModel.dishById(dishId).observe(viewLifecycleOwner) { dish ->
                 binding.dishTitle.text = dish.name
                 binding.dishDesc.text = dish.description ?: ""
-                binding.dishImg.setImageResource(
-                    dish.imageRes ?: R.drawable.default_dish
-                )
+                val img = dish.imageRes ?: R.mipmap.pizza_foreground
+                binding.dishImg.setImageResource(img)
             }
-        }
 
-        binding.addComment.setOnClickListener {
-            findNavController().navigate(
-                R.id.action_dishDisplayPageFragment_to_addCommentFragment
-            )
+            // Load comments by dish ID
+            commentsViewModel.commentsForDish(dishId).observe(viewLifecycleOwner) { comments ->
+                commentAdapter.submitList(comments)
+            }
+
+            // Navigate to Add Comment screen (SelectionViewModel already has dishId)
+            binding.addComment.setOnClickListener {
+                findNavController().navigate(R.id.action_dishDisplayPageFragment_to_addCommentFragment)
+            }
         }
     }
 
