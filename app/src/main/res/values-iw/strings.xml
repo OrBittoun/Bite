@@ -8,6 +8,12 @@
     <string name="meal_image">תמונת מאכל</string>
     <string name="meal_title">שם מאכל</string>
     <string name="author">שם המגיב</string>
+    <string name="dish_description">תיאור המנה</string>
+    <string name="your_rating">דרג (1-5)</string>
+    <string name="your_comment">התגובה שלך</string>
+    <string name="comment_hint">שתף את דעתך</string>
+    <string name="comment">הגב</string>
+
 
 
 </resources>

@@ -7,6 +7,10 @@
     <string name="meal_image">meal image</string>
     <string name="meal_title">meal title</string>
     <string name="author">Comment\'s author</string>
-
+    <string name="dish_description">Dish description</string>
+    <string name="your_rating">Your rating (1–5)</string>
+    <string name="your_comment">Your comment</string>
+    <string name="comment_hint">Write your thoughts…</string>
+    <string name="comment">Comment</string>
 
 </resources>

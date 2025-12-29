@@ -41,7 +41,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
             android:backgroundTint="@color/gray"
-            android:text="Comment" />
+            android:text="@string/comment" />
     </LinearLayout>
 
     <LinearLayout
@@ -61,7 +61,7 @@
             android:layout_height="wrap_content"
             android:textSize="20sp"
             android:textStyle="bold"
-            tools:text="Dish title" />
+            android:text="@string/meal_title" />
 
         <TextView
             android:id="@+id/dish_desc"
@@ -69,7 +69,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:textSize="15sp"
-            tools:text="Dish description goes here..." />
+            android:text="@string/dish_description" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_dish_comments"

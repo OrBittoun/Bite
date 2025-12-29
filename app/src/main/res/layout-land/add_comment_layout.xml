@@ -18,7 +18,7 @@
             android:textStyle="bold"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Dish Title"/>
+            android:text="@string/meal_title"/>
 
         <TextView
             android:id="@+id/dish_desc"
@@ -26,11 +26,11 @@
             android:textSize="16sp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Dish description"/>
+            android:text="@string/dish_description"/>
 
         <TextView
             android:layout_marginTop="16dp"
-            android:text="Your rating (1–5)"
+            android:text="@string/your_rating"
             android:textSize="16sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
@@ -44,10 +44,9 @@
             android:stepSize="1"
             android:isIndicator="false"/>
 
-        <!-- Comment text box -->
         <TextView
             android:layout_marginTop="16dp"
-            android:text="Your comment"
+            android:text="@string/your_comment"
             android:textSize="16sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
@@ -58,10 +57,9 @@
             android:layout_height="120dp"
             android:gravity="top|start"
             android:background="@android:color/transparent"
-            android:hint="Write your thoughts..."
+            android:hint="@string/comment_hint"
             android:padding="8dp"/>
 
-        <!-- Submit -->
         <Button
             android:id="@+id/submit_button"
             android:layout_marginTop="20dp"
@@ -71,7 +69,7 @@
             android:layout_gravity="center"
             android:backgroundTint="@color/gray"
             android:gravity="center"
-            android:text="Comment"
+            android:text="@string/comment"
             android:textColor="@color/white"/>
     </LinearLayout>
 </ScrollView>

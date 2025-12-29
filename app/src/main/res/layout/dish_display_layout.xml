@@ -24,7 +24,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:gravity="center"
-            android:text="Dish title"
+            android:text="@string/meal_title"
             android:textSize="20sp" />
 
         <ImageView
@@ -54,7 +54,7 @@
             android:layout_margin="5dp"
             android:layout_marginTop="40dp"
             android:gravity="center"
-            android:text="Dish's description"
+            android:text="@string/dish_description"
             android:textSize="15sp" />
 
         <Button
@@ -66,7 +66,7 @@
             android:layout_marginTop="15dp"
             android:backgroundTint="@color/gray"
             android:gravity="center"
-            android:text="Comment"
+            android:text="@string/comment"
             android:textColor="@color/white"
             android:textSize="25sp" />
 
