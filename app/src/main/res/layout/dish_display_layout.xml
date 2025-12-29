@@ -36,6 +36,17 @@
             android:layout_marginBottom="15dp"
             android:src="@drawable/baseline_fastfood_24" />
 
+        <!--Added dish price-->
+        <TextView
+            android:id="@+id/dish_price"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:gravity="center"
+            android:text="₪45"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
         <TextView
             android:id="@+id/dish_desc"
             android:layout_width="match_parent"

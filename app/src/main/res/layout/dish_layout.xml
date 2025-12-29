@@ -55,6 +55,17 @@
                 android:maxLines="1"
                 android:ellipsize="end"/>
 
+            <!--Added dish price text-->
+            <TextView
+                android:id="@+id/dish_price"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="Dish price"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:textColor="#111827"/>
+
             <TextView
                 android:id="@+id/dish_desc"
                 android:layout_width="match_parent"
@@ -65,6 +76,7 @@
                 android:textColor="#374151"
                 android:maxLines="2"
                 android:ellipsize="end"/>
+
 
             <TextView
                 android:id="@+id/reviews_count"
