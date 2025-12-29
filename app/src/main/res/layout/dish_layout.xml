@@ -37,7 +37,7 @@
                 android:id="@+id/dish_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Dish name"
+                android:text="@string/meal_title"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 android:textColor="#111827"
@@ -55,7 +55,6 @@
                 android:maxLines="1"
                 android:ellipsize="end"/>
 
-            <!--Added dish price text-->
             <TextView
                 android:id="@+id/dish_price"
                 android:layout_width="match_parent"
