@@ -41,6 +41,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
             android:backgroundTint="@color/gray"
+            android:textSize="15sp"
             android:text="@string/comment" />
     </LinearLayout>
 
@@ -70,6 +71,16 @@
             android:layout_marginTop="8dp"
             android:textSize="15sp"
             android:text="@string/dish_description" />
+
+        <TextView
+            android:id="@+id/dish_price"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:gravity="center"
+            android:text="@string/example_price"
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_dish_comments"
