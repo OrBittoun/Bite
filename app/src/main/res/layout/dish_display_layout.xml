@@ -23,20 +23,30 @@
             android:layout_height="wrap_content"
             android:text="@string/meal_title"
             android:gravity="center"
+            android:fontFamily="@font/arimo_bolditalic"
+            android:layout_marginTop="15dp"
             android:layout_marginBottom="20dp"
             android:textSize="24sp"
             android:textStyle="bold"
             android:textColor="@color/black"
-            android:maxLines="1"
+            android:maxLines="4"
             android:ellipsize="end"/>
+
 
         <ImageView
             android:id="@+id/dish_img"
             android:layout_width="match_parent"
             android:layout_height="250dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="8dp"
             android:scaleType="centerCrop"
             android:src="@drawable/baseline_fastfood_24"
-            />
+            android:background="@drawable/rounded_image_bg"
+            android:clipToOutline="true"
+            android:contentDescription="@string/dish_image"/>
+
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -62,7 +72,7 @@
                 android:text="@string/dish_description"
                 android:textSize="14sp"
                 android:textColor="#374151"
-                android:maxLines="2"
+                android:maxLines="4"
                 android:ellipsize="end"/>
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -73,19 +83,27 @@
 
                 <Button
                     android:id="@+id/add_comment"
-                    style="@style/Widget.Material3.Button.UnelevatedButton"
-                    android:layout_width="0dp"
+                    style="@style/Widget.Material3.Button.OutlinedButton"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/comment"
-                    android:textSize="16sp"
+                    android:textSize="14sp"
                     android:textStyle="bold"
-                    android:backgroundTint="@color/primary_buttons"
-                    android:textColor="@color/white"
-                    android:gravity="center"
+                    android:textAllCaps="true"
+                    android:textColor="@color/black"
+                    android:backgroundTint="@android:color/transparent"
+                    android:insetTop="0dp"
+                    android:insetBottom="0dp"
+                    android:minHeight="44dp"
+                    android:paddingStart="20dp"
+                    android:paddingEnd="20dp"
+                    app:cornerRadius="50dp"
+                    app:strokeColor="@color/primary_buttons"
+                    app:strokeWidth="2dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintWidth_percent="0.4"/>
+                    app:layout_constraintTop_toTopOf="parent"/>
+
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.recyclerview.widget.RecyclerView
