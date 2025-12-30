@@ -6,12 +6,21 @@
     <string name="open_dish">open_dish</string>
     <string name="meal_image">meal image</string>
     <string name="meal_title">meal title</string>
-    <string name="author">Comment\'s author</string>
-    <string name="dish_description">Dish description</string>
+    <string name="author">Comment author</string>
     <string name="your_rating">Your rating (1–5)</string>
     <string name="your_comment">Your comment</string>
     <string name="comment_hint">Write your thoughts…</string>
     <string name="comment">Comment</string>
-    <string name="example_price">₪45</string>
+    <string name="example_price">price example</string>
+    <string name="open_dish_type">open dish type</string>
+    <string name="add_comment_btn">Comment</string>
+    <string name="dish_price">Dish price</string>
+    <string name="dish_description">Dish description</string>
+    <string name="dish_title">Dish title</string>
+    <string name="reviews">reviews</string>
+    <string name="restaurant_name">Restaurant name</string>
+    <string name="date">14-10-2025, 14:37</string>
+    <string name="comment_text">comment text\n</string>
+    <string name="dish_image">dish_image</string>
 
 </resources>

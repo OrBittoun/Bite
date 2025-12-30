@@ -3,18 +3,26 @@
 
     <string name="back">חזרה</string>
     <string name="confirm">אישור</string>
-    <string name="open_category">פתח/י קטגוריה</string>
-    <string name="open_dish">פתח מנה</string>
-    <string name="meal_image">תמונת מאכל</string>
-    <string name="meal_title">שם מאכל</string>
+    <string name="open_category">תפתח/י קטגוריה</string>
+    <string name="open_dish">תפתח/י מנה</string>
+    <string name="meal_image">תמונת מנה</string>
+    <string name="meal_title">שם המנה</string>
     <string name="author">שם המגיב/ה</string>
+    <string name="dish_price">:עלות מנה</string>
     <string name="dish_description">תיאור המנה</string>
-    <string name="your_rating">דרג/י (1-5)</string>
+    <string name="your_rating">הדירוג שלך (1-5)</string>
     <string name="your_comment">התגובה שלך</string>
     <string name="comment_hint">שתפו את דעתכם</string>
-    <string name="comment">הגב/י</string>
-    <string name="example_price">₪45</string>
-
+    <string name="comment">השאר תגובה</string>
+    <string name="example_price">דוגמא למחיר מנה</string>
+    <string name="open_dish_type">תפתחי סוג מנה</string>
+    <string name="add_comment_btn">הוסיפו תגובה</string>
+    <string name="dish_title">שם המנה</string>
+    <string name="reviews">תגובות</string>
+    <string name="restaurant_name">שם המסעדה</string>
+    <string name="date">תאריך לדוגמא</string>
+    <string name="comment_text">תוכן התגובה</string>
+    <string name="dish_image">"תמונה המנה "</string>
 
 
 </resources>

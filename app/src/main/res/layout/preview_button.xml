@@ -18,5 +18,6 @@
         app:iconTint="@color/dark_green"
         app:iconGravity="textStart"
         app:iconPadding="0dp"
+        android:contentDescription ="@string/open_dish_type"
         app:rippleColor="@color/dark_green" />
 </FrameLayout>
