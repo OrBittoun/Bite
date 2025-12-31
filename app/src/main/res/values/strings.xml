@@ -12,6 +12,16 @@
     <string name="your_comment">Your comment</string>
     <string name="comment_hint">Write your thoughts…</string>
     <string name="comment">Comment</string>
-    <string name="example_price">₪45</string>
+    <string name="example_price">Example price</string>
+    <string name="open_dish_type">Open dish type</string>
+    <string name="add_comment_btn">Comment</string>
+    <string name="dish_price">Dish price</string>
+    <string name="dish_title">Dish title</string>
+    <string name="reviews">reviews</string>
+    <string name="restaurant_name">Restaurant name</string>
+    <string name="date">14-10-2025, 14:37</string>
+    <string name="comment_text">Comment text\n</string>
+    <string name="dish_image">Dish_image</string>
+    <string name="submit">Submit</string>
 
 </resources>

@@ -42,7 +42,10 @@
             android:layout_height="wrap_content"
             android:numStars="5"
             android:stepSize="1"
-            android:isIndicator="false"/>
+            android:isIndicator="false"
+            android:progressTint="#FFC107"
+            android:secondaryProgressTint="#FFC107"
+            android:indeterminateTint="#FFC107"/>
 
         <TextView
             android:layout_marginTop="16dp"
@@ -56,9 +59,13 @@
             android:layout_width="match_parent"
             android:layout_height="120dp"
             android:gravity="top|start"
+            android:textDirection="firstStrong"
+            android:textAlignment="viewStart"
             android:background="@android:color/transparent"
             android:hint="@string/comment_hint"
             android:padding="8dp"/>
+
+
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/comment_button_wrapper"
@@ -68,19 +75,28 @@
 
             <Button
                 android:id="@+id/submit_button"
-                style="@style/Widget.Material3.Button.UnelevatedButton"
-                android:layout_width="0dp"
+                style="@style/Widget.Material3.Button.OutlinedButton"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/comment"
-                android:textSize="16sp"
+                android:text="@string/submit"
+                android:textSize="14sp"
                 android:textStyle="bold"
-                android:backgroundTint="@color/primary_buttons"
-                android:textColor="@color/white"
-                android:gravity="center"
+                android:textAllCaps="true"
+                android:textColor="@color/black"
+                android:backgroundTint="@android:color/transparent"
+                android:insetTop="0dp"
+                android:insetBottom="0dp"
+                android:minHeight="44dp"
+                android:paddingStart="20dp"
+                android:paddingEnd="20dp"
+                app:cornerRadius="50dp"
+                app:strokeColor="@color/primary_buttons"
+                app:strokeWidth="2dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintWidth_percent="0.4"/>
+                app:layout_constraintWidth_percent="0.35"/>
+
         </androidx.constraintlayout.widget.ConstraintLayout>
     </LinearLayout>
 </ScrollView>
