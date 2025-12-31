@@ -40,7 +40,6 @@ class HomeCategoriesAdapter(
 
             categoryTitle.text = category.kitchenName
 
-            // 🔹 כאן אנחנו משתמשים ב־previewProvider
             val previewItems = previewProvider(category)
 
             val homeCategoryRowAdapter = HomeCategoryRowAdapter(

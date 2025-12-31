@@ -378,8 +378,6 @@ abstract class KitchenDataBase : RoomDatabase() {
                                         )
                                         """.trimIndent()
                             )
-
-
                         }
                     })
                     .build()

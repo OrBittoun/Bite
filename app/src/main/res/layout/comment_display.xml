@@ -46,7 +46,6 @@
                 app:layout_constraintBaseline_toBaselineOf="@id/comment_author" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-
         <TextView
             android:id="@+id/comment_text"
             android:layout_width="match_parent"
@@ -57,16 +56,16 @@
             android:textAlignment="textStart"
             android:gravity="start" />
 
-
         <RatingBar
             android:id="@+id/comment_rating"
             style="?android:attr/ratingBarStyleSmall"
-            android:isIndicator="true"
-            android:numStars="5"
-            android:stepSize="1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="6dp"
-            android:layout_gravity="end"/>
+            android:layout_gravity="end"
+            android:isIndicator="true"
+            android:numStars="5"
+            android:stepSize="1" />
+
     </LinearLayout>
 </androidx.cardview.widget.CardView>

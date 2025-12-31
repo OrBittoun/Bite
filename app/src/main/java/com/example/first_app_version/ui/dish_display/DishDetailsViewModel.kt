@@ -8,7 +8,5 @@ import com.example.first_app_version.data.repository.DishRepository
 
 class DishDetailsViewModel(application: Application) : AndroidViewModel(application) {
     private val repository = DishRepository(application)
-
-    // LiveData from Room for the dish details
     fun dishById(dishId: Int): LiveData<Dish> = repository.getDishById(dishId)
 }

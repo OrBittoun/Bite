@@ -20,7 +20,7 @@ class HomeCategoryRowAdapter(
     }
 
     override fun getItemCount(): Int {
-        return items.size + 1 //images + 1 button for each card
+        return items.size + 1
     }
 
     override fun getItemViewType(position: Int): Int {
@@ -28,34 +28,28 @@ class HomeCategoryRowAdapter(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-
         val inflater = LayoutInflater.from(parent.context)
 
         return if (viewType == TYPE_IMAGE) {
-            val view = inflater.inflate(R.layout.preview_image, parent, false) //creating image view
+            val view = inflater.inflate(R.layout.preview_image, parent, false)
             ImageViewHolder(view)
-
         } else {
-            val view = inflater.inflate(R.layout.preview_button, parent, false) //creating a button
+            val view = inflater.inflate(R.layout.preview_button, parent, false)
             ButtonViewHolder(view)
         }
     }
 
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) { //when we want to fill the view
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder) {
-
-            is ImageViewHolder -> {
-                holder.bind(items[position])            }
-            is ButtonViewHolder -> { //take the button
-                holder.bind()
-            }
+            is ImageViewHolder -> holder.bind(items[position])
+            is ButtonViewHolder -> holder.bind()
         }
     }
 
-
     inner class ImageViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val imageView: ImageView = itemView.findViewById(R.id.previewImage) //take the image from preview_image
 
+        private val imageView: ImageView =
+            itemView.findViewById(R.id.previewImage)
 
         fun bind(item: DishPreview) {
             imageView.setImageResource(item.imageRes)
@@ -63,11 +57,12 @@ class HomeCategoryRowAdapter(
                 onDishClick(item.dishId)
             }
         }
-
     }
 
     inner class ButtonViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val button: Button =  itemView.findViewById(R.id.btnExplore) //take the button from preview_button
+
+        private val button: Button =
+            itemView.findViewById(R.id.btnExplore)
 
         fun bind() {
             button.setOnClickListener {
@@ -76,5 +71,3 @@ class HomeCategoryRowAdapter(
         }
     }
 }
-
-

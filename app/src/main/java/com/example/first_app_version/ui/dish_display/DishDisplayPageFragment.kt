@@ -5,8 +5,6 @@ import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-
-//new
 import androidx.core.os.bundleOf
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -30,7 +28,6 @@ class DishDisplayPageFragment : Fragment() {
 
     private val commentAdapter = CommentAdapter()
 
-    // Track current dish ID
     private var currentDishId: Int? = null
 
     companion object {
@@ -49,7 +46,8 @@ class DishDisplayPageFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.recyclerDishComments.layoutManager = LinearLayoutManager(requireContext())
+        binding.recyclerDishComments.layoutManager =
+            LinearLayoutManager(requireContext())
         binding.recyclerDishComments.adapter = commentAdapter
         binding.recyclerDishComments.setHasFixedSize(true)
 
@@ -60,6 +58,7 @@ class DishDisplayPageFragment : Fragment() {
                 16f,
                 resources.displayMetrics
             ).toInt()
+
             v.setPadding(
                 v.paddingLeft,
                 v.paddingTop,
@@ -77,10 +76,7 @@ class DishDisplayPageFragment : Fragment() {
                 binding.dishDesc.text = dish.description ?: ""
                 val img = dish.imageRes ?: R.mipmap.pizza_foreground
                 binding.dishImg.setImageResource(img)
-
-                // Add dish price to binding function
                 binding.dishPrice?.text = "Price: ${dish.price}₪"
-
             }
 
             commentsViewModel.commentsForDish(dishId).observe(viewLifecycleOwner) { comments ->
