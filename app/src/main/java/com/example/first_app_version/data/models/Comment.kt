@@ -38,7 +38,6 @@ data class Comment(
     @ColumnInfo(name = "text")
     val text: String,
 
-    // Human-readable timestamp string, e.g., "14-10-2025, 14:37"
     @ColumnInfo(name = "created_at")
     val createdAt: String,
 

@@ -64,7 +64,8 @@
             android:textAlignment="viewStart"
             android:background="@android:color/transparent"
             android:hint="@string/comment_hint"
-            android:padding="8dp"/>
+            android:padding="8dp"
+            />
 
 
 
