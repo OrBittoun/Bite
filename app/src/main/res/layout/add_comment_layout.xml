@@ -55,18 +55,18 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
+
         <EditText
             android:id="@+id/comment_edit_text"
             android:layout_width="match_parent"
             android:layout_height="120dp"
-            android:gravity="top|start"
+            android:layoutDirection="locale"
             android:textDirection="firstStrong"
-            android:textAlignment="viewStart"
+            android:textAlignment="textStart"
+            android:gravity="top|start"
             android:background="@android:color/transparent"
             android:hint="@string/comment_hint"
-            android:padding="8dp"
-            />
-
+            android:padding="8dp" />
 
 
         <androidx.constraintlayout.widget.ConstraintLayout

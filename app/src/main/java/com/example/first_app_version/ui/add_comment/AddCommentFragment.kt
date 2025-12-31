@@ -115,8 +115,8 @@ class AddCommentFragment : Fragment() {
         val dialog = AlertDialog.Builder(requireContext())
             .setTitle(title)
             .setMessage(message)
-            .setNegativeButton(if (isUpdate) "Update" else "Add", null)
-            .setPositiveButton("Cancel") { d, _ -> d.dismiss() }
+            .setPositiveButton(if (isUpdate) "Update" else "Add", null)
+            .setNegativeButton("Cancel") { d, _ -> d.dismiss() }
             .create()
 
         dialog.setOnShowListener {

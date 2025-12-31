@@ -46,15 +46,17 @@
                 app:layout_constraintBaseline_toBaselineOf="@id/comment_author" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
+
         <TextView
             android:id="@+id/comment_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/comment_text"
+            android:layout_marginTop="8dp"
             android:textSize="16sp"
-            android:textAlignment="center"
-            android:gravity="center_horizontal"
-            android:layout_marginTop="8dp" />
+            android:textDirection="anyRtl"
+            android:textAlignment="textStart"
+            android:gravity="start" />
+
 
         <RatingBar
             android:id="@+id/comment_rating"
