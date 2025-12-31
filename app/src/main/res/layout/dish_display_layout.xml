@@ -81,12 +81,11 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp">
 
-                <Button
+                <com.google.android.material.button.MaterialButton
                     android:id="@+id/add_comment"
                     style="@style/Widget.Material3.Button.OutlinedButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:backgroundTint="@android:color/transparent"
                     android:insetTop="0dp"
                     android:insetBottom="0dp"
                     android:minHeight="44dp"
@@ -97,15 +96,17 @@
                     android:textColor="@color/black"
                     android:textSize="14sp"
                     android:textStyle="bold"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:clipToOutline="true"
                     app:cornerRadius="50dp"
+                    app:strokeColor="@color/primary_buttons"
+                    app:strokeWidth="2dp"
+                    app:rippleColor="@color/primary_buttons"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:strokeColor="@color/primary_buttons"
-                    app:strokeWidth="2dp"
-                    tools:ignore="TouchTargetSizeCheck"
-                    />
-
+                    tools:ignore="TouchTargetSizeCheck" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.recyclerview.widget.RecyclerView

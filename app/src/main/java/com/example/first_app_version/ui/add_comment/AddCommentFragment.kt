@@ -6,7 +6,6 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.animation.AnimationUtils
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
@@ -97,18 +96,10 @@ class AddCommentFragment : Fragment() {
                     }
                 }
 
-            // Bounce animation on click
             binding.submitButton.setOnClickListener {
-                val bounce = AnimationUtils.loadAnimation(
-                    requireContext(),
-                    R.anim.bounce_button
-                )
-                it.startAnimation(bounce)
-
-                val dishId = selectionViewModel.selectedDishId.value ?: return@setOnClickListener
-                showConfirmDialog(dishId)
+                val id = selectionViewModel.selectedDishId.value ?: return@setOnClickListener
+                showConfirmDialog(id)
             }
-
         }
     }
 
@@ -130,23 +121,15 @@ class AddCommentFragment : Fragment() {
 
         dialog.setOnShowListener {
             dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener {
+
                 val rating = binding.ratingBar.rating.toInt().coerceIn(1, 5)
                 val text = binding.commentEditText.text.toString().trim()
 
-                val toast = Toast.makeText(
+                Toast.makeText(
                     requireContext(),
                     if (isUpdate) "Comment updated" else "Comment added",
                     Toast.LENGTH_SHORT
-                )
-
-                toast.setGravity(
-                    android.view.Gravity.BOTTOM or android.view.Gravity.CENTER_HORIZONTAL,
-                    0,
-                    120
-                )
-
-                toast.show()
-
+                ).show()
 
                 lifecycleScope.launch {
                     addCommentViewModel.saveMyComment(dishId, rating, text)
@@ -163,29 +146,21 @@ class AddCommentFragment : Fragment() {
         val view = layoutInflater.inflate(R.layout.lottie_dialog, null)
         val lottie = view.findViewById<LottieAnimationView>(R.id.lottieSuccess)
 
-        val dialog = AlertDialog.Builder(requireContext())
-            .setView(view)
-            .setCancelable(false)
-            .create()
+        val dialog =
+            android.app.Dialog(requireContext(), android.R.style.Theme_Translucent_NoTitleBar)
 
-        dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
-        dialog.window?.clearFlags(android.view.WindowManager.LayoutParams.FLAG_DIM_BEHIND)
-
+        dialog.setContentView(view)
+        dialog.setCancelable(false)
         dialog.show()
-
-        val duration = lottie.duration
-        if (duration > 0) {
-            lottie.speed = 1.5f
-        }
 
         lottie.playAnimation()
 
         lottie.postDelayed({
-            if (isAdded) {
+            if (isAdded && dialog.isShowing) {
                 dialog.dismiss()
                 findNavController().popBackStack()
             }
-        }, 5000)
+        }, 4000)
     }
 
     override fun onDestroyView() {

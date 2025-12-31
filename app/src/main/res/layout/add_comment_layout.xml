@@ -18,6 +18,7 @@
             android:textStyle="bold"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/arimo_bolditalic"
             android:text="@string/meal_title"/>
 
         <TextView
@@ -83,19 +84,23 @@
                 android:textStyle="bold"
                 android:textAllCaps="true"
                 android:textColor="@color/black"
-                android:backgroundTint="@android:color/transparent"
                 android:insetTop="0dp"
                 android:insetBottom="0dp"
                 android:minHeight="44dp"
                 android:paddingStart="20dp"
                 android:paddingEnd="20dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:clipToOutline="true"
                 app:cornerRadius="50dp"
                 app:strokeColor="@color/primary_buttons"
                 app:strokeWidth="2dp"
+                app:rippleColor="@color/primary_buttons"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintWidth_percent="0.35"/>
+                app:layout_constraintWidth_percent="0.35" />
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </LinearLayout>

@@ -28,11 +28,16 @@
         <ImageView
             android:id="@+id/dish_img"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:adjustViewBounds="true"
+            android:layout_height="220dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="8dp"
             android:scaleType="centerCrop"
-            android:src="@drawable/baseline_fastfood_24" />
+            android:src="@drawable/baseline_fastfood_24"
+            android:background="@drawable/rounded_image_bg"
+            android:clipToOutline="true"
+            android:contentDescription="@string/dish_image"/>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/comment_button_wrapper"
@@ -40,21 +45,32 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp">
 
-            <Button
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/add_comment"
-                style="@style/Widget.Material3.Button.UnelevatedButton"
-                android:layout_width="0dp"
+                style="@style/Widget.Material3.Button.OutlinedButton"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:insetTop="0dp"
+                android:insetBottom="0dp"
+                android:minHeight="44dp"
+                android:paddingStart="20dp"
+                android:paddingEnd="20dp"
                 android:text="@string/comment"
-                android:textSize="16sp"
+                android:textAllCaps="true"
+                android:textColor="@color/black"
+                android:textSize="14sp"
                 android:textStyle="bold"
-                android:backgroundTint="@color/primary_buttons"
-                android:textColor="@color/white"
-                android:gravity="center"
-                app:layout_constraintStart_toStartOf="parent"
+                android:clickable="true"
+                android:focusable="true"
+                android:clipToOutline="true"
+                app:cornerRadius="50dp"
+                app:strokeColor="@color/primary_buttons"
+                app:strokeWidth="2dp"
+                app:rippleColor="@color/primary_buttons"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintWidth_percent="0.4"/>
+                tools:ignore="TouchTargetSizeCheck" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </LinearLayout>
 
@@ -73,17 +89,27 @@
             android:id="@+id/dish_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="20sp"
+            android:text="@string/meal_title"
+            android:gravity="center"
+            android:fontFamily="@font/arimo_bolditalic"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="20dp"
+            android:textSize="24sp"
             android:textStyle="bold"
-            android:text="@string/meal_title" />
+            android:textColor="@color/black"
+            android:maxLines="4"
+            android:ellipsize="end"/>
 
         <TextView
             android:id="@+id/dish_desc"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:textSize="15sp"
-            android:text="@string/dish_description" />
+            android:text="@string/dish_description"
+            android:textSize="14sp"
+            android:textColor="@color/slate_gray"
+            android:maxLines="4"
+            android:ellipsize="end"/>
 
         <TextView
             android:id="@+id/dish_price"
