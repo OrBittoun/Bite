@@ -15,7 +15,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.first_app_version.R
 import com.example.first_app_version.databinding.DishDisplayLayoutBinding
-import com.example.first_app_version.ui.SelectionViewModel
+import com.example.first_app_version.ui.all_kitchens.SelectionViewModel
 
 class DishDisplayPageFragment : Fragment() {
 

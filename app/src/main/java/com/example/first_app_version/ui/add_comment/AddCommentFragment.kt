@@ -16,7 +16,7 @@ import androidx.navigation.fragment.findNavController
 import com.airbnb.lottie.LottieAnimationView
 import com.example.first_app_version.R
 import com.example.first_app_version.databinding.AddCommentLayoutBinding
-import com.example.first_app_version.ui.SelectionViewModel
+import com.example.first_app_version.ui.all_kitchens.SelectionViewModel
 import kotlinx.coroutines.launch
 
 class AddCommentFragment : Fragment() {

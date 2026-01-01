@@ -5,15 +5,11 @@ import com.example.first_app_version.data.local_db.KitchenDao
 import com.example.first_app_version.data.local_db.KitchenDataBase
 import com.example.first_app_version.data.models.Kitchen
 
-class KitchenRepository (application: Application) {
+class KitchenRepository(application: Application) {
 
-    private var kitchenDao : KitchenDao?
+    private val kitchenDao: KitchenDao = KitchenDataBase.getDataBase(application.applicationContext).kitchensDao()
 
-    init {
-        val db = KitchenDataBase.getDataBase(application.applicationContext)
-        kitchenDao = db.kitchensDao()
-    }
-
-    fun getItems() = kitchenDao?.getItems()
+    fun getItems() = kitchenDao.getKitchens()
+    fun getKitchen(id: Int): Kitchen? = try { kitchenDao.getKitchen(id) } catch (_: Exception) { null }
 
 }

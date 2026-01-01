@@ -7,10 +7,7 @@ class DishRepository(application: Application) {
 
     private val dishDao = KitchenDataBase.getDataBase(application).dishesDao()
 
-    fun getDishesForDishType(dishTypeId: Int) =
-        dishDao.getDishesForDishType(dishTypeId)
-
-    // ⭐ חדש
-    fun getDishById(dishId: Int) =
-        dishDao.getDishById(dishId)
+    fun getDishesForDishType(dishTypeId: Int) = dishDao.getDishesForDishType(dishTypeId)
+    fun getDishById(dishId: Int) = dishDao.getDishById(dishId)
+    fun getDishImageRes(dishId: Int): Int? = dishDao.getImageResForDish(dishId)
 }

@@ -12,8 +12,8 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.first_app_version.R
 import com.example.first_app_version.databinding.DishesTypesLayoutBinding
-import com.example.first_app_version.ui.KitchenViewModel
-import com.example.first_app_version.ui.SelectionViewModel
+import com.example.first_app_version.ui.all_kitchens.KitchenViewModel
+import com.example.first_app_version.ui.all_kitchens.SelectionViewModel
 
 class DishesTypesFragment : Fragment() {
 
@@ -40,9 +40,7 @@ class DishesTypesFragment : Fragment() {
 
         adapter = DishTypeAdapter { dishType ->
             selectionViewModel.setDishType(dishType)
-            findNavController().navigate(
-                R.id.action_dishesTypesFragment_to_dishesFragment
-            )
+            findNavController().navigate(R.id.action_dishesTypesFragment_to_dishesFragment)
         }
 
         binding.recyclerDishesTypes.layoutManager =
@@ -52,23 +50,17 @@ class DishesTypesFragment : Fragment() {
 
         kitchenViewModel.chosenKitchen.observe(viewLifecycleOwner) { kitchen ->
             if (kitchen == null) {
-                Toast.makeText(requireContext(), "לא נבחר מטבח", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), R.string.no_kitchen_found, Toast.LENGTH_SHORT).show()
                 adapter.submitList(emptyList())
                 return@observe
             }
 
-            dishesTypesViewModel
-                .getDishTypesForKitchen(kitchen.id)
-                .observe(viewLifecycleOwner) { dishTypes ->
-                    if (dishTypes.isEmpty()) {
-                        Toast.makeText(
-                            requireContext(),
-                            "אין סוגי מנות למטבח הזה",
-                            Toast.LENGTH_SHORT
-                        ).show()
-                    }
-                    adapter.submitList(dishTypes)
+            dishesTypesViewModel.getDishTypesForKitchen(kitchen.id).observe(viewLifecycleOwner) { dishTypes ->
+                if (dishTypes.isEmpty()) {
+                    Toast.makeText(requireContext(), R.string.no_dish_types_found, Toast.LENGTH_SHORT).show()
                 }
+                adapter.submitList(dishTypes)
+            }
         }
     }
 

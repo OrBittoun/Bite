@@ -1,4 +1,4 @@
-package com.example.first_app_version.ui
+package com.example.first_app_version.ui.all_kitchens
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

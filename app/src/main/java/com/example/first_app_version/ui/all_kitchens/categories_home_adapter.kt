@@ -24,7 +24,7 @@ class HomeCategoriesAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoryViewHolder {
         val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.home_cards, parent, false)
+            .inflate(R.layout.home_cards, parent, false) // creating a card
         return CategoryViewHolder(view)
     }
 
@@ -43,15 +43,14 @@ class HomeCategoriesAdapter(
         fun bind(category: HomeCategory) {
 
             categoryTitle.text = category.kitchenName
+            // Tap goes to kitchen
             categoryTitle.setOnClickListener { onCategoryClick(category) }
             val previewItems = previewProvider(category)
 
             val homeCategoryRowAdapter = HomeCategoryRowAdapter(
                 items = previewItems,
                 onDishClick = onDishClick,
-                onExploreClick = {
-                    onCategoryClick(category)
-                }
+                onExploreClick = { onCategoryClick(category) }
             )
 
             categoryRecyclerView.layoutManager =
@@ -59,38 +58,40 @@ class HomeCategoriesAdapter(
 
             categoryRecyclerView.adapter = homeCategoryRowAdapter
 
-            // Single tap anywhere where is not an image navigate to the kitchen
+            // A tap anywhere in the horizontal row that is NOT an image navigates to kitchen
             val gestureDetector = GestureDetector(itemView.context, object : SimpleOnGestureListener() {
                 override fun onSingleTapUp(e: MotionEvent): Boolean = true
             })
 
             categoryRecyclerView.addOnItemTouchListener(object : RecyclerView.OnItemTouchListener {
                 override fun onInterceptTouchEvent(rv: RecyclerView, e: MotionEvent): Boolean {
-                    // Only handle simple taps
+                    // Only handle simple taps; let scroll/fling pass through
                     if (!gestureDetector.onTouchEvent(e)) return false
 
                     // Child under the tap (if any)
                     val child = rv.findChildViewUnder(e.x, e.y)
 
                     if (child == null) {
-                        // Tap on blank/background area
+                        // Tap on blank/background area (no child view) to navigate to kitchen
                         onCategoryClick(category)
                         return true
                     }
 
-                    // If tapping on a child, check whether it's an image item
+                    // If tapping on a child, check if it's an image item
+                    // We detect image items by presence of previewImage in the child
                     val isImageItem = child.findViewById<ImageView>(R.id.previewImage) != null
 
                     return if (isImageItem) {
                         // Let the image's own click listener handle dish navigation
                         false
                     } else {
-                        // Tap on non-image child
+                        // Tap on non-image child so navigate tp kitchen
                         onCategoryClick(category)
                         true
                     }
                 }
 
+                // Must have override functions
                 override fun onTouchEvent(rv: RecyclerView, e: MotionEvent) {
                     // No-op: handled in intercept
                 }

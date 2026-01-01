@@ -38,7 +38,6 @@ data class Dish(
     @ColumnInfo(name = "description")
     val description: String? = null,
 
-    // Additional field
     @ColumnInfo(name = "price", defaultValue = "0")
     val price: Int = 0,
 

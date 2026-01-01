@@ -7,14 +7,14 @@ import androidx.room.ForeignKey
 import androidx.room.Index
 import androidx.room.PrimaryKey
 
-@Entity( //table rules
+@Entity(
     tableName = "dish_types",
     foreignKeys = [
         ForeignKey(
             entity = Kitchen::class,
             parentColumns = ["id"],
             childColumns = ["kitchen_id"],
-            onDelete = ForeignKey.CASCADE //if we delete a kitchen, we delete all the dish types that belong to it
+            onDelete = ForeignKey.CASCADE // If we delete a kitchen, we delete all the dish types that belong to it
         )
     ],
     indices = [Index(value = ["kitchen_id"])])
@@ -24,7 +24,6 @@ data class DishType(
     @PrimaryKey(autoGenerate = true)
     val id: Int = 0,
 
-    // Represents the kitchen this type belongs to
     @ColumnInfo(name = "kitchen_id")
     val kitchenId: Int,
 
@@ -33,9 +32,6 @@ data class DishType(
 
     @ColumnInfo(name = "image_res")
     @DrawableRes val imageRes: Int? = null,
-
-    @ColumnInfo(name = "description")
-    val description: String? = null
 )
 
 

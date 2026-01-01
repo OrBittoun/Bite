@@ -25,11 +25,7 @@ class DishTypeAdapter(
 
         fun bind(item: DishType) {
             binding.mealTitle.text = item.name
-
-            binding.mealImage.setImageResource(
-                item.imageRes ?: R.drawable.default_dish
-            )
-
+            binding.mealImage.setImageResource(item.imageRes ?: R.drawable.default_dish)
             binding.root.setOnClickListener { onClick(item) }
         }
 

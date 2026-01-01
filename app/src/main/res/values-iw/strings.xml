@@ -25,5 +25,9 @@
     <string name="dish_image">"תמונת המנה"</string>
     <string name="submit">אישור</string>
     <string name="delete">מחק</string>
+    <string name="dish_nav_error">שגיאה בניווט למנה</string>
+    <string name="data_loading">הנתונים עדיין נטענים</string>
+    <string name="no_kitchen_found">לא נמצא מטבח</string>
+    <string name="no_dish_types_found">אין סוגי מנות למטבח הזה</string>
 
 </resources>

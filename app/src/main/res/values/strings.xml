@@ -24,6 +24,9 @@
     <string name="dish_image">Dish_image</string>
     <string name="submit">Submit</string>
     <string name="delete">Delete</string>
-
+    <string name="dish_nav_error">Error while navigating to the dish</string>
+    <string name="data_loading">Data still loading</string>
+    <string name="no_kitchen_found">No kitchen found</string>
+    <string name="no_dish_types_found">No dish types found</string>
 
 </resources>
