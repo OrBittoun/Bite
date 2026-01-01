@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="140dp"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -16,8 +17,7 @@
         android:scaleType="centerCrop"
         android:clickable="true"
         android:focusable="true"
-        android:contentDescription="@string/open_dish"
-/>
+        android:contentDescription="@string/open_dish" />
 
 </com.google.android.material.card.MaterialCardView>
 
