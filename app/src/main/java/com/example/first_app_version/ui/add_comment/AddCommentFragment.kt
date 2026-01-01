@@ -90,6 +90,10 @@ class AddCommentFragment : Fragment() {
             addCommentViewModel.observeMyComment(dishId)
                 .observe(viewLifecycleOwner) { myComment ->
                     existingCommentPresent = myComment != null
+
+                    // Toggle Delete button visibility based on whether user has a comment
+                    binding.deleteButton.visibility = if (existingCommentPresent) View.VISIBLE else View.GONE
+
                     if (addCommentViewModel.isDraftEmpty()) {
                         addCommentViewModel.prefillDraftFromExisting(myComment)
                         userEdited = false
@@ -99,6 +103,11 @@ class AddCommentFragment : Fragment() {
             binding.submitButton.setOnClickListener {
                 val id = selectionViewModel.selectedDishId.value ?: return@setOnClickListener
                 showConfirmDialog(id)
+            }
+
+            binding.deleteButton.setOnClickListener {
+                val id = selectionViewModel.selectedDishId.value ?: return@setOnClickListener
+                showDeleteConfirmDialog(id)
             }
         }
     }
@@ -115,26 +124,24 @@ class AddCommentFragment : Fragment() {
         val dialog = AlertDialog.Builder(requireContext())
             .setTitle(title)
             .setMessage(message)
-            .setNegativeButton(if (isUpdate) "Update" else "Add", null)
-            .setPositiveButton("Cancel") { d, _ -> d.dismiss() }
+            .setPositiveButton(if (isUpdate) "Update" else "Add", null)
+            .setNegativeButton("Cancel") { d, _ -> d.dismiss() }
             .create()
 
         dialog.setOnShowListener {
             dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener {
-
                 val rating = binding.ratingBar.rating.toInt().coerceIn(1, 5)
                 val text = binding.commentEditText.text.toString().trim()
 
-                Toast.makeText(
-                    requireContext(),
-                    if (isUpdate) "Comment updated" else "Comment added",
-                    Toast.LENGTH_SHORT
-                ).show()
+                if (text.isEmpty()) {
+                    Toast.makeText(requireContext(), "Please write a comment", Toast.LENGTH_SHORT).show()
+                    return@setOnClickListener
+                }
 
                 lifecycleScope.launch {
                     addCommentViewModel.saveMyComment(dishId, rating, text)
                     dialog.dismiss()
-                    showSuccessDialog()
+                    showSuccessDialog(if (isUpdate) "Comment updated" else "Comment added")
                 }
             }
         }
@@ -142,7 +149,30 @@ class AddCommentFragment : Fragment() {
         dialog.show()
     }
 
-    private fun showSuccessDialog() {
+    private fun showDeleteConfirmDialog(dishId: Int) {
+        val dialog = AlertDialog.Builder(requireContext())
+            .setTitle("Delete your comment?")
+            .setMessage("This will remove your comment for this dish.")
+            .setPositiveButton("Delete", null)
+            .setNegativeButton("Cancel") { d, _ -> d.dismiss() }
+            .create()
+
+        dialog.setOnShowListener {
+            dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener {
+                lifecycleScope.launch {
+                    addCommentViewModel.deleteMyComment(dishId)
+                    dialog.dismiss()
+                    Toast.makeText(requireContext(), "Comment deleted", Toast.LENGTH_SHORT).show()
+                    // Optionally navigate back after deletion
+                    findNavController().popBackStack()
+                }
+            }
+        }
+
+        dialog.show()
+    }
+
+    private fun showSuccessDialog(message: String) {
         val view = layoutInflater.inflate(R.layout.lottie_dialog, null)
         val lottie = view.findViewById<LottieAnimationView>(R.id.lottieSuccess)
 
@@ -154,6 +184,8 @@ class AddCommentFragment : Fragment() {
         dialog.show()
 
         lottie.playAnimation()
+
+        Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
 
         lottie.postDelayed({
             if (isAdded && dialog.isShowing) {

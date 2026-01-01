@@ -3,6 +3,7 @@ package com.example.first_app_version.data.local_db
 
 import androidx.lifecycle.LiveData
 import androidx.room.Dao
+import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
@@ -33,7 +34,6 @@ interface CommentDao {
     @Query("UPDATE comments SET upvotes = upvotes + 1 WHERE id = :commentId")
     suspend fun incrementUpvotes(commentId: Int)
 
-    // New methods for updating dish reviews count
     @Query("SELECT COUNT(*) FROM comments WHERE dish_id = :dishId")
     suspend fun countCommentsForDish(dishId: Int): Int
 
@@ -45,5 +45,17 @@ interface CommentDao {
         insertOrReplace(comment)
         val newCount = countCommentsForDish(comment.dishId)
         setDishReviewsCount(comment.dishId, newCount)
+    }
+
+    // Delete user’s comment for a dish
+    @Query("DELETE FROM comments WHERE dish_id = :dishId AND author_name = :authorName")
+    suspend fun deleteByDishAndAuthor(dishId: Int, authorName: String = "You"): Int
+
+    // Transactional delete + reviews_count sync
+    @Transaction
+    suspend fun deleteByDishAndAuthorAndSync(dishId: Int, authorName: String = "You") {
+        deleteByDishAndAuthor(dishId, authorName)
+        val newCount = countCommentsForDish(dishId)
+        setDishReviewsCount(dishId, newCount)
     }
 }

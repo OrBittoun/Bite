@@ -23,5 +23,7 @@
     <string name="date">תאריך לדוגמה</string>
     <string name="comment_text">תוכן התגובה</string>
     <string name="dish_image">"תמונת המנה"</string>
+    <string name="submit">אישור</string>
+    <string name="delete">מחק</string>
 
 </resources>

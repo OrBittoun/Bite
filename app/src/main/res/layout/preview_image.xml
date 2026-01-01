@@ -16,7 +16,8 @@
         android:scaleType="centerCrop"
         android:clickable="true"
         android:focusable="true"
-        android:contentDescription="@string/open_dish"/>
+        android:contentDescription="@string/open_dish"
+/>
 
 </com.google.android.material.card.MaterialCardView>
 

@@ -1,46 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.coordinatorlayout.widget.CoordinatorLayout
-
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
-
-<com.google.android.material.appbar.AppBarLayout
-    android:id="@+id/appBarLayout"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="match_parent">
 
-    <com.google.android.material.appbar.MaterialToolbar
-        android:id="@+id/topAppBar"
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:minHeight="?attr/actionBarSize"
-        app:title="@null">
+        android:layout_height="wrap_content">
 
-        <FrameLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_gravity="center">
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/topAppBar"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:minHeight="?attr/actionBarSize"
+            app:title="@null">
 
-            <ImageView
-                android:id="@+id/AppCropHomeLogo"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:layout_gravity="center"
-                android:src="@mipmap/bite_crop_icon_final" />
-        </FrameLayout>
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="center">
 
-    </com.google.android.material.appbar.MaterialToolbar>
-</com.google.android.material.appbar.AppBarLayout>
+                <ImageView
+                    android:id="@+id/AppCropHomeLogo"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_gravity="center"
+                    android:src="@mipmap/bite_crop_icon_final" />
+            </FrameLayout>
 
+        </com.google.android.material.appbar.MaterialToolbar>
+    </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/homeRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
-    </androidx.recyclerview.widget.RecyclerView>
-
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

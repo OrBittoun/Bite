@@ -8,7 +8,6 @@ import com.example.first_app_version.data.repository.DishTypeRepository
 
 class DishesTypesViewModel(application: Application) : AndroidViewModel(application) {
     private val repository = DishTypeRepository(application)
-
     fun getDishTypesForKitchen(kitchenId: Int): LiveData<List<DishType>> =
         repository.getDishTypesForKitchen(kitchenId)
 }

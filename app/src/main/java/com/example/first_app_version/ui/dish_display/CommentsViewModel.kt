@@ -8,7 +8,6 @@ import com.example.first_app_version.data.repository.CommentRepository
 
 class CommentsViewModel(application: Application) : AndroidViewModel(application) {
     private val repository = CommentRepository(application)
-
     fun commentsForDish(dishId: Int): LiveData<List<Comment>> =
         repository.observeComments(dishId)
 }

@@ -21,7 +21,6 @@ class HomePageFragment : Fragment() {
 
     private var _binding: HomePageLayoutBinding? = null
     private val binding get() = _binding!!
-
     private val kitchenViewModel: KitchenViewModel by activityViewModels()
     private val selectionViewModel: SelectionViewModel by activityViewModels()
 
@@ -39,7 +38,6 @@ class HomePageFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // ⭐ קטגוריות עם המנה הראשונה מכל dish_type
         val categories = listOf(
             HomeCategory(
                 kitchenName = "Italian",
@@ -93,7 +91,6 @@ class HomePageFragment : Fragment() {
         val adapter = HomeCategoriesAdapter(
             categories = categories,
 
-            // 🔹 מפה dishId לתמונה
             previewProvider = { category ->
                 category.previewDishIds.map { dishId ->
                     DishPreview(
@@ -103,7 +100,6 @@ class HomePageFragment : Fragment() {
                 }
             },
 
-            // 🔹 לחיצה על תמונה → מעבר ישיר למסך מנה
             onDishClick = { dishId ->
                 try {
                     Log.d("HomePageFragment", "Dish clicked: $dishId")
@@ -121,7 +117,6 @@ class HomePageFragment : Fragment() {
                 }
             },
 
-            // 🔹 לחיצה על Explore → מעבר למסך סוגי מנות
             onCategoryClick = { category ->
                 try {
                     if (kitchensCache.isEmpty()) {
@@ -158,7 +153,6 @@ class HomePageFragment : Fragment() {
         binding.homeRecyclerView.layoutManager = LinearLayoutManager(requireContext())
         binding.homeRecyclerView.adapter = adapter
 
-        // טעינת המטבחים מה-DB
         kitchenViewModel.kitchens?.observe(viewLifecycleOwner) { list ->
             kitchensCache = list ?: emptyList()
         }

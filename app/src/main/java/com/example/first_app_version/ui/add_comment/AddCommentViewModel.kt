@@ -44,6 +44,13 @@ class AddCommentViewModel(application: Application) : AndroidViewModel(applicati
         _draftText.value = text
     }
 
+    suspend fun deleteMyComment(dishId: Int) {
+        commentRepository.deleteMyComment(dishId)
+        // Reset draft so the screen reflects deletion
+        clearDraft()
+    }
+
+
     fun setDraftText(text: String) {
         _draftText.value = text
     }
