@@ -29,5 +29,20 @@
     <string name="data_loading">הנתונים עדיין נטענים</string>
     <string name="no_kitchen_found">לא נמצא מטבח</string>
     <string name="no_dish_types_found">אין סוגי מנות למטבח הזה</string>
+    <string name="insert_comment">נא להזין תגובה</string>
+    <string name="comment_deleted">תגובתך נמחקה</string>
+    <string name="update_comment_title">לעדכן תגובה?</string>
+    <string name="add_comment_title">להוסיף תגובה?</string>
+    <string name="update_comment_message">כבר הגבת על המנה הזו. האם ברצונך לעדכן את התגובה?</string>
+    <string name="add_comment_message">האם ברצונך להוסיף את התגובה הזו?</string>
+    <string name="update">עדכן</string>
+    <string name="add">הוספה</string>
+    <string name="cancel">ביטול</string>
+    <string name="comment_updated">התגובה עודכנה</string>
+    <string name="comment_added">התגובה הוספה</string>
+    <string name="delete_comment_title">למחוק את תגובתך?</string>
+    <string name="delete_comment_message">פעולה זו תסיר את תגובתך מהמנה</string>
+
+
 
 </resources>

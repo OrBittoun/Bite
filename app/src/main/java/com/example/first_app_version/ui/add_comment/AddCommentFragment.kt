@@ -114,18 +114,18 @@ class AddCommentFragment : Fragment() {
 
     private fun showConfirmDialog(dishId: Int) {
         val isUpdate = existingCommentPresent
-        val title = if (isUpdate) "Update comment?" else "Add comment?"
+        val title = if (isUpdate) R.string.update_comment_title else R.string.add_comment_title
         val message = if (isUpdate) {
-            "You already commented on this dish. Do you want to update your comment?"
+            R.string.update_comment_message
         } else {
-            "Are you sure you want to add this comment?"
+            R.string.add_comment_message
         }
 
         val dialog = AlertDialog.Builder(requireContext())
             .setTitle(title)
             .setMessage(message)
-            .setPositiveButton(if (isUpdate) "Update" else "Add", null)
-            .setNegativeButton("Cancel") { d, _ -> d.dismiss() }
+            .setPositiveButton(if (isUpdate) R.string.update else R.string.add, null)
+            .setNegativeButton(R.string.cancel) { d, _ -> d.dismiss() }
             .create()
 
         dialog.setOnShowListener {
@@ -134,14 +134,14 @@ class AddCommentFragment : Fragment() {
                 val text = binding.commentEditText.text.toString().trim()
 
                 if (text.isEmpty()) {
-                    Toast.makeText(requireContext(), "Please write a comment", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(), R.string.insert_comment, Toast.LENGTH_SHORT).show()
                     return@setOnClickListener
                 }
 
                 lifecycleScope.launch {
                     addCommentViewModel.saveMyComment(dishId, rating, text)
                     dialog.dismiss()
-                    showSuccessDialog(if (isUpdate) "Comment updated" else "Comment added")
+                    showSuccessDialog(if (isUpdate) R.string.comment_updated else R.string.comment_added)
                 }
             }
         }
@@ -151,10 +151,10 @@ class AddCommentFragment : Fragment() {
 
     private fun showDeleteConfirmDialog(dishId: Int) {
         val dialog = AlertDialog.Builder(requireContext())
-            .setTitle("Delete your comment?")
-            .setMessage("This will remove your comment for this dish.")
-            .setPositiveButton("Delete", null)
-            .setNegativeButton("Cancel") { d, _ -> d.dismiss() }
+            .setTitle(R.string.delete_comment_title)
+            .setMessage(R.string.delete_comment_message)
+            .setPositiveButton(R.string.delete, null)
+            .setNegativeButton(R.string.cancel) { d, _ -> d.dismiss() }
             .create()
 
         dialog.setOnShowListener {
@@ -162,8 +162,8 @@ class AddCommentFragment : Fragment() {
                 lifecycleScope.launch {
                     addCommentViewModel.deleteMyComment(dishId)
                     dialog.dismiss()
-                    Toast.makeText(requireContext(), "Comment deleted", Toast.LENGTH_SHORT).show()
-                    // Optionally navigate back after deletion
+                    Toast.makeText(requireContext(), R.string.comment_deleted, Toast.LENGTH_SHORT).show()
+                    // Navigate back after deletion
                     findNavController().popBackStack()
                 }
             }
@@ -172,7 +172,7 @@ class AddCommentFragment : Fragment() {
         dialog.show()
     }
 
-    private fun showSuccessDialog(message: String) {
+    private fun showSuccessDialog(@androidx.annotation.StringRes messageRes: Int) {
         val view = layoutInflater.inflate(R.layout.lottie_dialog, null)
         val lottie = view.findViewById<LottieAnimationView>(R.id.lottieSuccess)
 
@@ -185,7 +185,7 @@ class AddCommentFragment : Fragment() {
 
         lottie.playAnimation()
 
-        Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
+        Toast.makeText(requireContext(), messageRes, Toast.LENGTH_SHORT).show()
 
         lottie.postDelayed({
             if (isAdded && dialog.isShowing) {
