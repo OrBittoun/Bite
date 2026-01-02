@@ -75,6 +75,7 @@ class DishDisplayPageFragment : Fragment() {
             dishDetailsViewModel.dishById(dishId).observe(viewLifecycleOwner) { dish ->
                 binding.dishTitle.text = dish.name
                 binding.dishDesc.text = dish.description ?: ""
+                binding.dishRestaurant?.text = dish.restaurantName
                 val img = dish.imageRes ?: R.mipmap.pizza_foreground
                 binding.dishImg.setImageResource(img)
                 binding.dishPrice.text = ctx.getString(R.string.dish_price_display, dish.price.toDouble())

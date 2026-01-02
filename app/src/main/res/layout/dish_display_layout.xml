@@ -65,6 +65,17 @@
                 android:textColor="@color/black"/>
 
             <TextView
+                android:id="@+id/dish_restaurant"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="Restaurant Name"
+                android:textSize="14sp"
+                android:textColor="@color/gray"
+                android:textStyle="italic" />
+
+
+            <TextView
                 android:id="@+id/dish_desc"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

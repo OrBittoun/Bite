@@ -1,5 +1,4 @@
 package com.example.first_app_version.ui.all_kitchens
-
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
