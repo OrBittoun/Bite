@@ -1,4 +1,4 @@
-package com.example.first_app_version.data.models
+package com.example.first_app_version.ui.all_kitchens
 
 data class HomeCategory(
     val kitchenId: Int,

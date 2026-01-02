@@ -7,7 +7,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.first_app_version.R
-import com.example.first_app_version.data.models.HomeCategory
+import com.example.first_app_version.ui.all_kitchens.HomeCategory
 import android.view.MotionEvent
 import android.view.GestureDetector
 import android.view.GestureDetector.SimpleOnGestureListener
@@ -24,7 +24,7 @@ class HomeCategoriesAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoryViewHolder {
         val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.home_cards, parent, false) // creating a card
+            .inflate(R.layout.home_cards, parent, false) // Creating a card
         return CategoryViewHolder(view)
     }
 
@@ -43,8 +43,7 @@ class HomeCategoriesAdapter(
         fun bind(category: HomeCategory) {
 
             categoryTitle.text = category.kitchenName
-            // Tap goes to kitchen
-            categoryTitle.setOnClickListener { onCategoryClick(category) }
+            categoryTitle.setOnClickListener { onCategoryClick(category) } // Tap goes to kitchen
             val previewItems = previewProvider(category)
 
             val homeCategoryRowAdapter = HomeCategoryRowAdapter(
@@ -65,7 +64,7 @@ class HomeCategoriesAdapter(
 
             categoryRecyclerView.addOnItemTouchListener(object : RecyclerView.OnItemTouchListener {
                 override fun onInterceptTouchEvent(rv: RecyclerView, e: MotionEvent): Boolean {
-                    // Only handle simple taps; let scroll/fling pass through
+                    // Only handle simple taps so that scrolling won't do anything
                     if (!gestureDetector.onTouchEvent(e)) return false
 
                     // Child under the tap (if any)

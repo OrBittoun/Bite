@@ -1,5 +1,11 @@
 <resources>
 
+    <plurals name="reviews_count">
+        <item quantity="zero">No reviews</item>
+        <item quantity="one">%1$d review</item>
+        <item quantity="other">%1$d reviews</item>
+    </plurals>
+
     <string name="back">back</string>
     <string name="confirm">confirm</string>
     <string name="open_category">open_category</string>
@@ -41,6 +47,10 @@
     <string name="comment_added">Comment added</string>
     <string name="delete_comment_title">Delete your comment?</string>
     <string name="delete_comment_message">This will remove your comment for this dish.</string>
+    <string name="dish_price_display">Price: %1$.0f₪</string>
+    <string name="no_dish_type">No dish type found</string>
+    <string name="no_dishes">No dishes found</string>
+
 
 
 </resources>

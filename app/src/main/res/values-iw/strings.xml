@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <plurals name="reviews_count" tools:ignore="UnusedQuantity">
+        <item quantity="zero">אין ביקורות</item>
+        <item quantity="one">%1$d ביקורת</item>
+        <item quantity="two">%1$d ביקורות</item>
+        <item quantity="other">%1$d ביקורות</item>
+
+    </plurals>
 
     <string name="back">חזרה</string>
     <string name="confirm">אישור</string>
@@ -42,7 +50,9 @@
     <string name="comment_added">התגובה הוספה</string>
     <string name="delete_comment_title">למחוק את תגובתך?</string>
     <string name="delete_comment_message">פעולה זו תסיר את תגובתך מהמנה</string>
-
+    <string name="dish_price_display">מחיר: %1$.0f₪</string>
+    <string name="no_dish_type">לא נמצא סוג מנה</string>
+    <string name="no_dishes">לא נמצאו מנות</string>
 
 
 </resources>

@@ -11,7 +11,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.first_app_version.R
-import com.example.first_app_version.data.models.HomeCategory
+import com.example.first_app_version.ui.all_kitchens.HomeCategory
 import com.example.first_app_version.data.models.Kitchen
 import com.example.first_app_version.data.repository.DishRepository
 import com.example.first_app_version.databinding.HomePageLayoutBinding

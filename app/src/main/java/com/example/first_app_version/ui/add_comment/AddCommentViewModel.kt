@@ -13,7 +13,7 @@ class AddCommentViewModel(application: Application) : AndroidViewModel(applicati
     private val commentRepository = CommentRepository(application)
     private val dishRepository = DishRepository(application)
 
-    // Draft state that survives configuration changes
+    // Draft state that survives onViewCreated
     private val _draftText = MutableLiveData<String>("")
     val draftText: LiveData<String> get() = _draftText
 
@@ -23,30 +23,28 @@ class AddCommentViewModel(application: Application) : AndroidViewModel(applicati
     // Track current dish to optionally reset draft when switching dishes
     private var currentDishId: Int? = null
 
-    // Fetch dish details by ID (LiveData from Room)
+    // Fetch dish details by ID
     fun observeDish(dishId: Int): LiveData<Dish> {
         return dishRepository.getDishById(dishId)
     }
 
     fun observeMyComment(dishId: Int): LiveData<Comment?> {
-        // If we switched dishes, clear draft to prefill from that dish's existing comment
+        // If we switched dishes, clear draft to use that dish's existing comment
         if (currentDishId != dishId) {
             currentDishId = dishId
-            clearDraft() // so we can prefill from existing comment (if any)
+            clearDraft() // To allow using existing comment text (if exists)
         }
         return commentRepository.observeMyComment(dishId)
     }
 
     suspend fun saveMyComment(dishId: Int, rating: Int, text: String) {
         commentRepository.saveMyComment(dishId, rating, text)
-        // Optional: keep saved values as draft so returning to screen shows what was saved
         _draftRating.value = rating
         _draftText.value = text
     }
 
     suspend fun deleteMyComment(dishId: Int) {
         commentRepository.deleteMyComment(dishId)
-        // Reset draft so the screen reflects deletion
         clearDraft()
     }
 

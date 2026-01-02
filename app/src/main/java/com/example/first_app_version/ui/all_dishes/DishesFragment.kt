@@ -35,56 +35,36 @@ class DishesFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // ⭐ מאזינים לסוג המנה שנבחר
         selectionViewModel.selectedDishType.observe(viewLifecycleOwner) { dishType ->
 
             if (dishType == null) {
                 Log.e("DishesFragment", "DishType is null!")
-                Toast.makeText(
-                    requireContext(),
-                    "לא נבחר סוג מנה",
-                    Toast.LENGTH_SHORT
-                ).show()
+                Toast.makeText(requireContext(), R.string.no_dish_type, Toast.LENGTH_SHORT).show()
                 return@observe
             }
 
             Log.d("DishesFragment", "Loading dishes for DishType: ${dishType.name} (ID: ${dishType.id})")
 
-            // ⭐ טוענים מנות לפי ה-dishType
             dishesViewModel.getDishesForType(dishType.id)
                 .observe(viewLifecycleOwner) { dishes ->
 
                     if (dishes.isNullOrEmpty()) {
                         Log.w("DishesFragment", "No dishes found for type: ${dishType.name}")
-                        Toast.makeText(
-                            requireContext(),
-                            "אין מנות זמינות",
-                            Toast.LENGTH_SHORT
-                        ).show()
+                        Toast.makeText(requireContext(), R.string.no_dishes, Toast.LENGTH_SHORT).show()
                         return@observe
                     }
 
                     Log.d("DishesFragment", "Loaded ${dishes.size} dishes")
 
-                    // ⭐ יוצרים adapter עם לחיצה על מנה
                     val adapter = DishAdapter(dishes) { clickedDish ->
                         try {
                             Log.d("DishesFragment", "Dish clicked: ${clickedDish.name} (ID: ${clickedDish.id})")
-
-                            // שומרים את ה-ID של המנה
                             selectionViewModel.setDishId(clickedDish.id)
+                            findNavController().navigate(R.id.action_dishesFragment_to_dishDisplayPageFragment)
 
-                            // עוברים למסך המנה
-                            findNavController().navigate(
-                                R.id.action_dishesFragment_to_dishDisplayPageFragment
-                            )
                         } catch (e: Exception) {
                             Log.e("DishesFragment", "Navigation error: ${e.message}", e)
-                            Toast.makeText(
-                                requireContext(),
-                                "שגיאה בניווט",
-                                Toast.LENGTH_SHORT
-                            ).show()
+                            Toast.makeText(requireContext(), R.string.dish_nav_error, Toast.LENGTH_SHORT).show()
                         }
                     }
 
