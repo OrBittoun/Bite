@@ -41,6 +41,4 @@ data class Comment(
     @ColumnInfo(name = "created_at")
     val createdAt: String,
 
-    @ColumnInfo(name = "upvotes")
-    val upvotes: Int = 0
 )

@@ -21,9 +21,6 @@ interface CommentDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertOrReplace(comment: Comment)
 
-    @Query("UPDATE comments SET upvotes = upvotes + 1 WHERE id = :commentId")
-    suspend fun incrementUpvotes(commentId: Int)
-
     @Query("SELECT COUNT(*) FROM comments WHERE dish_id = :dishId")
     suspend fun countCommentsForDish(dishId: Int): Int
 

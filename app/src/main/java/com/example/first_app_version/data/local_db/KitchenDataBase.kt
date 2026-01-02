@@ -15,7 +15,7 @@ import com.example.first_app_version.data.models.Kitchen
 
 @Database(
     entities = [Kitchen::class, DishType::class, Dish::class, Comment::class],
-    version = 11,
+    version = 13,
     exportSchema = false
 )
 abstract class KitchenDataBase : RoomDatabase() {
@@ -303,14 +303,6 @@ abstract class KitchenDataBase : RoomDatabase() {
                             db.execSQL("INSERT INTO dishes (id, dish_type_id, name, restaurantName, image_res, description, price) VALUES (76, 17, 'Apple Tart', 'Maison Douce | Tel Aviv', $appleTartImg, 'Classic French apple tart with buttery crust.', 32.0)")
                             db.execSQL("INSERT INTO dishes (id, dish_type_id, name, restaurantName, image_res, description, price) VALUES (77, 17, 'Cinnamon Roll', 'Sweet Corner | Haifa', $cinnamonRollImg, 'Soft cinnamon roll topped with vanilla icing.', 20.0)")
 
-                            db.execSQL("INSERT INTO comments (dish_id, author_name, rating, text, created_at, upvotes) VALUES (1, 'Tal', 5, 'Absolutely loved it — authentic and flavorful.', '20/12/2025, 10:05', 0)")
-                            db.execSQL("INSERT INTO comments (dish_id, author_name, rating, text, created_at, upvotes) VALUES (1, 'Maya', 3, 'Good, but a bit too salty for me.', '20/12/2025, 12:30', 0)")
-                            db.execSQL("INSERT INTO comments (dish_id, author_name, rating, text, created_at, upvotes) VALUES (1, 'Noam', 4, 'Great crust, could use more basil.', '20/12/2025, 18:45', 0)")
-
-                            db.execSQL("INSERT INTO comments (dish_id, author_name, rating, text, created_at, upvotes) VALUES (2, 'Tal', 5, 'Absolutely loved it — authentic and flavorful.', '20/12/2025, 10:05', 0)")
-                            db.execSQL("INSERT INTO comments (dish_id, author_name, rating, text, created_at, upvotes) VALUES (2, 'Maya', 3, 'Good, but a bit too salty for me.', '20/12/2025, 12:30', 0)")
-                            db.execSQL("INSERT INTO comments (dish_id, author_name, rating, text, created_at, upvotes) VALUES (2, 'Noam', 4, 'Great crust, could use more basil.', '20/12/2025, 18:45', 0)")
-
                             // Inserts random sample comments for each dish
                             fun randomDate(): String {
                                 val day = (1..28).random()
@@ -351,14 +343,13 @@ abstract class KitchenDataBase : RoomDatabase() {
                                     try {
                                         db.execSQL(
                                             """
-                                                INSERT INTO comments (dish_id, author_name, rating, text, created_at, upvotes)
+                                                INSERT INTO comments (dish_id, author_name, rating, text, created_at)
                                                 VALUES (
                                                     $dishId,
                                                     '${escapeSql(author)}',
                                                     $rating,
                                                     '${escapeSql(text)}',
-                                                    '$createdAt',
-                                                    0
+                                                    '$createdAt'
                                                 )
                                                 """.trimIndent()
                                         )

@@ -28,7 +28,6 @@ class CommentRepository(application: Application) {
             rating = rating,
             text = text,
             createdAt = timestamp,
-            upvotes = 0 // reset on create/edit
         )
         // Keep dish.reviews_count in sync
         commentDao.insertOrReplaceAndSyncDishCount(comment)
@@ -38,6 +37,4 @@ class CommentRepository(application: Application) {
         // Delete and sync dish.reviews_count
         commentDao.deleteByDishAndAuthorAndSync(dishId, authorName)
     }
-
-    suspend fun upvote(commentId: Int) = commentDao.incrementUpvotes(commentId)
 }
