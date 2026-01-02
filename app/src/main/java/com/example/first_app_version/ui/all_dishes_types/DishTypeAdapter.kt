@@ -23,10 +23,10 @@ class DishTypeAdapter(
         private val binding: DishTypeLayoutBinding
     ) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(item: DishType) {
-            binding.mealTitle.text = item.name
-            binding.mealImage.setImageResource(item.imageRes ?: R.drawable.default_dish)
-            binding.root.setOnClickListener { onClick(item) }
+        fun bind(dishType: DishType) {
+            binding.mealTitle.text = dishType.name
+            binding.mealImage.setImageResource(dishType.imageRes ?: R.drawable.default_dish)
+            binding.root.setOnClickListener { onClick(dishType) }
         }
 
     }

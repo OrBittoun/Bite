@@ -69,6 +69,7 @@ class DishDisplayPageFragment : Fragment() {
         }
 
         selectionViewModel.selectedDishId.observe(viewLifecycleOwner) { dishId ->
+            val ctx = binding.root.context
             currentDishId = dishId
 
             dishDetailsViewModel.dishById(dishId).observe(viewLifecycleOwner) { dish ->
@@ -76,7 +77,7 @@ class DishDisplayPageFragment : Fragment() {
                 binding.dishDesc.text = dish.description ?: ""
                 val img = dish.imageRes ?: R.mipmap.pizza_foreground
                 binding.dishImg.setImageResource(img)
-                binding.dishPrice?.text = "Price: ${dish.price}₪"
+                binding.dishPrice.text = ctx.getString(R.string.dish_price_display, dish.price.toDouble())
             }
 
             commentsViewModel.commentsForDish(dishId).observe(viewLifecycleOwner) { comments ->

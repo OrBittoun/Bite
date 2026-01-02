@@ -16,15 +16,15 @@ class CommentAdapter : RecyclerView.Adapter<CommentAdapter.CommentViewHolder>() 
         notifyDataSetChanged()
     }
 
-    inner class CommentViewHolder(
+    class CommentViewHolder(
         private val binding: CommentDisplayBinding
     ) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(item: Comment) {
-            binding.commentAuthor.text = item.authorName
-            binding.commentDate.text = item.createdAt
-            binding.commentRating.rating = item.rating.toFloat()
-            binding.commentText.text = item.text
+        fun bind(comment: Comment) {
+            binding.commentAuthor.text = comment.authorName
+            binding.commentDate.text = comment.createdAt
+            binding.commentRating.rating = comment.rating.toFloat()
+            binding.commentText.text = comment.text
         }
     }
 

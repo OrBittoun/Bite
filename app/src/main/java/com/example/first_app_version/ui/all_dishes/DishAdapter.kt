@@ -19,17 +19,17 @@ class DishAdapter(
 
         init { binding.root.setOnClickListener(this) }
 
-        fun bind(item: Dish) {
+        fun bind(dish: Dish) {
             val ctx = binding.root.context
-            val res = item.imageRes ?: R.mipmap.pizza_foreground
-            val count = item.reviewsCount
+            val res = dish.imageRes ?: R.mipmap.pizza_foreground
+            val count = dish.reviewsCount
 
-            binding.dishDesc.text = item.description.orEmpty()
-            binding.dishTitle.text = item.name
+            binding.dishDesc.text = dish.description.orEmpty()
+            binding.dishTitle.text = dish.name
             binding.dishImg.setImageResource(res)
-            binding.restaurantName.text = item.restaurantName
-            binding.dishPrice.text = ctx.getString(R.string.dish_price_display, item.price.toDouble())
-            binding.dishDesc.text = item.description ?: ""
+            binding.restaurantName.text = dish.restaurantName
+            binding.dishPrice.text = ctx.getString(R.string.dish_price_display, dish.price.toDouble())
+            binding.dishDesc.text = dish.description ?: ""
             binding.reviewsCount.text = ctx.resources.getQuantityString(R.plurals.reviews_count, count, count)
             binding.reviewsCount.textDirection = View.TEXT_DIRECTION_LOCALE
         }

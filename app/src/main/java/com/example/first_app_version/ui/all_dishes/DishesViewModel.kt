@@ -13,6 +13,4 @@ class DishesViewModel(application: Application) : AndroidViewModel(application) 
     fun getDishesForType(dishTypeId: Int): LiveData<List<Dish>> =
         repository.getDishesForDishType(dishTypeId)
 
-    fun getDishById(dishId: Int): LiveData<Dish> =
-        repository.getDishById(dishId)
 }
