@@ -13,9 +13,9 @@ class DishTypeAdapter(
 
     private val dishTypes: MutableList<DishType> = mutableListOf()
 
-    fun submitList(newDisgTypes: List<DishType>) {
+    fun submitList(newDishTypes: List<DishType>) {
         dishTypes.clear()
-        dishTypes.addAll(newDisgTypes)
+        dishTypes.addAll(newDishTypes)
         notifyDataSetChanged()
     }
 
