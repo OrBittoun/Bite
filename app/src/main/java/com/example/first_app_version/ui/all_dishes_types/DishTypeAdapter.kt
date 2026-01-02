@@ -11,11 +11,11 @@ class DishTypeAdapter(
     private val onClick: (DishType) -> Unit
 ) : RecyclerView.Adapter<DishTypeAdapter.DishTypeViewHolder>() {
 
-    private val items: MutableList<DishType> = mutableListOf()
+    private val dishTypes: MutableList<DishType> = mutableListOf()
 
-    fun submitList(newItems: List<DishType>) {
-        items.clear()
-        items.addAll(newItems)
+    fun submitList(newDisgTypes: List<DishType>) {
+        dishTypes.clear()
+        dishTypes.addAll(newDisgTypes)
         notifyDataSetChanged()
     }
 
@@ -38,8 +38,8 @@ class DishTypeAdapter(
     }
 
     override fun onBindViewHolder(holder: DishTypeViewHolder, position: Int) {
-        holder.bind(items[position])
+        holder.bind(dishTypes[position])
     }
 
-    override fun getItemCount(): Int = items.size
+    override fun getItemCount(): Int = dishTypes.size
 }

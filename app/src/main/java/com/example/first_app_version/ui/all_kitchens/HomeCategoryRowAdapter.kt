@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.first_app_version.R
 
 class HomeCategoryRowAdapter(
-    private val items: List<DishPreview>,
+    private val dishPreviews: List<DishPreview>,
     private val onDishClick: (Int) -> Unit,
     private val onExploreClick: () -> Unit
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -20,11 +20,11 @@ class HomeCategoryRowAdapter(
     }
 
     override fun getItemCount(): Int {
-        return items.size + 1
+        return dishPreviews.size + 1
     }
 
     override fun getItemViewType(position: Int): Int {
-        return if (position < items.size) TYPE_IMAGE else TYPE_BUTTON
+        return if (position < dishPreviews.size) TYPE_IMAGE else TYPE_BUTTON
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -41,7 +41,7 @@ class HomeCategoryRowAdapter(
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder) {
-            is ImageViewHolder -> holder.bind(items[position])
+            is ImageViewHolder -> holder.bind(dishPreviews[position])
             is ButtonViewHolder -> holder.bind()
         }
     }

@@ -9,7 +9,7 @@ import com.example.first_app_version.data.models.Dish
 import com.example.first_app_version.databinding.DishLayoutBinding
 
 class DishAdapter(
-    private val items: List<Dish>,
+    private val dishes: List<Dish>,
     private val onClick: (Dish) -> Unit
 ) : RecyclerView.Adapter<DishAdapter.DishViewHolder>() {
 
@@ -35,7 +35,7 @@ class DishAdapter(
         }
 
         override fun onClick(v: View?) {
-            onClick(items[bindingAdapterPosition])
+            onClick(dishes[bindingAdapterPosition])
         }
     }
 
@@ -46,7 +46,7 @@ class DishAdapter(
     }
 
     override fun onBindViewHolder(holder: DishViewHolder, position: Int) =
-        holder.bind(items[position])
+        holder.bind(dishes[position])
 
-    override fun getItemCount(): Int = items.size
+    override fun getItemCount(): Int = dishes.size
 }

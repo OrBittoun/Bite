@@ -7,7 +7,6 @@ import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.first_app_version.R
-import com.example.first_app_version.ui.all_kitchens.HomeCategory
 import android.view.MotionEvent
 import android.view.GestureDetector
 import android.view.GestureDetector.SimpleOnGestureListener
@@ -47,7 +46,7 @@ class HomeCategoriesAdapter(
             val previewItems = previewProvider(category)
 
             val homeCategoryRowAdapter = HomeCategoryRowAdapter(
-                items = previewItems,
+                dishPreviews = previewItems,
                 onDishClick = onDishClick,
                 onExploreClick = { onCategoryClick(category) }
             )

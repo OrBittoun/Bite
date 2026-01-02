@@ -8,11 +8,11 @@ import com.example.first_app_version.databinding.CommentDisplayBinding
 
 class CommentAdapter : RecyclerView.Adapter<CommentAdapter.CommentViewHolder>() {
 
-    private val items = mutableListOf<Comment>()
+    private val comments = mutableListOf<Comment>()
 
-    fun submitList(newItems: List<Comment>) {
-        items.clear()
-        items.addAll(newItems)
+    fun submitList(newComments: List<Comment>) {
+        comments.clear()
+        comments.addAll(newComments)
         notifyDataSetChanged()
     }
 
@@ -35,8 +35,8 @@ class CommentAdapter : RecyclerView.Adapter<CommentAdapter.CommentViewHolder>() 
     }
 
     override fun onBindViewHolder(holder: CommentViewHolder, position: Int) {
-        holder.bind(items[position])
+        holder.bind(comments[position])
     }
 
-    override fun getItemCount(): Int = items.size
+    override fun getItemCount(): Int = comments.size
 }
