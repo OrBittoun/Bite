@@ -11,7 +11,7 @@
         android:layout_width="62dp"
         android:layout_height="64dp"
         android:layout_gravity="center"
-        app:backgroundTint="@color/white"
+        app:backgroundTint="@color/home_button"
         app:cornerRadius="32dp"
         app:icon="@drawable/more_arrow"
         app:iconSize="32dp"

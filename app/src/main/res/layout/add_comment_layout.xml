@@ -4,10 +4,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F5F5F5">
+    android:background="@color/bg_main">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/main_card"
+        android:background="@color/bg_card"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_margin="16dp"
@@ -29,7 +30,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="24dp">
+                android:padding="24dp"
+                android:background="@color/bg_card">
 
                 <TextView
                     android:id="@+id/dish_title"
@@ -38,6 +40,7 @@
                     android:fontFamily="@font/arimo_bolditalic"
                     android:gravity="center"
                     android:text="@string/meal_title"
+                    android:textColor="@color/text_primary"
                     android:textSize="22sp"
                     android:textStyle="bold" />
 
@@ -47,7 +50,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:text="@string/dish_description"
-                    android:textColor="#616161"
+                    android:textColor="@color/text_primary"
                     android:textSize="15sp" />
 
                 <TextView
@@ -55,6 +58,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
                     android:text="@string/your_rating"
+                    android:textColor="@color/text_primary"
                     android:textSize="16sp"
                     android:textStyle="bold" />
 
@@ -75,6 +79,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
                     android:text="@string/your_comment"
+                    android:textColor="@color/text_primary"
                     android:textSize="16sp"
                     android:textStyle="bold" />
 
@@ -87,6 +92,7 @@
                     android:background="@android:color/transparent"
                     android:gravity="top|start"
                     android:hint="@string/comment_hint"
+                    android:textColor="@color/text_primary"
                     android:inputType="textMultiLine"
                     android:padding="8dp"
                     android:textSize="16sp" />
@@ -106,7 +112,7 @@
                         android:paddingStart="30dp"
                         android:paddingEnd="30dp"
                         android:text="@string/submit"
-                        android:textColor="@color/black"
+                        android:textColor="@color/text_primary"
                         android:textStyle="bold"
                         app:cornerRadius="25dp"
                         app:strokeColor="@color/primary_buttons"

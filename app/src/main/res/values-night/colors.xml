@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <color name="bg_main">#FFFFFF</color>
-    <color name="bg_card">#F3F4F6</color>
-    <color name="text_primary">#111827</color>
+    <color name="bg_main">#1B211A</color>
+    <color name="bg_card">#44444E</color>
+    <color name="text_primary">#E1E1E1</color>
     <color name="text_secondary">#6B7280</color>
-    <color name="home_button">#F3F4F6</color>
-
+    <color name="home_button">#44444E</color>
 
     <color name="green">#4CAF50</color>
     <color name="red">#F44336</color>

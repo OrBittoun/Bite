@@ -28,7 +28,7 @@
             android:layout_marginBottom="20dp"
             android:textSize="24sp"
             android:textStyle="bold"
-            android:textColor="@color/black"
+            android:textColor="@color/text_primary"
             android:maxLines="4"
             android:ellipsize="end"/>
 
@@ -62,7 +62,7 @@
                 android:text="@string/dish_price"
                 android:textSize="16sp"
                 android:textStyle="bold"
-                android:textColor="@color/black"/>
+                android:textColor="@color/text_primary"/>
 
             <TextView
                 android:id="@+id/dish_restaurant"
@@ -71,7 +71,7 @@
                 android:layout_marginTop="4dp"
                 android:text="@string/restaurant_name"
                 android:textSize="14sp"
-                android:textColor="@color/gray"
+                android:textColor="@color/text_primary"
                 android:textStyle="italic" />
 
 
@@ -82,7 +82,7 @@
                 android:layout_marginTop="8dp"
                 android:text="@string/dish_description"
                 android:textSize="14sp"
-                android:textColor="@color/slate_gray"
+                android:textColor="@color/text_primary"
                 android:maxLines="4"
                 android:ellipsize="end"/>
 
@@ -104,7 +104,7 @@
                     android:paddingEnd="20dp"
                     android:text="@string/comment"
                     android:textAllCaps="true"
-                    android:textColor="@color/black"
+                    android:textColor="@color/text_primary"
                     android:textSize="14sp"
                     android:textStyle="bold"
                     android:clickable="true"

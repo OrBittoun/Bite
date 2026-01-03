@@ -20,6 +20,7 @@
             android:layout_height="220dp"
             app:lottie_rawRes="@raw/lottie_downloading"
             app:lottie_loop="false"
+            android:background="@color/bg_card"
             android:layout_gravity="center" />
 
     </FrameLayout>

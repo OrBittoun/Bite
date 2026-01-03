@@ -16,6 +16,7 @@
             android:id="@+id/dish_title"
             android:textSize="22sp"
             android:textStyle="bold"
+            android:textColor="@color/text_primary"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/arimo_bolditalic"
@@ -25,6 +26,7 @@
             android:id="@+id/dish_desc"
             android:layout_marginTop="6dp"
             android:textSize="16sp"
+            android:textColor="@color/text_primary"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/dish_description"/>
@@ -33,6 +35,7 @@
             android:layout_marginTop="16dp"
             android:text="@string/your_rating"
             android:textSize="16sp"
+            android:textColor="@color/text_primary"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
@@ -52,6 +55,7 @@
             android:layout_marginTop="16dp"
             android:text="@string/your_comment"
             android:textSize="16sp"
+            android:textColor="@color/text_primary"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
@@ -94,7 +98,7 @@
                     android:textSize="14sp"
                     android:textStyle="bold"
                     android:textAllCaps="true"
-                    android:textColor="@color/black"
+                    android:textColor="@color/text_primary"
                     android:insetTop="0dp"
                     android:insetBottom="0dp"
                     android:minHeight="44dp"
