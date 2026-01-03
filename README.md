@@ -7,7 +7,7 @@ The project focuses on **clean architecture**, **MVVM**, **Room database**, and 
 
 ---
 
-## 🚀 Features
+## Features
 
 - **Home Screen**
   - Kitchen cards with horizontal dish previews
