@@ -8,6 +8,8 @@ import com.example.first_app_version.data.models.Comment
 import com.example.first_app_version.data.models.Dish
 import com.example.first_app_version.data.repository.CommentRepository
 import com.example.first_app_version.data.repository.DishRepository
+import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.launch
 
 class AddCommentViewModel(application: Application) : AndroidViewModel(application) {
     private val commentRepository = CommentRepository(application)
@@ -37,17 +39,20 @@ class AddCommentViewModel(application: Application) : AndroidViewModel(applicati
         return commentRepository.observeMyComment(dishId)
     }
 
-    suspend fun saveMyComment(dishId: Int, rating: Int, text: String) {
-        commentRepository.saveMyComment(dishId, rating, text)
-        _draftRating.value = rating
-        _draftText.value = text
+    fun saveMyComment(dishId: Int, rating: Int, text: String) {
+        viewModelScope.launch {
+            commentRepository.saveMyComment(dishId, rating, text)
+            // keep draft in sync with saved values
+            _draftRating.value = rating
+            _draftText.value = text
+        }
     }
 
-    suspend fun deleteMyComment(dishId: Int) {
-        commentRepository.deleteMyComment(dishId)
-        clearDraft()
+    fun deleteMyComment(dishId: Int) {
+        viewModelScope.launch {
+            commentRepository.deleteMyComment(dishId)
+        }
     }
-
 
     fun setDraftText(text: String) {
         _draftText.value = text

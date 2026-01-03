@@ -37,7 +37,7 @@
     </fragment>
     <fragment
         android:id="@+id/dishDisplayPageFragment"
-        android:name="com.example.first_app_version.ui.dish_display.DishDisplayPageFragment"
+        android:name="com.example.first_app_version.ui.dish_display.DishDisplayFragment"
         android:label="dish_display_layout"
         tools:layout="@layout/dish_display_layout" >
         <action

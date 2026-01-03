@@ -17,7 +17,7 @@ import com.example.first_app_version.R
 import com.example.first_app_version.databinding.DishDisplayLayoutBinding
 import com.example.first_app_version.ui.all_kitchens.SelectionViewModel
 
-class DishDisplayPageFragment : Fragment() {
+class DishDisplayFragment : Fragment() {
 
     private var _binding: DishDisplayLayoutBinding? = null
     private val binding get() = _binding!!

@@ -53,6 +53,8 @@
     <string name="dish_price_display">מחיר: %1$.0f₪</string>
     <string name="no_dish_type">לא נמצא סוג מנה</string>
     <string name="no_dishes">לא נמצאו מנות</string>
+    <string name="app_logo">לוגו האפליקציה</string>
+
 
 
 </resources>

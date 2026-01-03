@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ui.dish_display.DishDisplayPageFragment"
+    tools:context=".ui.dish_display.DishDisplayFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -69,7 +69,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
-                android:text="Restaurant Name"
+                android:text="@string/restaurant_name"
                 android:textSize="14sp"
                 android:textColor="@color/gray"
                 android:textStyle="italic" />

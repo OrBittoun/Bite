@@ -31,7 +31,7 @@ data class DishType(
     val name: String,
 
     @ColumnInfo(name = "image_res")
-    @DrawableRes val imageRes: Int? = null,
+    @param:DrawableRes val imageRes: Int? = null,
 )
 
 

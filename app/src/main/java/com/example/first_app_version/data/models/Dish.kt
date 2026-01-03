@@ -33,7 +33,7 @@ data class Dish(
     val restaurantName: String,
 
     @ColumnInfo(name = "image_res")
-    @DrawableRes val imageRes: Int? = null,
+    @param:DrawableRes val imageRes: Int? = null,
 
     @ColumnInfo(name = "description")
     val description: String? = null,

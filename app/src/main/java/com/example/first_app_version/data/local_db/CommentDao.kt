@@ -38,7 +38,6 @@ interface CommentDao {
     @Query("DELETE FROM comments WHERE dish_id = :dishId AND author_name = :authorName")
     suspend fun deleteByDishAndAuthor(dishId: Int, authorName: String = "You"): Int
 
-    // Transactional delete + reviews_count sync
     @Transaction
     suspend fun deleteByDishAndAuthorAndSync(dishId: Int, authorName: String = "You") {
         deleteByDishAndAuthor(dishId, authorName)

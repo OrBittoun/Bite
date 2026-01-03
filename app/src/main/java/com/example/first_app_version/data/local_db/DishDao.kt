@@ -20,6 +20,6 @@ interface DishDao {
     fun getDishById(dishId: Int): LiveData<Dish>
 
     @Query("SELECT image_res FROM dishes WHERE id = :dishId LIMIT 1")
-    fun getImageResForDish(dishId: Int): Int?
+    suspend fun getImageResForDish(dishId: Int): Int?
 
 }

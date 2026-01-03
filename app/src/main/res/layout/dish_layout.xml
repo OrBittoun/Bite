@@ -76,7 +76,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:text="Dish description..."
+                android:text="@string/dish_description"
                 android:textSize="14sp"
                 android:textColor="@color/cool_dark_gray"
                 android:maxLines="4"

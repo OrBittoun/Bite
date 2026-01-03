@@ -36,7 +36,6 @@ abstract class KitchenDataBase : RoomDatabase() {
                     KitchenDataBase::class.java,
                     "bite_db"
                 )
-                    .allowMainThreadQueries()
                     .fallbackToDestructiveMigration(true)
                     .addCallback(object : Callback() {
 

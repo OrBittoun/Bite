@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".ui.dish_display.DishDisplayPageFragment"
+    tools:context=".ui.dish_display.DishDisplayFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -101,6 +101,26 @@
             android:ellipsize="end"/>
 
         <TextView
+            android:id="@+id/dish_price"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="@string/dish_price"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textColor="@color/black"/>
+
+        <TextView
+            android:id="@+id/dish_restaurant"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="@string/restaurant_name"
+            android:textSize="14sp"
+            android:textColor="@color/gray"
+            android:textStyle="italic" />
+
+        <TextView
             android:id="@+id/dish_desc"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -110,16 +130,6 @@
             android:textColor="@color/slate_gray"
             android:maxLines="4"
             android:ellipsize="end"/>
-
-        <TextView
-            android:id="@+id/dish_price"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="6dp"
-            android:gravity="center"
-            android:text="@string/example_price"
-            android:textSize="18sp"
-            android:textStyle="bold" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_dish_comments"
