@@ -25,7 +25,7 @@ The project focuses on **clean architecture**, **MVVM**, **Room database**, and 
 
 - **Comments & Ratings**
   - Add, update, and delete personal comments
-  - Star-based rating system (1–5)
+  - Star-based rating system (1-5)
   - Reviews stored locally using Room
   - Automatic synchronization of reviews count
 
