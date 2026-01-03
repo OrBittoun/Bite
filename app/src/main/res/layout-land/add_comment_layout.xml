@@ -59,6 +59,7 @@
             android:id="@+id/comment_edit_text"
             android:layout_width="match_parent"
             android:layout_height="120dp"
+            android:autofillHints=""
             android:gravity="top|start"
             android:inputType="textMultiLine"
             android:background="@android:color/transparent"
