@@ -32,6 +32,15 @@ The project focuses on **clean architecture**, **MVVM**, **Room database**, and 
 - **Lottie Animation**
   - Success animation after adding or updating a comment
 
+## Tech Stack
+
+- **Language:** Kotlin
+- **UI:** XML, Material Design 3
+- **Architecture:** MVVM
+- **Database:** Room
+- **Async:** Kotlin Coroutines
+- **State Management:** LiveData, ViewModel
+- **Animations:** Lottie
 
 
 
