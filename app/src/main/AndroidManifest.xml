@@ -10,7 +10,8 @@
         android:label="Bite"
         android:roundIcon="@mipmap/bite_rounded"
         android:supportsRtl="true"
-        android:theme="@style/Theme.First_App_Version">
+        android:theme="@style/Theme.First_App_Version"
+        android:name=".di.MyApplication">
         <activity
             android:name=".MainActivity"
             android:exported="true">
