@@ -1,16 +1,17 @@
 package com.example.first_app_version.ui.all_dishes
 
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.ViewModel
 import com.example.first_app_version.data.models.Dish
 import com.example.first_app_version.data.repository.DishRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-class DishesViewModel(application: Application) : AndroidViewModel(application) {
-
-    private val repository = DishRepository(application)
+@HiltViewModel
+class DishesViewModel @Inject constructor(
+    private val repository: DishRepository
+) : ViewModel() {
 
     fun getDishesForType(dishTypeId: Int): LiveData<List<Dish>> =
         repository.getDishesForDishType(dishTypeId)
-
 }

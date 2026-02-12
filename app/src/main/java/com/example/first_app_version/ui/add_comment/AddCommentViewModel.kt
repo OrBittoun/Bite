@@ -1,19 +1,22 @@
 package com.example.first_app_version.ui.add_comment
 
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.first_app_version.data.models.Comment
 import com.example.first_app_version.data.models.Dish
 import com.example.first_app_version.data.repository.CommentRepository
 import com.example.first_app_version.data.repository.DishRepository
-import androidx.lifecycle.viewModelScope
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class AddCommentViewModel(application: Application) : AndroidViewModel(application) {
-    private val commentRepository = CommentRepository(application)
-    private val dishRepository = DishRepository(application)
+@HiltViewModel
+class AddCommentViewModel @Inject constructor(
+    private val commentRepository: CommentRepository,
+    private val dishRepository: DishRepository
+) : ViewModel() {
 
     // Draft state that survives onViewCreated
     private val _draftText = MutableLiveData<String>("")

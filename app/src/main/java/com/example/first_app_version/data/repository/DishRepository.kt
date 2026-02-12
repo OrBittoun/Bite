@@ -1,16 +1,22 @@
 package com.example.first_app_version.data.repository
 
-import android.app.Application
-import com.example.first_app_version.data.local_db.KitchenDataBase
+import androidx.lifecycle.LiveData
+import com.example.first_app_version.data.local_db.DishDao
+import com.example.first_app_version.data.models.Dish
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class DishRepository(application: Application) {
+@Singleton
+class DishRepository @Inject constructor(
+    private val dishDao: DishDao
+) {
+    fun getDishesForDishType(dishTypeId: Int): LiveData<List<Dish>> =
+        dishDao.getDishesForDishType(dishTypeId)
 
-    private val dishDao = KitchenDataBase.getDataBase(application).dishesDao()
-
-    fun getDishesForDishType(dishTypeId: Int) = dishDao.getDishesForDishType(dishTypeId)
-    fun getDishById(dishId: Int) = dishDao.getDishById(dishId)
+    fun getDishById(dishId: Int): LiveData<Dish> =
+        dishDao.getDishById(dishId)
 
     suspend fun getDishImageRes(dishId: Int): Int? = withContext(Dispatchers.IO) {
         dishDao.getImageResForDish(dishId)

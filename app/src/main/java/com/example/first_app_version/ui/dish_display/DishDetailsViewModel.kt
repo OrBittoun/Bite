@@ -1,12 +1,16 @@
 package com.example.first_app_version.ui.dish_display
 
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.ViewModel
 import com.example.first_app_version.data.models.Dish
 import com.example.first_app_version.data.repository.DishRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-class DishDetailsViewModel(application: Application) : AndroidViewModel(application) {
-    private val repository = DishRepository(application)
+@HiltViewModel
+class DishDetailsViewModel @Inject constructor(
+    private val repository: DishRepository
+) : ViewModel() {
+
     fun dishById(dishId: Int): LiveData<Dish> = repository.getDishById(dishId)
 }

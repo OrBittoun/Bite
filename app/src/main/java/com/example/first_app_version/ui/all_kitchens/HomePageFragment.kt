@@ -15,18 +15,25 @@ import com.example.first_app_version.R
 import com.example.first_app_version.data.models.Kitchen
 import com.example.first_app_version.data.repository.DishRepository
 import com.example.first_app_version.databinding.HomePageLayoutBinding
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class HomePageFragment : Fragment() {
 
     private var _binding: HomePageLayoutBinding? = null
     private val binding get() = _binding!!
+
     private val kitchenViewModel: KitchenViewModel by activityViewModels()
     private val selectionViewModel: SelectionViewModel by activityViewModels()
-    private lateinit var dishRepository: DishRepository
+
+    @Inject
+    lateinit var dishRepository: DishRepository
+
     private val dishImageCache = mutableMapOf<Int, Int>()
     private var kitchensCache: List<Kitchen> = emptyList()
 
@@ -41,8 +48,6 @@ class HomePageFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        dishRepository = DishRepository(requireActivity().application)
 
         val categories = listOf(
             HomeCategory(1, kitchenViewModel.getKitchenSync(1)?.name ?: "Italian", listOf(1, 6, 11)),

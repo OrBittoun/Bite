@@ -17,8 +17,10 @@ import com.airbnb.lottie.LottieAnimationView
 import com.example.first_app_version.R
 import com.example.first_app_version.databinding.AddCommentLayoutBinding
 import com.example.first_app_version.ui.all_kitchens.SelectionViewModel
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
+@AndroidEntryPoint
 class AddCommentFragment : Fragment() {
 
     private var _binding: AddCommentLayoutBinding? = null
@@ -76,6 +78,7 @@ class AddCommentFragment : Fragment() {
                 userEdited = true
                 addCommentViewModel.setDraftText(s?.toString() ?: "")
             }
+
             override fun afterTextChanged(s: Editable?) {}
         })
 
@@ -92,7 +95,8 @@ class AddCommentFragment : Fragment() {
                     existingCommentPresent = myComment != null
 
                     // Toggle Delete button visibility based on whether user has a comment
-                    binding.deleteButton.visibility = if (existingCommentPresent) View.VISIBLE else View.GONE
+                    binding.deleteButton.visibility =
+                        if (existingCommentPresent) View.VISIBLE else View.GONE
 
                     if (addCommentViewModel.isDraftEmpty()) {
                         addCommentViewModel.prefillDraftFromExisting(myComment)
@@ -134,7 +138,8 @@ class AddCommentFragment : Fragment() {
                 val text = binding.commentEditText.text.toString().trim()
 
                 if (text.isEmpty()) {
-                    Toast.makeText(requireContext(), R.string.insert_comment, Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(), R.string.insert_comment, Toast.LENGTH_SHORT)
+                        .show()
                     return@setOnClickListener
                 }
 
@@ -162,7 +167,8 @@ class AddCommentFragment : Fragment() {
                 lifecycleScope.launch {
                     addCommentViewModel.deleteMyComment(dishId)
                     dialog.dismiss()
-                    Toast.makeText(requireContext(), R.string.comment_deleted, Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(), R.string.comment_deleted, Toast.LENGTH_SHORT)
+                        .show()
                     // Navigate back after deletion
                     findNavController().popBackStack()
                 }

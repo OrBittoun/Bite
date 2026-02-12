@@ -14,7 +14,9 @@ import com.example.first_app_version.R
 import com.example.first_app_version.databinding.DishesTypesLayoutBinding
 import com.example.first_app_version.ui.all_kitchens.KitchenViewModel
 import com.example.first_app_version.ui.all_kitchens.SelectionViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class DishesTypesFragment : Fragment() {
 
     private var _binding: DishesTypesLayoutBinding? = null

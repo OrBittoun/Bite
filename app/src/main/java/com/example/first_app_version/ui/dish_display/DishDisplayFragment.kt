@@ -16,7 +16,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.first_app_version.R
 import com.example.first_app_version.databinding.DishDisplayLayoutBinding
 import com.example.first_app_version.ui.all_kitchens.SelectionViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class DishDisplayFragment : Fragment() {
 
     private var _binding: DishDisplayLayoutBinding? = null
@@ -78,7 +80,8 @@ class DishDisplayFragment : Fragment() {
                 binding.dishRestaurant?.text = dish.restaurantName
                 val img = dish.imageRes ?: R.mipmap.pizza_foreground
                 binding.dishImg.setImageResource(img)
-                binding.dishPrice.text = ctx.getString(R.string.dish_price_display, dish.price.toDouble())
+                binding.dishPrice.text =
+                    ctx.getString(R.string.dish_price_display, dish.price.toDouble())
             }
 
             commentsViewModel.commentsForDish(dishId).observe(viewLifecycleOwner) { comments ->
