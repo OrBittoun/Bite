@@ -4,15 +4,23 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.first_app_version.R
+import com.example.first_app_version.data.models.User
+import com.example.first_app_version.data.repository.AuthRepository
+import com.example.first_app_version.data.repository.UserRepository
 import com.example.first_app_version.databinding.RegisterLayoutBinding
+import com.google.firebase.auth.FirebaseAuth
 
 class RegisterFragment : Fragment() {
 
     private var _binding: RegisterLayoutBinding? = null
     private val binding get() = _binding!!
+
+    private val authRepository = AuthRepository()
+    private val userRepository = UserRepository()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -57,11 +65,48 @@ class RegisterFragment : Fragment() {
             if (password.isEmpty()) {
                 binding.passwordEditSignup.error = "Required"
                 valid = false
+            } else if (password.length < 6) {
+                binding.passwordEditSignup.error = "Password must be at least 6 characters"
+                valid = false
             }
 
             if (!valid) return@setOnClickListener
 
-            // כאן נחבר Firebase בהמשך
+            authRepository.signUp(email, password) { success, error ->
+                if (!success) {
+                    Toast.makeText(
+                        requireContext(),
+                        error ?: "Registration failed",
+                        Toast.LENGTH_LONG
+                    ).show()
+                    return@signUp
+                }
+
+                val uid = FirebaseAuth.getInstance().currentUser?.uid
+                if (uid == null) {
+                    Toast.makeText(requireContext(), "No user id", Toast.LENGTH_LONG).show()
+                    return@signUp
+                }
+
+                val user = User(
+                    uid = uid,
+                    email = email,
+                    firstName = first,
+                    lastName = last
+                )
+
+                userRepository.saveUser(user) { saved, saveError ->
+                    if (saved) {
+                        findNavController().navigate(R.id.action_registerFragment_to_homePageFragment)
+                    } else {
+                        Toast.makeText(
+                            requireContext(),
+                            saveError ?: "Failed saving user",
+                            Toast.LENGTH_LONG
+                        ).show()
+                    }
+                }
+            }
         }
     }
 
