@@ -3,8 +3,6 @@ package com.example.first_app_version.data.repository
 import androidx.lifecycle.LiveData
 import com.example.first_app_version.data.local_db.DishDao
 import com.example.first_app_version.data.models.Dish
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -18,7 +16,7 @@ class DishRepository @Inject constructor(
     fun getDishById(dishId: Int): LiveData<Dish> =
         dishDao.getDishById(dishId)
 
-    suspend fun getDishImageRes(dishId: Int): Int? = withContext(Dispatchers.IO) {
-        dishDao.getImageResForDish(dishId)
+    suspend fun getDishImageRes(dishId: Int): Int? {
+        return dishDao.getImageResForDish(dishId)
     }
 }

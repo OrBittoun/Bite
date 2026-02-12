@@ -1,4 +1,5 @@
 package com.example.first_app_version.ui.all_kitchens
+
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,17 +13,24 @@ import android.view.GestureDetector.SimpleOnGestureListener
 import android.widget.ImageView
 
 class HomeCategoriesAdapter(
-    private val categories: List<HomeCategory>,
     private val previewProvider: (HomeCategory) -> List<DishPreview>,
     private val onDishClick: (Int) -> Unit,
     private val onCategoryClick: (HomeCategory) -> Unit
 ) : RecyclerView.Adapter<HomeCategoriesAdapter.CategoryViewHolder>() {
 
+    private val categories = mutableListOf<HomeCategory>()
+
+    fun updateCategories(newCategories: List<HomeCategory>) {
+        categories.clear()
+        categories.addAll(newCategories)
+        notifyDataSetChanged()
+    }
+
     override fun getItemCount(): Int = categories.size
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoryViewHolder {
         val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.home_cards, parent, false) // Creating a card
+            .inflate(R.layout.home_cards, parent, false)
         return CategoryViewHolder(view)
     }
 
@@ -32,16 +40,13 @@ class HomeCategoriesAdapter(
 
     inner class CategoryViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        private val categoryTitle: TextView =
-            itemView.findViewById(R.id.categoryTitle)
-
-        private val categoryRecyclerView: RecyclerView =
-            itemView.findViewById(R.id.categoryRecyclerView)
+        private val categoryTitle: TextView = itemView.findViewById(R.id.categoryTitle)
+        private val categoryRecyclerView: RecyclerView = itemView.findViewById(R.id.categoryRecyclerView)
 
         fun bind(category: HomeCategory) {
-
             categoryTitle.text = category.kitchenName
             categoryTitle.setOnClickListener { onCategoryClick(category) } // Tap goes to kitchen
+
             val previewItems = previewProvider(category)
 
             val homeCategoryRowAdapter = HomeCategoryRowAdapter(
@@ -87,7 +92,6 @@ class HomeCategoriesAdapter(
                         true
                     }
                 }
-
                 // Must have override functions
                 override fun onTouchEvent(rv: RecyclerView, e: MotionEvent) {
                     // No-op: handled in intercept

@@ -12,7 +12,7 @@ class KitchenRepository @Inject constructor(
 ) {
     fun getItems(): LiveData<List<Kitchen>> = kitchenDao.getKitchens()
 
-    fun getKitchen(id: Int): Kitchen? =
+    suspend fun getKitchen(id: Int): Kitchen? =
         try {
             kitchenDao.getKitchen(id)
         } catch (_: Exception) {

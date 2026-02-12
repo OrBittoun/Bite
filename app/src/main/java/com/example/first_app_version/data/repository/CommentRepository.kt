@@ -3,8 +3,6 @@ package com.example.first_app_version.data.repository
 import androidx.lifecycle.LiveData
 import com.example.first_app_version.data.local_db.CommentDao
 import com.example.first_app_version.data.models.Comment
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
@@ -26,7 +24,7 @@ class CommentRepository @Inject constructor(
         rating: Int,
         text: String,
         authorName: String = "You"
-    ) = withContext(Dispatchers.IO) {
+    ) {
         val formatter = SimpleDateFormat("dd/MM/yyyy, HH:mm", Locale.getDefault())
         val timestamp = formatter.format(Date())
 
@@ -41,8 +39,7 @@ class CommentRepository @Inject constructor(
         commentDao.insertOrReplaceAndSyncDishCount(comment)
     }
 
-    suspend fun deleteMyComment(dishId: Int, authorName: String = "You") =
-        withContext(Dispatchers.IO) {
-            commentDao.deleteByDishAndAuthorAndSync(dishId, authorName)
-        }
+    suspend fun deleteMyComment(dishId: Int, authorName: String = "You") {
+        commentDao.deleteByDishAndAuthorAndSync(dishId, authorName)
+    }
 }

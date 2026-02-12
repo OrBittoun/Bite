@@ -12,6 +12,6 @@ interface KitchenDao {
     fun getKitchens(): LiveData<List<Kitchen>>
 
     @Query("SELECT * FROM kitchens WHERE id = :id LIMIT 1")
-    fun getKitchen(id: Int): Kitchen
+    suspend fun getKitchen(id: Int): Kitchen
 
 }
