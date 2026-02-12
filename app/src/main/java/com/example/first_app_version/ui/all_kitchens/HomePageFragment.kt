@@ -38,6 +38,12 @@ class HomePageFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        //register button - delete later
+        binding.tempRegisterButton.setOnClickListener {
+            findNavController().navigate(R.id.registerFragment)
+        }
+
+
         val categories = listOf(
             HomeCategory(
                 kitchenName = "Italian",
@@ -105,7 +111,7 @@ class HomePageFragment : Fragment() {
                     Log.d("HomePageFragment", "Dish clicked: $dishId")
                     selectionViewModel.setDishId(dishId)
                     findNavController().navigate(
-                        R.id.action_homePageFragment_to_dishDisplayPageFragment2
+                        R.id.action_homePageFragment_to_dishesTypesFragment
                     )
                 } catch (e: Exception) {
                     Log.e("HomePageFragment", "Navigation error: ${e.message}")

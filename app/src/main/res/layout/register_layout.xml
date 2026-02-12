@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:background="#FFFFFF">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="30dp"
+        android:gravity="center_horizontal">
+
+        <TextView
+            android:id="@+id/Sign_up_title_signup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Nice to meet you!"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            android:textColor="#1D2D8A"
+            android:layout_marginTop="50dp"
+            android:layout_marginBottom="40dp"/>
+
+        <EditText
+            android:id="@+id/first_name_edit_signup"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:hint="First Name"
+            android:background="@android:drawable/edit_text"
+            android:paddingStart="15dp"
+            android:paddingEnd="15dp"
+            android:layout_marginBottom="15dp"/>
+
+        <EditText
+            android:id="@+id/last_name_edit_signup"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:hint="Last Name"
+            android:background="@android:drawable/edit_text"
+            android:paddingStart="15dp"
+            android:paddingEnd="15dp"
+            android:layout_marginBottom="15dp"/>
+
+        <EditText
+            android:id="@+id/email_edit_signup"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:hint="Email"
+            android:inputType="textEmailAddress"
+            android:background="@android:drawable/edit_text"
+            android:paddingStart="15dp"
+            android:paddingEnd="15dp"
+            android:layout_marginBottom="15dp"/>
+
+        <EditText
+            android:id="@+id/password_edit_signup"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:hint="Password"
+            android:inputType="textPassword"
+            android:background="@android:drawable/edit_text"
+            android:paddingStart="15dp"
+            android:paddingEnd="15dp"
+            android:layout_marginBottom="20dp"/>
+
+        <TextView
+            android:id="@+id/link_to_signin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Already have an account? Sign In"
+            android:textSize="14sp"
+            android:textColor="@android:color/black"
+            android:layout_marginBottom="20dp"/>
+
+        <Button
+            android:id="@+id/sign_up_button"
+            android:layout_width="200dp"
+            android:layout_height="50dp"
+            android:text="Sign Up"
+            android:backgroundTint="#D5E5F2"
+            android:textColor="#3F51B5" />
+
+    </LinearLayout>
+</ScrollView>

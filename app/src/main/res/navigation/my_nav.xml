@@ -14,9 +14,10 @@
             android:id="@+id/action_homePageFragment_to_dishesTypesFragment"
             app:destination="@id/dishesTypesFragment" />
         <action
-            android:id="@+id/action_homePageFragment_to_dishDisplayPageFragment2"
-            app:destination="@id/dishDisplayPageFragment" />
+            android:id="@+id/action_homePageFragment_to_registerFragment"
+            app:destination="@id/registerFragment" />
     </fragment>
+
     <fragment
         android:id="@+id/dishesTypesFragment"
         android:name="com.example.first_app_version.ui.all_dishes_types.DishesTypesFragment"
@@ -49,4 +50,26 @@
         android:name="com.example.first_app_version.ui.add_comment.AddCommentFragment"
         android:label="add_comment_layout"
         tools:layout="@layout/add_comment_layout" />
+    <fragment
+        android:id="@+id/registerFragment"
+        android:name="com.example.first_app_version.ui.authentication.RegisterFragment"
+        android:label="RegisterFragment" >
+        <action
+            android:id="@+id/action_registerFragment_to_homePageFragment"
+            app:destination="@id/homePageFragment" />
+        <action
+            android:id="@+id/action_registerFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.example.first_app_version.ui.authentication.LoginFragment"
+        android:label="LoginFragment" >
+        <action
+            android:id="@+id/action_loginFragment_to_homePageFragment"
+            app:destination="@id/homePageFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_registerFragment"
+            app:destination="@id/registerFragment" />
+    </fragment>
 </navigation>
