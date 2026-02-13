@@ -38,6 +38,8 @@ class RegisterFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding.linkToSignin.paintFlags = binding.linkToSignin.paintFlags or android.graphics.Paint.UNDERLINE_TEXT_FLAG
+
         binding.linkToSignin.setOnClickListener {
             findNavController().navigate(R.id.action_registerFragment_to_loginFragment)
         }
