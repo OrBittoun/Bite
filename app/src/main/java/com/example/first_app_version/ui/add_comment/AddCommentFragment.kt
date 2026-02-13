@@ -1,12 +1,17 @@
 package com.example.first_app_version.ui.add_comment
 
+import android.app.Activity
+import android.content.ActivityNotFoundException
+import android.content.Intent
 import android.os.Bundle
+import android.speech.RecognizerIntent
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -19,6 +24,7 @@ import com.example.first_app_version.databinding.AddCommentLayoutBinding
 import com.example.first_app_version.ui.all_kitchens.SelectionViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import java.util.Locale
 
 @AndroidEntryPoint
 class AddCommentFragment : Fragment() {
@@ -31,6 +37,28 @@ class AddCommentFragment : Fragment() {
 
     private var userEdited = false
     private var existingCommentPresent = false
+
+    // 1. הגדרת המנגנון שמקבל את התוצאה מזיהוי הדיבור
+    private val speechRecognizerLauncher = registerForActivityResult(
+        ActivityResultContracts.StartActivityForResult()
+    ) { result ->
+        if (result.resultCode == Activity.RESULT_OK && result.data != null) {
+            val results = result.data?.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS)
+            val spokenText = results?.get(0) ?: ""
+
+            if (spokenText.isNotEmpty()) {
+                // לוקחים את הטקסט הקיים ומוסיפים לו את הטקסט שזוהה מהדיבור
+                val currentText = binding.commentEditText.text?.toString() ?: ""
+                val newText = if (currentText.isEmpty()) spokenText else "$currentText $spokenText"
+
+                binding.commentEditText.setText(newText)
+                // מזיזים את הסמן (Cursor) לסוף הטקסט
+                binding.commentEditText.setSelection(binding.commentEditText.text?.length ?: 0)
+
+                // ה-TextWatcher הקיים יזהה את השינוי ויעדכן את ה-ViewModel אוטומטית!
+            }
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -46,6 +74,11 @@ class AddCommentFragment : Fragment() {
 
         binding.ratingBar.numStars = 5
         binding.ratingBar.stepSize = 1f
+
+        // 2. הפעלת ההקלטה בלחיצה על המיקרופון (ה-ID מעודכן לפי ה-XML החדש)
+        binding.btnMic.setOnClickListener {
+            startSpeechToText()
+        }
 
         addCommentViewModel.draftRating.observe(viewLifecycleOwner) { rating ->
             if (!userEdited) {
@@ -78,7 +111,6 @@ class AddCommentFragment : Fragment() {
                 userEdited = true
                 addCommentViewModel.setDraftText(s?.toString() ?: "")
             }
-
             override fun afterTextChanged(s: Editable?) {}
         })
 
@@ -94,7 +126,6 @@ class AddCommentFragment : Fragment() {
                 .observe(viewLifecycleOwner) { myComment ->
                     existingCommentPresent = myComment != null
 
-                    // Toggle Delete button visibility based on whether user has a comment
                     binding.deleteButton.visibility =
                         if (existingCommentPresent) View.VISIBLE else View.GONE
 
@@ -113,6 +144,21 @@ class AddCommentFragment : Fragment() {
                 val id = selectionViewModel.selectedDishId.value ?: return@setOnClickListener
                 showDeleteConfirmDialog(id)
             }
+        }
+    }
+
+    // 3. הפונקציה שמשגרת את הבקשה לגוגל להקליט דיבור
+    private fun startSpeechToText() {
+        val intent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH).apply {
+            putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM)
+            putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault()) // משתמש בשפה המוגדרת במכשיר
+            putExtra(RecognizerIntent.EXTRA_PROMPT, "דבר עכשיו...") // הטקסט שיופיע בחלונית ההקלטה
+        }
+
+        try {
+            speechRecognizerLauncher.launch(intent)
+        } catch (e: ActivityNotFoundException) {
+            Toast.makeText(requireContext(), "זיהוי דיבור לא נתמך במכשיר זה", Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -169,7 +215,6 @@ class AddCommentFragment : Fragment() {
                     dialog.dismiss()
                     Toast.makeText(requireContext(), R.string.comment_deleted, Toast.LENGTH_SHORT)
                         .show()
-                    // Navigate back after deletion
                     findNavController().popBackStack()
                 }
             }
