@@ -1,4 +1,4 @@
-package com.example.first_app_version.ui.all_kitchens
+package com.example.first_app_version.data.models
 
 data class DishPreview(
     val dishId: Int,

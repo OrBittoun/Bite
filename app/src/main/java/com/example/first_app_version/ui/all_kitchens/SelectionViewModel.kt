@@ -4,8 +4,11 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.first_app_version.data.models.DishType
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-class SelectionViewModel : ViewModel() {
+@HiltViewModel
+class SelectionViewModel @Inject constructor() : ViewModel() {
 
     private val _selectedDishId = MutableLiveData<Int>()
     val selectedDishId: LiveData<Int>
@@ -23,4 +26,3 @@ class SelectionViewModel : ViewModel() {
         _selectedDishType.value = dishType
     }
 }
-

@@ -11,6 +11,8 @@ import android.view.MotionEvent
 import android.view.GestureDetector
 import android.view.GestureDetector.SimpleOnGestureListener
 import android.widget.ImageView
+import com.example.first_app_version.data.models.DishPreview
+import com.example.first_app_version.data.models.HomeCategory
 
 class HomeCategoriesAdapter(
     private val previewProvider: (HomeCategory) -> List<DishPreview>,

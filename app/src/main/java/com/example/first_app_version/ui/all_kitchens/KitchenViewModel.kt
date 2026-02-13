@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.first_app_version.R
+import com.example.first_app_version.data.models.HomeCategory
 import com.example.first_app_version.data.models.Kitchen
 import com.example.first_app_version.data.repository.DishRepository
 import com.example.first_app_version.data.repository.KitchenRepository

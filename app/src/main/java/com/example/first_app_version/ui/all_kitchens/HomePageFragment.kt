@@ -11,6 +11,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.first_app_version.R
+import com.example.first_app_version.data.models.DishPreview
 import com.example.first_app_version.databinding.HomePageLayoutBinding
 import dagger.hilt.android.AndroidEntryPoint
 
