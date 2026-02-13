@@ -1,8 +1,6 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
-
-    // Add this (uses the alias you added in libs.versions.toml + root build.gradle.kts)
     alias(libs.plugins.hilt.android)
 
     id("kotlin-parcelize")
@@ -25,8 +23,6 @@ android {
         versionCode = 1
         versionName = "1.0"
 
-//        // Optional but commonly needed for instrumented tests with Hilt:
-//        testInstrumentationRunner = "com.example.first_app_version.HiltTestRunner"
     }
 
     buildTypes {
@@ -51,17 +47,20 @@ dependencies {
     implementation("androidx.room:room-runtime:2.8.4")
     add("kapt", "androidx.room:room-compiler:2.8.4")
 
-    // Add these:
     implementation(libs.hilt.android)
     kapt(libs.hilt.compiler)
+
+    implementation("com.github.bumptech.glide:glide:4.16.0")
 
     implementation("androidx.activity:activity-ktx:1.12.1")
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
+
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
     implementation("androidx.recyclerview:recyclerview:1.3.2")
     implementation("com.airbnb.android:lottie:6.4.0")
     implementation("com.google.android.material:material:1.12.0")
+
     implementation(libs.material)
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)

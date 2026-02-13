@@ -13,6 +13,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.bumptech.glide.Glide
 import com.example.first_app_version.R
 import com.example.first_app_version.databinding.DishDisplayLayoutBinding
 import com.example.first_app_version.ui.all_kitchens.SelectionViewModel
@@ -79,7 +80,10 @@ class DishDisplayFragment : Fragment() {
                 binding.dishDesc.text = dish.description ?: ""
                 binding.dishRestaurant?.text = dish.restaurantName
                 val img = dish.imageRes ?: R.mipmap.pizza_foreground
-                binding.dishImg.setImageResource(img)
+                Glide.with(requireContext())
+                    .load(img)
+                    .placeholder(R.drawable.default_dish)
+                    .into(binding.dishImg)
                 binding.dishPrice.text =
                     ctx.getString(R.string.dish_price_display, dish.price.toDouble())
             }

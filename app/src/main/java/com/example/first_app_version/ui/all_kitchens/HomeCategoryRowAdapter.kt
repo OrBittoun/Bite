@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.first_app_version.R
 import com.example.first_app_version.data.models.DishPreview
 
@@ -53,7 +54,10 @@ class HomeCategoryRowAdapter(
             itemView.findViewById(R.id.previewImage)
 
         fun bind(item: DishPreview) {
-            imageView.setImageResource(item.imageRes)
+            Glide.with(itemView.context)
+                .load(item.imageRes)
+                .placeholder(R.drawable.default_dish)
+                .into(imageView)
             imageView.setOnClickListener {
                 onDishClick(item.dishId)
             }

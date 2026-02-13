@@ -3,6 +3,7 @@ package com.example.first_app_version.ui.all_dishes_types
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.first_app_version.R
 import com.example.first_app_version.data.models.DishType
 import com.example.first_app_version.databinding.DishTypeLayoutBinding
@@ -25,7 +26,9 @@ class DishTypeAdapter(
 
         fun bind(dishType: DishType) {
             binding.mealTitle.text = dishType.name
-            binding.mealImage.setImageResource(dishType.imageRes ?: R.drawable.default_dish)
+            Glide.with(binding.root.context)
+                .load(dishType.imageRes ?: R.drawable.default_dish)
+                .into(binding.mealImage)
             binding.root.setOnClickListener { onClick(dishType) }
         }
 

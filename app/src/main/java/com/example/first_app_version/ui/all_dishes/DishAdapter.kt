@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.first_app_version.R
 import com.example.first_app_version.data.models.Dish
 import com.example.first_app_version.databinding.DishLayoutBinding
@@ -26,7 +27,10 @@ class DishAdapter(
 
             binding.dishDesc.text = dish.description.orEmpty()
             binding.dishTitle.text = dish.name
-            binding.dishImg.setImageResource(res)
+            Glide.with(ctx)
+                .load(res)
+                .placeholder(R.drawable.default_dish) // תמונת זמנית בזמן הטעינה
+                .into(binding.dishImg)
             binding.restaurantName.text = dish.restaurantName
             binding.dishPrice.text = ctx.getString(R.string.dish_price_display, dish.price.toDouble())
             binding.dishDesc.text = dish.description ?: ""
