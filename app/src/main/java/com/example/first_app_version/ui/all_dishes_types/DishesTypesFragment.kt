@@ -15,6 +15,7 @@ import com.example.first_app_version.databinding.DishesTypesLayoutBinding
 import com.example.first_app_version.ui.KitchenViewModel
 import com.example.first_app_version.ui.SelectionViewModel
 
+
 class DishesTypesFragment : Fragment() {
 
     private var _binding: DishesTypesLayoutBinding? = null
@@ -23,6 +24,7 @@ class DishesTypesFragment : Fragment() {
     private val kitchenViewModel: KitchenViewModel by activityViewModels()
     private val dishesTypesViewModel: DishesTypesViewModel by viewModels()
     private val selectionViewModel: SelectionViewModel by activityViewModels()
+
 
     private lateinit var adapter: DishTypeAdapter
 

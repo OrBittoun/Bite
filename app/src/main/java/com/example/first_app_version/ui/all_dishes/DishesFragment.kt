@@ -23,6 +23,7 @@ class DishesFragment : Fragment() {
     private val selectionViewModel: SelectionViewModel by activityViewModels()
     private val dishesViewModel: DishesViewModel by viewModels()
 
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,

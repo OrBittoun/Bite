@@ -17,12 +17,15 @@ import com.example.first_app_version.databinding.HomePageLayoutBinding
 import com.example.first_app_version.ui.KitchenViewModel
 import com.example.first_app_version.ui.SelectionViewModel
 
+
+
 class HomePageFragment : Fragment() {
 
     private var _binding: HomePageLayoutBinding? = null
     private val binding get() = _binding!!
     private val kitchenViewModel: KitchenViewModel by activityViewModels()
     private val selectionViewModel: SelectionViewModel by activityViewModels()
+
 
     private var kitchensCache: List<Kitchen> = emptyList()
 
@@ -38,10 +41,6 @@ class HomePageFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        //register button - delete later
-        binding.tempRegisterButton.setOnClickListener {
-            findNavController().navigate(R.id.registerFragment)
-        }
 
 
         val categories = listOf(

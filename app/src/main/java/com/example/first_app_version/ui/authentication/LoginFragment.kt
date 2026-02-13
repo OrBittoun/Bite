@@ -6,11 +6,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.first_app_version.R
 import com.example.first_app_version.data.repository.AuthRepository
 import com.example.first_app_version.data.repository.UserRepository
 import com.example.first_app_version.databinding.LoginLayoutBinding
+import com.example.first_app_version.ui.LoggedInUserViewModel
 import com.google.firebase.auth.FirebaseAuth
 
 class LoginFragment : Fragment() {
@@ -20,6 +22,7 @@ class LoginFragment : Fragment() {
 
     private val authRepository = AuthRepository()
     private val userRepository = UserRepository()
+    private val loggedInUserViewModel: LoggedInUserViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -56,9 +59,13 @@ class LoginFragment : Fragment() {
 
             if (!valid) return@setOnClickListener
 
+            // נועלים כפתור בזמן בקשה
+            binding.loginButton.isEnabled = false
+
             authRepository.signIn(email, password) { success, error ->
 
                 if (!success) {
+                    binding.loginButton.isEnabled = true
                     Toast.makeText(
                         requireContext(),
                         error ?: "Login failed",
@@ -69,13 +76,20 @@ class LoginFragment : Fragment() {
 
                 val uid = FirebaseAuth.getInstance().currentUser?.uid
                 if (uid == null) {
+                    binding.loginButton.isEnabled = true
                     Toast.makeText(requireContext(), "No user id", Toast.LENGTH_LONG).show()
                     return@signIn
                 }
 
                 userRepository.getUser(uid) { user, err ->
+                    binding.loginButton.isEnabled = true
+
                     if (user != null) {
-                        findNavController().navigate(R.id.action_loginFragment_to_homePageFragment)
+                        loggedInUserViewModel.setUser(user)
+
+                        findNavController().navigate(
+                            R.id.action_loginFragment_to_homePageFragment
+                        )
                     } else {
                         Toast.makeText(
                             requireContext(),

@@ -8,7 +8,8 @@
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@color/white">
 
         <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/topAppBar"
@@ -38,31 +39,18 @@
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <Button
-            android:id="@+id/tempRegisterButton"
-            android:layout_width="0dp"
-            android:layout_height="48dp"
-            android:text="Sign Up"
-            android:backgroundTint="#D5E5F2"
-            android:textColor="#3F51B5"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginTop="12dp"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
-
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/homeRecyclerView"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginTop="12dp"
-            app:layout_constraintTop_toBottomOf="@id/tempRegisterButton"
+            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
 

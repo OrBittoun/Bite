@@ -13,9 +13,6 @@
         <action
             android:id="@+id/action_homePageFragment_to_dishesTypesFragment"
             app:destination="@id/dishesTypesFragment" />
-        <action
-            android:id="@+id/action_homePageFragment_to_registerFragment"
-            app:destination="@id/registerFragment" />
     </fragment>
 
     <fragment
@@ -55,11 +52,11 @@
         android:name="com.example.first_app_version.ui.authentication.RegisterFragment"
         android:label="RegisterFragment" >
         <action
-            android:id="@+id/action_registerFragment_to_homePageFragment"
-            app:destination="@id/homePageFragment" />
-        <action
             android:id="@+id/action_registerFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
+        <action
+            android:id="@+id/action_registerFragment_to_homePageFragment"
+            app:destination="@id/homePageFragment" />
     </fragment>
     <fragment
         android:id="@+id/loginFragment"
