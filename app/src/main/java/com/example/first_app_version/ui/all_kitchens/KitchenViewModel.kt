@@ -46,8 +46,8 @@ class KitchenViewModel @Inject constructor(
             val rawCategories = listOf(
                 Triple(1, "Italian", listOf(1, 6, 11)),
                 Triple(2, "Asian", listOf(16, 21, 26)),
-                Triple(3, "Meat & Fish", listOf(46, 50, 54, 58, 62)),
-                Triple(4, "Vegan", listOf(31, 36, 41)),
+                Triple(3, "Vegan", listOf(31, 36, 41)),
+                Triple(4, "Meat & Fish", listOf(46, 50, 54, 58, 62)),
                 Triple(5, "Desserts", listOf(66, 70, 74))
             )
 
