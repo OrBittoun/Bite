@@ -52,6 +52,9 @@ dependencies {
 
     implementation("com.github.bumptech.glide:glide:4.16.0")
 
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+
     implementation("androidx.activity:activity-ktx:1.12.1")
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
