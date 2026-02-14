@@ -56,6 +56,39 @@
     <string name="app_logo">לוגו האפליקציה</string>
     <string name="edit_comment">עריכת התגובה</string>
     <string name="add_comment">הוספת תגובה</string>
+    <string name="user_menu">תפריט משתמש</string>
+    <string name="welcome_back">ברוך שובך!</string>
+    <string name="error_required">שדה חובה</string>
+    <string name="error_invalid_email">הזן כתובת אימייל תקינה</string>
+    <string name="error_password_short">הסיסמה חייבת להכיל לפחות 6 תווים</string>
+    <string name="registration_failed">ההרשמה נכשלה</string>
+    <string name="welcome_message">ברוכים הבאים!</string>
+    <string name="user_data_not_found">נתוני משתמש לא נמצאו</string>
+    <string name="menu_login">התחברות</string>
+    <string name="menu_register">הרשמה</string>
+    <string name="menu_sign_out">התנתקות</string>
+    <string name="menu_hi_user">היי, %1$s</string>
+    <string name="dialog_sign_out_title">התנתקות</string>
+    <string name="dialog_sign_out_msg">האם ברצונך להתנתק מהחשבון?</string>
+    <string name="error_loading_profile">שגיאה בטעינת הפרופיל: %1$s</string>
+    <string name="login">התחברות</string>
+    <string name="register">הרשמה</string>
+    <string name="login_failed">התחברות נכשלה</string>
+    <string name="no_user_id">מזהה משתמש לא נמצא</string>
+    <string name="user_not_found">נתוני משתמש לא נמצאו</string>
+    <string name="nice_to_meet_you">נעים להכיר אותך!</string>
+    <string name="first_name">שם פרטי</string>
+    <string name="last_name">שם משפחה</string>
+    <string name="email">כתובת מייל</string>
+    <string name="password">סיסמא</string>
+    <string name="already_have_an_account_sign_in">כבר יש לך חשבון? התחבר</string>
+    <string name="sign_up">הרשמה</string>
+    <string name="description_sign_up_button">כפתור הרשמה</string>
+    <string name="don_t_have_an_account_sign_up">אין לך חשבון? הירשם</string>
+    <string name="description_login_button">כפתור התחברות</string>
+    <string name="dialog_sign_in_title">נדרשת התחברת</string>
+    <string name="dialog_sign_in_text">עליך להתחבר כדי להוסיף או לעדכן תגובה.</string>
+    <string name="dialog_add_comment_text">ברצונך להוסיף את התגובה?</string>
 
 
 

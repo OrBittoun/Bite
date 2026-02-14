@@ -25,6 +25,7 @@ import com.example.first_app_version.ui.all_kitchens.SelectionViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import java.util.Locale
+import com.google.firebase.auth.FirebaseAuth
 
 @AndroidEntryPoint
 class AddCommentFragment : Fragment() {
@@ -47,15 +48,11 @@ class AddCommentFragment : Fragment() {
             val spokenText = results?.get(0) ?: ""
 
             if (spokenText.isNotEmpty()) {
-                // לוקחים את הטקסט הקיים ומוסיפים לו את הטקסט שזוהה מהדיבור
                 val currentText = binding.commentEditText.text?.toString() ?: ""
                 val newText = if (currentText.isEmpty()) spokenText else "$currentText $spokenText"
 
                 binding.commentEditText.setText(newText)
-                // מזיזים את הסמן (Cursor) לסוף הטקסט
                 binding.commentEditText.setSelection(binding.commentEditText.text?.length ?: 0)
-
-                // ה-TextWatcher הקיים יזהה את השינוי ויעדכן את ה-ViewModel אוטומטית!
             }
         }
     }
@@ -75,7 +72,7 @@ class AddCommentFragment : Fragment() {
         binding.ratingBar.numStars = 5
         binding.ratingBar.stepSize = 1f
 
-        // 2. הפעלת ההקלטה בלחיצה על המיקרופון (ה-ID מעודכן לפי ה-XML החדש)
+        // הפעלת ההקלטה בלחיצה על המיקרופון
         binding.btnMic.setOnClickListener {
             startSpeechToText()
         }
@@ -135,9 +132,15 @@ class AddCommentFragment : Fragment() {
                     }
                 }
 
+            // *** כאן שולב הקוד של השותפה לבדיקת התחברות (Firebase Auth) ***
             binding.submitButton.setOnClickListener {
-                val id = selectionViewModel.selectedDishId.value ?: return@setOnClickListener
-                showConfirmDialog(id)
+                val currentUser = FirebaseAuth.getInstance().currentUser
+                if (currentUser == null) {
+                    showLoginRequiredDialog()
+                } else {
+                    val id = selectionViewModel.selectedDishId.value ?: return@setOnClickListener
+                    showConfirmDialog(id)
+                }
             }
 
             binding.deleteButton.setOnClickListener {
@@ -147,12 +150,12 @@ class AddCommentFragment : Fragment() {
         }
     }
 
-    // 3. הפונקציה שמשגרת את הבקשה לגוגל להקליט דיבור
+    // הפונקציה שמשגרת את הבקשה לגוגל להקליט דיבור
     private fun startSpeechToText() {
         val intent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH).apply {
             putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM)
-            putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault()) // משתמש בשפה המוגדרת במכשיר
-            putExtra(RecognizerIntent.EXTRA_PROMPT, "דבר עכשיו...") // הטקסט שיופיע בחלונית ההקלטה
+            putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault())
+            putExtra(RecognizerIntent.EXTRA_PROMPT, "דבר עכשיו...")
         }
 
         try {
@@ -244,6 +247,18 @@ class AddCommentFragment : Fragment() {
                 findNavController().popBackStack()
             }
         }, 4000)
+    }
+
+    // *** הפונקציה שהשותפה הוסיפה להצגת דיאלוג במקרה שהמשתמש לא מחובר ***
+    private fun showLoginRequiredDialog() {
+        AlertDialog.Builder(requireContext())
+            .setTitle(getString(R.string.dialog_sign_in_title))
+            .setMessage(getString(R.string.dialog_sign_in_text))
+            .setPositiveButton(getString(R.string.login)) { _, _ ->
+                findNavController().navigate(R.id.loginFragment)
+            }
+            .setNegativeButton(getString(R.string.cancel), null)
+            .show()
     }
 
     override fun onDestroyView() {

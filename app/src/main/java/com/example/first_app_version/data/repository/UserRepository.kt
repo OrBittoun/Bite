@@ -2,10 +2,11 @@ package com.example.first_app_version.data.repository
 
 import com.example.first_app_version.data.models.User
 import com.google.firebase.firestore.FirebaseFirestore
+import javax.inject.Inject
 
-class UserRepository {
-
-    private val db = FirebaseFirestore.getInstance()
+class UserRepository @Inject constructor(
+    private val db: FirebaseFirestore
+) {
     private val usersCollection = db.collection("users")
 
     fun saveUser(user: User, onResult: (Boolean, String?) -> Unit) {

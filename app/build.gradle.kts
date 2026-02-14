@@ -47,6 +47,7 @@ android {
 
 dependencies {
     implementation("androidx.room:room-runtime:2.8.4")
+//    implementation(libs.firebase.auth.ktx)
     add("kapt", "androidx.room:room-compiler:2.8.4")
 
     implementation(libs.hilt.android)
@@ -73,6 +74,6 @@ dependencies {
     androidTestImplementation(libs.androidx.espresso.core)
 
     implementation(platform("com.google.firebase:firebase-bom:33.1.2"))
-    implementation("com.google.firebase:firebase-auth-ktx")
-    implementation("com.google.firebase:firebase-firestore-ktx")
+    implementation("com.google.firebase:firebase-auth")
+    implementation("com.google.firebase:firebase-firestore")
 }
