@@ -15,7 +15,7 @@ import com.example.first_app_version.data.models.Kitchen
 
 @Database(
     entities = [Kitchen::class, DishType::class, Dish::class, Comment::class],
-    version = 9,
+    version = 10,
     exportSchema = false
 )
 abstract class KitchenDataBase : RoomDatabase() {

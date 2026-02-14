@@ -97,8 +97,17 @@ class AddCommentFragment : Fragment() {
                 }
 
             binding.submitButton.setOnClickListener {
-                val id = selectionViewModel.selectedDishId.value ?: return@setOnClickListener
-                showConfirmDialog(id)
+                // בדיקה האם המשתמש מחובר ל-Firebase
+                val currentUser = com.google.firebase.auth.FirebaseAuth.getInstance().currentUser
+
+                if (currentUser == null) {
+                    // המשתמש לא מחובר - מציגים דיאלוג שמפנה להתחברות
+                    showLoginRequiredDialog()
+                } else {
+                    // המשתמש מחובר - ממשיכים בתהליך הרגיל של הדיאלוג שכתבת
+                    val id = selectionViewModel.selectedDishId.value ?: return@setOnClickListener
+                    showConfirmDialog(id)
+                }
             }
         }
     }
@@ -161,6 +170,18 @@ class AddCommentFragment : Fragment() {
                 findNavController().popBackStack()
             }
         }, 4000)
+    }
+
+    private fun showLoginRequiredDialog() {
+        AlertDialog.Builder(requireContext())
+            .setTitle("Login Required")
+            .setMessage("You must be logged in to add a comment. After logging in, you will be returned here.")
+            .setPositiveButton("Login") { _, _ ->
+                // ניווט פשוט - משאיר את AddCommentFragment ב-Back Stack
+                findNavController().navigate(R.id.loginFragment)
+            }
+            .setNegativeButton("Cancel", null)
+            .show()
     }
 
     override fun onDestroyView() {

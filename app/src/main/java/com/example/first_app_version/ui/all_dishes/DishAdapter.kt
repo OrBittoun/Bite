@@ -31,6 +31,8 @@ class DishAdapter(
             binding.dishDesc.text = item.description ?: ""
             binding.reviewsCount.text = "${item.reviewsCount} reviews"
 
+
+
         }
 
         override fun onClick(v: View?) {

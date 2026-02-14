@@ -91,21 +91,31 @@ class RegisterFragment : Fragment() {
                 val user = User(uid = uid, email = email, firstName = first, lastName = last)
 
                 // 4. שמירת המשתמש ב-Firestore
-                userRepository.saveUser(user) { saved, saveError ->
+                // ... שאר ה-Imports ...
+
+                userRepository.getUser(uid) { user, err ->
                     binding.signUpButton.isEnabled = true
 
-                    if (saved) {
-                        // עדכון ה-ViewModel
+                    if (user != null) {
+                        // עדכון ה-ViewModel בנתוני המשתמש שנטענו מה-Firestore
                         loggedInUserViewModel.setUser(user)
 
-                        // הצגת הודעה באנגלית כפי שביקשת
-                        Toast.makeText(requireContext(), "Registration successful! Welcome.", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(requireContext(), "Welcome back!", Toast.LENGTH_SHORT).show()
 
-                        // מעבר לדף הבית
-                        findNavController().navigate(R.id.action_registerFragment_to_homePageFragment)
+                        // ניסיון לחזור למסך הקודם (למשל AddCommentFragment)
+                        val navigatedBack = findNavController().popBackStack()
+
+                        // אם אין מסך קודם לחזור אליו (למשל המשתמש הגיע ישירות ללוגין), עוברים לדף הבית
+                        if (!navigatedBack) {
+                            findNavController().navigate(R.id.action_loginFragment_to_homePageFragment)
+                        }
+
                     } else {
-                        // אם השמירה ב-DB נכשלה (בדוק את ה-Rules ב-Firebase Console!)
-                        Toast.makeText(requireContext(), "Database Error: $saveError", Toast.LENGTH_LONG).show()
+                        Toast.makeText(
+                            requireContext(),
+                            err ?: "User data not found",
+                            Toast.LENGTH_LONG
+                        ).show()
                     }
                 }
             }

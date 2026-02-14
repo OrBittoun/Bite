@@ -81,15 +81,25 @@ class LoginFragment : Fragment() {
                     return@signIn
                 }
 
+                // ... שאר ה-Imports ...
+
                 userRepository.getUser(uid) { user, err ->
                     binding.loginButton.isEnabled = true
 
                     if (user != null) {
+                        // עדכון ה-ViewModel בנתוני המשתמש שנטענו מה-Firestore
                         loggedInUserViewModel.setUser(user)
 
-                        findNavController().navigate(
-                            R.id.action_loginFragment_to_homePageFragment
-                        )
+                        Toast.makeText(requireContext(), "Welcome back!", Toast.LENGTH_SHORT).show()
+
+                        // ניסיון לחזור למסך הקודם (למשל AddCommentFragment)
+                        val navigatedBack = findNavController().popBackStack()
+
+                        // אם אין מסך קודם לחזור אליו (למשל המשתמש הגיע ישירות ללוגין), עוברים לדף הבית
+                        if (!navigatedBack) {
+                            findNavController().navigate(R.id.action_loginFragment_to_homePageFragment)
+                        }
+
                     } else {
                         Toast.makeText(
                             requireContext(),
