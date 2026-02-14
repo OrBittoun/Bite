@@ -15,6 +15,7 @@ import com.example.first_app_version.R
 import com.example.first_app_version.data.models.Kitchen
 import com.example.first_app_version.data.repository.DishRepository
 import com.example.first_app_version.databinding.HomePageLayoutBinding
+import com.example.first_app_version.ui.api_data.CategoryViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
@@ -24,8 +25,11 @@ class HomePageFragment : Fragment() {
 
     private var _binding: HomePageLayoutBinding? = null
     private val binding get() = _binding!!
+
     private val kitchenViewModel: KitchenViewModel by activityViewModels()
     private val selectionViewModel: SelectionViewModel by activityViewModels()
+    private val categoryViewModel: CategoryViewModel by activityViewModels()
+
     private lateinit var dishRepository: DishRepository
     private val dishImageCache = mutableMapOf<Int, Int>()
     private var kitchensCache: List<Kitchen> = emptyList()
@@ -44,7 +48,10 @@ class HomePageFragment : Fragment() {
 
         dishRepository = DishRepository(requireActivity().application)
 
-        val categories = listOf(
+        val homeCategories = listOf(
+            // הגדרת מטבח 6 עם ה-IDs המיוחדים למניעת התנגשות עם Room
+            HomeCategory(6, "Explore \uD83C\uDF0D", listOf(10013, 10010, 10001, 10011, 10003)),
+            HomeCategory(7, "My Favorites ❤\uFE0F", listOf()),
             HomeCategory(1, kitchenViewModel.getKitchenSync(1)?.name ?: "Italian", listOf(1, 6, 11)),
             HomeCategory(2, kitchenViewModel.getKitchenSync(2)?.name ?: "Asian", listOf(16, 21, 26)),
             HomeCategory(3, kitchenViewModel.getKitchenSync(3)?.name ?: "Meat & Fish", listOf(46, 50, 54, 58, 62)),
@@ -53,45 +60,89 @@ class HomePageFragment : Fragment() {
         )
 
         val adapter = HomeCategoriesAdapter(
-            categories = categories,
+            categories = homeCategories,
             previewProvider = { category ->
-                category.previewDishIds.map { dishId ->
-                    DishPreview(
-                        dishId = dishId,
-                        imageRes = getPreviewImageForDish(dishId)
-                    )
+                if (category.kitchenId == 6) { //explore
+                    category.previewDishIds.map { id ->
+                        when (id) {
+                            10013 -> DishPreview(dishId = id, categoryName = "Breakfast", imageRes = R.drawable.breakfast)
+                            10010 -> DishPreview(dishId = id, categoryName = "Starter", imageRes = R.drawable.starter)
+                            10001 -> DishPreview(dishId = id, categoryName = "Beef", imageRes = R.drawable.beef)
+                            10011 -> DishPreview(dishId = id, categoryName = "Vegan", imageRes = R.drawable.vegan)
+                            10003 -> DishPreview(dishId = id, categoryName = "Dessert", imageRes = R.drawable.desserts)
+                            else -> DishPreview(dishId = id, categoryName = "Unknown", imageRes = R.drawable.default_dish)
+                        }
+                    }
+                } else {
+                    category.previewDishIds.map { dishId ->
+                        DishPreview(
+                            dishId = dishId,
+                            imageRes = getPreviewImageForDish(dishId)
+                        )
+                    }
                 }
             },
-            onDishClick = { dishId ->
-                try {
-                    Log.d("HomePageFragment", "Dish clicked: $dishId")
-                    selectionViewModel.setDishId(dishId)
+            onDishClick = { id ->
+                // שלב 3: מניעת התנגשות בניווט
+                if (id >= 10000) {
+                    // כאן נטפל בעתיד בפתיחת מסך 8 המנות לפי שם הקטגוריה
+                    val selectedCategoryName = when(id) {
+                        10013 -> "Breakfast"
+                        10010 -> "Starter"
+                        10001 -> "Beef"
+                        10011 -> "Vegan"
+                        10003 -> "Dessert"
+                        else -> ""
+                    }
+                    Toast.makeText(requireContext(), "Opening $selectedCategoryName...", Toast.LENGTH_SHORT).show()
+                } else {
+                    // ניווט רגיל למנה מקומית
+                    selectionViewModel.setDishId(id)
                     findNavController().navigate(R.id.action_homePageFragment_to_dishDisplayPageFragment2)
-                } catch (e: Exception) {
-                    Log.e("HomePageFragment", "Navigation error: ${e.message}")
-                    Toast.makeText(requireContext(), R.string.dish_nav_error, Toast.LENGTH_SHORT).show()
                 }
             },
             onCategoryClick = { category ->
-                try {
-                    val selectedKitchen = kitchenViewModel.getKitchenSync(category.kitchenId)
-                        ?: kitchensCache.firstOrNull { it.id == category.kitchenId }
-
-                    if (selectedKitchen != null) {
-                        kitchenViewModel.setKitchen(selectedKitchen)
-                        findNavController().navigate(R.id.action_homePageFragment_to_dishesTypesFragment)
-                    } else {
-                        Toast.makeText(requireContext(), R.string.no_kitchen_found, Toast.LENGTH_SHORT).show()
-                    }
-                } catch (e: Exception) {
-                    Log.e("HomePageFragment", "Navigation error: ${e.message}")
-                }
+                handleCategoryNavigation(category)
             }
         )
 
         binding.homeRecyclerView.layoutManager = LinearLayoutManager(requireContext())
         binding.homeRecyclerView.adapter = adapter
 
+        setupObservers()
+        prefetchLocalImages(homeCategories, adapter)
+    }
+
+    // שאר הפונקציות (handleCategoryNavigation, prefetchLocalImages וכו') נשארות ללא שינוי...
+    private fun handleCategoryNavigation(category: HomeCategory) {
+        try {
+            if (category.kitchenId == 6) {
+                categoryViewModel.fetchCategories()
+                findNavController().navigate(R.id.action_homePageFragment_to_dishesTypesFragment)
+                return
+            }
+
+            val selectedKitchen = kitchenViewModel.getKitchenSync(category.kitchenId)
+                ?: kitchensCache.firstOrNull { it.id == category.kitchenId }
+
+            if (selectedKitchen != null) {
+                kitchenViewModel.setKitchen(selectedKitchen)
+                findNavController().navigate(R.id.action_homePageFragment_to_dishesTypesFragment)
+            } else {
+                Toast.makeText(requireContext(), R.string.no_kitchen_found, Toast.LENGTH_SHORT).show()
+            }
+        } catch (e: Exception) {
+            Log.e("HomePageFragment", "Navigation error: ${e.message}")
+        }
+    }
+
+    private fun setupObservers() {
+        kitchenViewModel.kitchens.observe(viewLifecycleOwner) { list ->
+            kitchensCache = list ?: emptyList()
+        }
+    }
+
+    private fun prefetchLocalImages(categories: List<HomeCategory>, adapter: HomeCategoriesAdapter) {
         val allPreviewIds = categories.flatMap { it.previewDishIds }.distinct()
         lifecycleScope.launch {
             try {
@@ -104,15 +155,10 @@ class HomePageFragment : Fragment() {
                 resImgs.awaitAll().forEach { (id, res) ->
                     dishImageCache[id] = res
                 }
-
                 adapter.notifyDataSetChanged()
             } catch (e: Exception) {
                 Log.e("HomePageFragment", "Failed to prefetch dish images", e)
             }
-        }
-
-        kitchenViewModel.kitchens.observe(viewLifecycleOwner) { list ->
-            kitchensCache = list ?: emptyList()
         }
     }
 

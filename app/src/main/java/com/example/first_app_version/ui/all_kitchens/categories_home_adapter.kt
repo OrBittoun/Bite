@@ -47,7 +47,8 @@ class HomeCategoriesAdapter(
             val homeCategoryRowAdapter = HomeCategoryRowAdapter(
                 dishPreviews = previewItems,
                 onDishClick = onDishClick,
-                onExploreClick = { onCategoryClick(category) }
+                onExploreClick = { onCategoryClick(category) },
+                isExploreCategory = (category.kitchenId == 6)
             )
 
             categoryRecyclerView.layoutManager =

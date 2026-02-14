@@ -54,6 +54,7 @@
     <string name="no_dish_type">לא נמצא סוג מנה</string>
     <string name="no_dishes">לא נמצאו מנות</string>
     <string name="app_logo">לוגו האפליקציה</string>
+    <string name="no_data_message">אין נתונים זמינים. אנא בדוק את חיבור האינטרנט כדי לגלות עוד מתכונים ונסה שוב</string>
 
 
 

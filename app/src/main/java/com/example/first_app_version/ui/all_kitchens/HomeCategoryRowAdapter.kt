@@ -6,12 +6,14 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.first_app_version.R
 
 class HomeCategoryRowAdapter(
     private val dishPreviews: List<DishPreview>,
     private val onDishClick: (Int) -> Unit,
-    private val onExploreClick: () -> Unit
+    private val onExploreClick: () -> Unit,
+    private val isExploreCategory: Boolean
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     companion object {
@@ -20,7 +22,7 @@ class HomeCategoryRowAdapter(
     }
 
     override fun getItemCount(): Int {
-        return dishPreviews.size + 1
+        return if (isExploreCategory) dishPreviews.size else dishPreviews.size + 1
     }
 
     override fun getItemViewType(position: Int): Int {
@@ -52,7 +54,11 @@ class HomeCategoryRowAdapter(
             itemView.findViewById(R.id.previewImage)
 
         fun bind(item: DishPreview) {
-            imageView.setImageResource(item.imageRes)
+
+            Glide.with(itemView.context)
+                .load(item.imageRes)
+                .into(imageView)
+
             imageView.setOnClickListener {
                 onDishClick(item.dishId)
             }
