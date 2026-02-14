@@ -78,7 +78,7 @@ class DishDisplayFragment : Fragment() {
             dishDetailsViewModel.dishById(dishId).observe(viewLifecycleOwner) { dish ->
                 binding.dishTitle.text = dish.name
                 binding.dishDesc.text = dish.description ?: ""
-                binding.dishRestaurant?.text = dish.restaurantName
+                binding.dishRestaurant.text = dish.restaurantName
                 val img = dish.imageRes ?: R.mipmap.pizza_foreground
                 Glide.with(requireContext())
                     .load(img)
@@ -90,6 +90,15 @@ class DishDisplayFragment : Fragment() {
 
             commentsViewModel.commentsForDish(dishId).observe(viewLifecycleOwner) { comments ->
                 commentAdapter.submitList(comments)
+            }
+
+            // Check if a comment exists and adjust the text accordingly
+            commentsViewModel.myCommentForDish(dishId).observe(viewLifecycleOwner) { myComment ->
+                if (myComment != null) { // There is a comment
+                    binding.addComment.setText(R.string.edit_comment)
+                } else {
+                    binding.addComment.setText(R.string.add_comment)
+                }
             }
         }
 

@@ -14,4 +14,8 @@ class CommentsViewModel @Inject constructor(
 
     fun commentsForDish(dishId: Int): LiveData<List<Comment>> =
         repository.observeComments(dishId)
+
+    // To check if there is already a comment
+    fun myCommentForDish(dishId: Int): LiveData<Comment?> =
+        repository.observeMyComment(dishId)
 }

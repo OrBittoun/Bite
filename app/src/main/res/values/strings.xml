@@ -51,6 +51,8 @@
     <string name="no_dish_type">No dish type found</string>
     <string name="no_dishes">No dishes found</string>
     <string name="app_logo">No dishes found</string>
+    <string name="edit_comment">Edit Review</string>
+    <string name="add_comment">Add Review</string>
 
 
 </resources>
