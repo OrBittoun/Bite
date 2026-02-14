@@ -97,14 +97,11 @@ class AddCommentFragment : Fragment() {
                 }
 
             binding.submitButton.setOnClickListener {
-                // בדיקה האם המשתמש מחובר ל-Firebase
                 val currentUser = com.google.firebase.auth.FirebaseAuth.getInstance().currentUser
 
                 if (currentUser == null) {
-                    // המשתמש לא מחובר - מציגים דיאלוג שמפנה להתחברות
                     showLoginRequiredDialog()
                 } else {
-                    // המשתמש מחובר - ממשיכים בתהליך הרגיל של הדיאלוג שכתבת
                     val id = selectionViewModel.selectedDishId.value ?: return@setOnClickListener
                     showConfirmDialog(id)
                 }
@@ -114,18 +111,19 @@ class AddCommentFragment : Fragment() {
 
     private fun showConfirmDialog(dishId: Int) {
         val isUpdate = existingCommentPresent
-        val title = if (isUpdate) "Update comment?" else "Add comment?"
+
+        val title = if (isUpdate) getString(R.string.confirm) else getString(R.string.add_comment_btn)
         val message = if (isUpdate) {
-            "You already commented on this dish. Do you want to update your comment?"
+            getString(R.string.your_comment)
         } else {
-            "Are you sure you want to add this comment?"
+            getString(R.string.dialog_add_comment_text)
         }
 
         val dialog = AlertDialog.Builder(requireContext())
             .setTitle(title)
             .setMessage(message)
-            .setPositiveButton(if (isUpdate) "Update" else "Add", null)
-            .setNegativeButton("Cancel") { d, _ -> d.dismiss() }
+            .setPositiveButton(if (isUpdate) getString(R.string.submit) else getString(R.string.add_comment_btn), null)
+            .setNegativeButton(getString(R.string.cancel)) { d, _ -> d.dismiss() }
             .create()
 
         dialog.setOnShowListener {
@@ -174,13 +172,12 @@ class AddCommentFragment : Fragment() {
 
     private fun showLoginRequiredDialog() {
         AlertDialog.Builder(requireContext())
-            .setTitle("Login Required")
-            .setMessage("You must be logged in to add a comment. After logging in, you will be returned here.")
-            .setPositiveButton("Login") { _, _ ->
-                // ניווט פשוט - משאיר את AddCommentFragment ב-Back Stack
+            .setTitle(getString(R.string.dialog_sign_in_title))
+            .setMessage(getString(R.string.dialog_sign_in_text))
+            .setPositiveButton(getString(R.string.login)) { _, _ ->
                 findNavController().navigate(R.id.loginFragment)
             }
-            .setNegativeButton("Cancel", null)
+            .setNegativeButton(getString(R.string.cancel), null)
             .show()
     }
 

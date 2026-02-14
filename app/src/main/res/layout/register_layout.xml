@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true"
@@ -10,13 +11,14 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:padding="30dp"
-        android:gravity="center_horizontal">
+        android:gravity="center_horizontal"
+        android:importantForAutofill="yes">
 
         <TextView
             android:id="@+id/Sign_up_title_signup"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Nice to meet you!"
+            android:text="@string/nice_to_meet_you"
             android:textSize="30sp"
             android:textStyle="bold"
             android:textColor="#1D2D8A"
@@ -26,61 +28,88 @@
         <EditText
             android:id="@+id/first_name_edit_signup"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:hint="First Name"
+            android:layout_height="54dp"
+            android:hint="@string/first_name"
+            android:inputType="textPersonName"
+            android:autofillHints="personGivenName"
             android:background="@android:drawable/edit_text"
             android:paddingStart="15dp"
             android:paddingEnd="15dp"
-            android:layout_marginBottom="15dp"/>
+            android:layout_marginBottom="15dp"
+            android:textColor="#000000"
+            android:textColorHint="#575757"
+            android:maxWidth="600dp"
+            tools:ignore="VisualLintTextFieldSize" />
 
         <EditText
             android:id="@+id/last_name_edit_signup"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:hint="Last Name"
+            android:layout_height="54dp"
+            android:hint="@string/last_name"
+            android:inputType="textPersonName"
+            android:autofillHints="personFamilyName"
             android:background="@android:drawable/edit_text"
             android:paddingStart="15dp"
             android:paddingEnd="15dp"
-            android:layout_marginBottom="15dp"/>
+            android:layout_marginBottom="15dp"
+            android:textColor="#000000"
+            android:textColorHint="#575757"
+            android:maxWidth="600dp"
+            tools:ignore="VisualLintTextFieldSize" />
 
         <EditText
             android:id="@+id/email_edit_signup"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:hint="Email"
+            android:layout_height="54dp"
+            android:hint="@string/email"
             android:inputType="textEmailAddress"
+            android:autofillHints="emailAddress"
             android:background="@android:drawable/edit_text"
             android:paddingStart="15dp"
             android:paddingEnd="15dp"
-            android:layout_marginBottom="15dp"/>
+            android:layout_marginBottom="15dp"
+            android:textDirection="anyRtl"
+            android:gravity="start|center_vertical"
+            android:textColor="#000000"
+            android:textColorHint="#575757"
+            android:maxWidth="600dp"
+            tools:ignore="VisualLintTextFieldSize" />
 
         <EditText
             android:id="@+id/password_edit_signup"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:hint="Password"
+            android:layout_height="54dp"
+            android:hint="@string/password"
             android:inputType="textPassword"
+            android:autofillHints="password"
             android:background="@android:drawable/edit_text"
             android:paddingStart="15dp"
             android:paddingEnd="15dp"
-            android:layout_marginBottom="20dp"/>
+            android:layout_marginBottom="20dp"
+            android:gravity="start|center_vertical"
+            android:textAlignment="viewStart"
+            android:textColor="#000000"
+            android:textColorHint="#575757"
+            android:maxWidth="600dp"
+            tools:ignore="VisualLintTextFieldSize" />
 
         <TextView
             android:id="@+id/link_to_signin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Already have an account? Sign In"
+            android:text="@string/already_have_an_account_sign_in"
             android:textSize="14sp"
-            android:textColor="@android:color/black"
+            android:textColor="#000000"
             android:layout_marginBottom="20dp"/>
 
         <Button
             android:id="@+id/sign_up_button"
             android:layout_width="200dp"
-            android:layout_height="50dp"
-            android:text="Sign Up"
+            android:layout_height="54dp"
+            android:text="@string/sign_up"
             android:backgroundTint="#D5E5F2"
-            android:textColor="#3F51B5" />
+            android:textColor="#3F51B5"
+            android:contentDescription="@string/description_sign_up_button"/>
 
     </LinearLayout>
 </ScrollView>

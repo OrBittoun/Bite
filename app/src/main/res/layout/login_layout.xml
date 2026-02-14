@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true"
@@ -10,57 +11,67 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:padding="30dp"
-        android:gravity="center_horizontal">
-
-        <TextView
-            android:id="@+id/Sign_in_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Welcome Back!"
-            android:textSize="30sp"
-            android:textStyle="bold"
-            android:textColor="#1D2D8A"
-            android:layout_marginTop="50dp"
-            android:layout_marginBottom="40dp"/>
+        android:gravity="center_horizontal"
+        android:importantForAutofill="yes"> <TextView
+        android:id="@+id/Sign_in_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/welcome_message"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        android:textColor="#1D2D8A"
+        android:layout_marginTop="50dp"
+        android:layout_marginBottom="40dp" />
 
         <EditText
             android:id="@+id/email_edit_signin"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:hint="Email"
+            android:layout_height="54dp"
+            android:hint="@string/email"
             android:inputType="textEmailAddress"
+            android:autofillHints="emailAddress"
             android:background="@android:drawable/edit_text"
             android:paddingStart="15dp"
             android:paddingEnd="15dp"
-            android:layout_marginBottom="15dp"/>
-
-        <EditText
+            android:layout_marginBottom="15dp"
+            android:textDirection="anyRtl"
+            android:gravity="start|center_vertical"
+            android:textColor="#000000"
+            android:textColorHint="#575757"
+            android:maxWidth="600dp"
+            tools:ignore="VisualLintTextFieldSize" /> <EditText
             android:id="@+id/password_edit_signin"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:hint="Password"
+            android:layout_height="54dp"
+            android:hint="@string/password"
             android:inputType="textPassword"
+            android:autofillHints="password"
             android:background="@android:drawable/edit_text"
             android:paddingStart="15dp"
             android:paddingEnd="15dp"
-            android:layout_marginBottom="20dp"/>
-
-        <TextView
+            android:layout_marginBottom="20dp"
+            android:gravity="start|center_vertical"
+            android:textAlignment="viewStart"
+            android:textColor="#000000"
+            android:textColorHint="#575757"
+            android:maxWidth="600dp"
+            tools:ignore="VisualLintTextFieldSize" /> <TextView
             android:id="@+id/link_to_signup"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Don't have an account? Sign Up"
+            android:text="@string/don_t_have_an_account_sign_up"
             android:textSize="14sp"
-            android:textColor="@android:color/black"
-            android:layout_marginBottom="20dp"/>
+            android:textColor="#000000"
+            android:layout_marginBottom="20dp" />
 
         <Button
             android:id="@+id/login_button"
             android:layout_width="200dp"
-            android:layout_height="50dp"
-            android:text="Login"
+            android:layout_height="54dp"
+            android:text="@string/login"
             android:backgroundTint="#D5E5F2"
-            android:textColor="#3F51B5" />
+            android:textColor="#3F51B5"
+            android:contentDescription="@string/description_login_button" />
 
     </LinearLayout>
 </ScrollView>

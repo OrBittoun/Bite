@@ -11,7 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import com.example.first_app_version.data.repository.UserRepository
-import com.example.first_app_version.ui.LoggedInUserViewModel
+import com.example.first_app_version.ui.authentication.LoggedInUserViewModel
 import com.google.firebase.auth.FirebaseAuth
 
 class MainActivity : AppCompatActivity() {
@@ -32,23 +32,19 @@ class MainActivity : AppCompatActivity() {
             supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         navController = navHostFragment.navController
 
-        // 1. האזנה לשינויים ב-ViewModel ועדכון האייקון בהתאם
         observeUserStatus()
 
-        // 2. ניסיון טעינה אקטיבי של נתוני Firestore אם יש חיבור קיים (סעיף 4)
         loadUserIfAlreadyLoggedIn()
     }
 
     private fun observeUserStatus() {
         loggedInUserViewModel.user.observe(this) { user ->
             if (user != null) {
-                // המשתמש מחובר ונתוניו (כולל שם מה-Firestore) נטענו בהצלחה
                 userStatusIconGlobal.setImageResource(R.drawable.user)
                 userStatusIconGlobal.setOnClickListener { view ->
                     showUserActionMenu(view)
                 }
             } else {
-                // אין נתוני משתמש (או שנמחק/התנתק)
                 updateIconForLoggedOut(navController.currentDestination?.id)
             }
         }
@@ -78,13 +74,13 @@ class MainActivity : AppCompatActivity() {
         val popup = PopupMenu(this, view)
         val user = loggedInUserViewModel.user.value
 
-        // הצגת השם המלא מה-Firestore כפי שביקשת
         val fullName = "${user?.firstName} ${user?.lastName}".trim()
-        popup.menu.add("Hi, $fullName")
-        popup.menu.add("Sign out")
+
+        popup.menu.add(getString(R.string.menu_hi_user, fullName))
+        popup.menu.add(getString(R.string.menu_sign_out))
 
         popup.setOnMenuItemClickListener { item ->
-            if (item.title == "Sign out") {
+            if (item.title == getString(R.string.menu_sign_out)) {
                 showSignOutDialog()
             }
             true
@@ -94,33 +90,31 @@ class MainActivity : AppCompatActivity() {
 
     private fun showAuthMenu(view: View) {
         val popup = PopupMenu(this, view)
-        popup.menu.add("Login")
-        popup.menu.add("Register")
+        popup.menu.add(getString(R.string.menu_login))
+        popup.menu.add(getString(R.string.menu_register))
 
         popup.setOnMenuItemClickListener { item ->
             when (item.title) {
-                "Login" -> navController.navigate(R.id.loginFragment)
-                "Register" -> navController.navigate(R.id.registerFragment)
+                getString(R.string.menu_login) -> navController.navigate(R.id.loginFragment)
+                getString(R.string.menu_register) -> navController.navigate(R.id.registerFragment)
             }
             true
         }
         popup.show()
     }
-
     private fun showSignOutDialog() {
         AlertDialog.Builder(this)
-            .setTitle("Sign out")
-            .setMessage("Do you want to sign out?")
-            .setPositiveButton("Sign out") { _, _ ->
+            .setTitle(getString(R.string.dialog_sign_out_title))
+            .setMessage(getString(R.string.dialog_sign_out_msg))
+            .setPositiveButton(getString(R.string.menu_sign_out)) { _, _ ->
                 FirebaseAuth.getInstance().signOut()
                 loggedInUserViewModel.clear()
                 navController.navigate(R.id.loginFragment)
             }
-            .setNegativeButton("Cancel", null)
+            .setNegativeButton(getString(R.string.cancel), null)
             .show()
     }
 
-    // יישום סעיף 4: סנכרון בין Authentication ל-Firestore בטעינה ראשונית
     private fun loadUserIfAlreadyLoggedIn() {
         val uid = FirebaseAuth.getInstance().currentUser?.uid
         if (uid == null) {
@@ -128,16 +122,13 @@ class MainActivity : AppCompatActivity() {
             return
         }
 
-        // כאן אנחנו הולכים ל-Firestore (UserRepository) כדי להביא את השם
         userRepository.getUser(uid) { user, error ->
             if (user != null) {
                 loggedInUserViewModel.setUser(user)
             } else {
-                // אם המשתמש קיים ב-Auth אבל לא ב-Firestore (כמו שהיה לך קודם)
                 loggedInUserViewModel.clear()
                 if (error != null) {
-                    Toast.makeText(this, "Error loading profile: $error", Toast.LENGTH_SHORT).show()
-                }
+                    Toast.makeText(this, getString(R.string.error_loading_profile, error), Toast.LENGTH_SHORT).show()                }
             }
         }
     }

@@ -22,6 +22,9 @@ class UserRepository {
                 val user = doc.toObject(User::class.java)
                 onResult(user, null)
             }
-            .addOnFailureListener { e -> onResult(null, e.message) }
+            .addOnFailureListener { e ->
+                android.util.Log.e("UserRepository", "Error fetching user: ${e.message}")
+                onResult(null, e.message)
+            }
     }
 }

@@ -12,7 +12,6 @@ import com.example.first_app_version.R
 import com.example.first_app_version.data.repository.AuthRepository
 import com.example.first_app_version.data.repository.UserRepository
 import com.example.first_app_version.databinding.LoginLayoutBinding
-import com.example.first_app_version.ui.LoggedInUserViewModel
 import com.google.firebase.auth.FirebaseAuth
 
 class LoginFragment : Fragment() {
@@ -41,34 +40,31 @@ class LoginFragment : Fragment() {
         }
 
         binding.loginButton.setOnClickListener {
-
             val email = binding.emailEditSignin.text.toString().trim()
             val password = binding.passwordEditSignin.text.toString().trim()
 
             var valid = true
 
             if (email.isEmpty()) {
-                binding.emailEditSignin.error = "Required"
+                binding.emailEditSignin.error = getString(R.string.error_required)
                 valid = false
             }
 
             if (password.isEmpty()) {
-                binding.passwordEditSignin.error = "Required"
+                binding.passwordEditSignin.error = getString(R.string.error_required)
                 valid = false
             }
 
             if (!valid) return@setOnClickListener
 
-            // נועלים כפתור בזמן בקשה
             binding.loginButton.isEnabled = false
 
-            authRepository.signIn(email, password) { success, error ->
-
+            authRepository.signIn(email, password) { success, _ ->
                 if (!success) {
                     binding.loginButton.isEnabled = true
                     Toast.makeText(
                         requireContext(),
-                        error ?: "Login failed",
+                        getString(R.string.login_failed),
                         Toast.LENGTH_LONG
                     ).show()
                     return@signIn
@@ -77,35 +73,26 @@ class LoginFragment : Fragment() {
                 val uid = FirebaseAuth.getInstance().currentUser?.uid
                 if (uid == null) {
                     binding.loginButton.isEnabled = true
-                    Toast.makeText(requireContext(), "No user id", Toast.LENGTH_LONG).show()
+                    Toast.makeText(requireContext(), getString(R.string.no_user_id), Toast.LENGTH_LONG).show()
                     return@signIn
                 }
 
-                // ... שאר ה-Imports ...
-
                 userRepository.getUser(uid) { user, err ->
                     binding.loginButton.isEnabled = true
-
                     if (user != null) {
-                        // עדכון ה-ViewModel בנתוני המשתמש שנטענו מה-Firestore
                         loggedInUserViewModel.setUser(user)
-
-                        Toast.makeText(requireContext(), "Welcome back!", Toast.LENGTH_SHORT).show()
-
-                        // ניסיון לחזור למסך הקודם (למשל AddCommentFragment)
+                        Toast.makeText(requireContext(), getString(R.string.welcome_back), Toast.LENGTH_SHORT).show()
                         val navigatedBack = findNavController().popBackStack()
-
-                        // אם אין מסך קודם לחזור אליו (למשל המשתמש הגיע ישירות ללוגין), עוברים לדף הבית
                         if (!navigatedBack) {
                             findNavController().navigate(R.id.action_loginFragment_to_homePageFragment)
                         }
-
                     } else {
-                        Toast.makeText(
-                            requireContext(),
-                            err ?: "User data not found",
-                            Toast.LENGTH_LONG
-                        ).show()
+                        val errorMessage = if (err != null) {
+                            getString(R.string.user_not_found)
+                        } else {
+                            getString(R.string.login_failed)
+                        }
+                        Toast.makeText(requireContext(), errorMessage, Toast.LENGTH_LONG).show()
                     }
                 }
             }

@@ -1,4 +1,4 @@
-package com.example.first_app_version.ui
+package com.example.first_app_version.ui.authentication
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
