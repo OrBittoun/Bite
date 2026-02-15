@@ -45,6 +45,10 @@
         <action
             android:id="@+id/action_dishesFragment_to_dishDisplayPageFragment"
             app:destination="@id/dishDisplayPageFragment" />
+
+        <action
+            android:id="@+id/action_dishesFragment_to_apiDishDetailsFragment"
+            app:destination="@id/apiDishDetailsFragment" />
     </fragment>
 
     <fragment

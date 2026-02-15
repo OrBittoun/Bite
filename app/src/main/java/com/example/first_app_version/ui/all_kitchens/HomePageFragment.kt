@@ -105,27 +105,22 @@ class HomePageFragment : Fragment() {
                 }
             },
             onDishClick = { id ->
-                if (id >= 10000) {
-                    // בדיקת אינטרנט לפני גישה ל-API
+                if (id >= 50000) { // המזהים של TheMealDB הם תמיד בני 5 ספרות
+                    // זו מנה מהאינטרנט שנמצאת במועדפים! מנווטים למסך ה-API
                     if (!isNetworkAvailable()) {
-                        val snackbar = com.google.android.material.snackbar.Snackbar.make(
-                            binding.root,
-                            R.string.no_internet_error,
-                            com.google.android.material.snackbar.Snackbar.LENGTH_LONG
-                        )
-                        val textView = snackbar.view.findViewById<android.widget.TextView>(
-                            com.google.android.material.R.id.snackbar_text
-                        )
-                        textView.maxLines = 3
-                        snackbar.show()
+                        Toast.makeText(requireContext(), R.string.no_internet_error, Toast.LENGTH_SHORT).show()
+                    } else {
+                        categoryViewModel.fetchMealDetails(id.toString())
+                        findNavController().navigate(R.id.action_homePageFragment_to_apiDishDetailsFragment)
+                    }
+                } else if (id >= 10000) { // אלו מזהי הקטגוריות שהשותף המציא (10013 וכו')
+                    if (!isNetworkAvailable()) {
+                        Toast.makeText(requireContext(), R.string.no_internet_error, Toast.LENGTH_SHORT).show()
                     } else {
                         if (id == 10099) {
-                            // Surprise Me - מנה רנדומלית
-                            Log.d("HomePageFragment", "Loading random meal")
                             categoryViewModel.fetchRandomMeal()
                             findNavController().navigate(R.id.action_homePageFragment_to_apiDishDetailsFragment)
                         } else {
-                            // קטגוריות אחרות
                             val selectedCategoryName = when (id) {
                                 10013 -> "Breakfast"
                                 10010 -> "Starter"
@@ -134,7 +129,6 @@ class HomePageFragment : Fragment() {
                                 10003 -> "Dessert"
                                 else -> ""
                             }
-
                             if (selectedCategoryName.isNotEmpty()) {
                                 kitchenViewModel.setKitchen(Kitchen(6, "Explore"))
                                 categoryViewModel.getMealsByCategory(selectedCategoryName)
@@ -143,7 +137,7 @@ class HomePageFragment : Fragment() {
                         }
                     }
                 } else {
-                    // מנה מקומית
+                    // מנה מקומית רגילה
                     selectionViewModel.setDishId(id)
                     findNavController().navigate(R.id.action_homePageFragment_to_dishDisplayPageFragment2)
                 }
@@ -191,18 +185,12 @@ class HomePageFragment : Fragment() {
     private fun handleCategoryNavigation(category: HomeCategory) {
         try {
             if (category.kitchenId == 6) {
-                if (!isNetworkAvailable()) {
-                    Toast.makeText(requireContext(), R.string.no_internet_error, Toast.LENGTH_SHORT).show()
-                    return
-                }
-                kitchenViewModel.setKitchen(Kitchen(6, "Explore"))
-                categoryViewModel.fetchCategories()
-                findNavController().navigate(R.id.action_homePageFragment_to_dishesTypesFragment)
+                // התיקון: פשוט מתעלמים מהלחיצה על כותרת Explore כדי לא להגיע למסך ריק!
                 return
             }
 
             if (category.kitchenId == 7) {
-                // התיקון שלנו: הפעלת מצב מועדפים ומעבר אמיתי למסך המנות!
+                Log.d("HomePageFragment", "Navigating to Favorites")
                 selectionViewModel.setFavoritesMode(true)
                 findNavController().navigate(R.id.action_homePageFragment_to_dishesFragment)
                 return

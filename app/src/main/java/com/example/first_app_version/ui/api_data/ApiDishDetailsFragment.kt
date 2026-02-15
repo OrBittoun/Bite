@@ -43,16 +43,34 @@ class ApiDishDetailsFragment : Fragment() {
         categoryViewModel.mealDetails.observe(viewLifecycleOwner) { mealDetails ->
             if (mealDetails != null) {
                 updateUI(mealDetails)
+                setupFavoriteToggle(mealDetails)
             } else {
                 Toast.makeText(requireContext(), "Failed to load meal details", Toast.LENGTH_SHORT).show()
             }
         }
+    }
 
-        // תיקון שגיאה 1: שימוש ב-ID הנכון מה-XML
-        binding.favoriteHeart.setOnClickListener {
-            val mealDetails = categoryViewModel.mealDetails.value
-            if (mealDetails != null) {
-                saveDishToFavorites(mealDetails)
+    private fun setupFavoriteToggle(mealDetails: MealDetailsDto) {
+        val mealId = mealDetails.idMeal.toIntOrNull() ?: return
+
+        // האזנה למסד הנתונים כדי לדעת את הסטטוס בזמן אמת
+        dishRepository.getDishById(mealId).observe(viewLifecycleOwner) { localDish ->
+            val isFavorite = localDish != null && localDish.isFavorite
+
+            // עדכון צורת הלב
+            val heartIcon = if (isFavorite) R.drawable.ic_favorite_filled else R.drawable.ic_favorite_border
+            binding.favoriteHeart.setImageResource(heartIcon)
+
+            // הגדרת לחיצה שמבדילה בין הוספה למחיקה
+            binding.favoriteHeart.setOnClickListener {
+                if (isFavorite) {
+                    lifecycleScope.launch {
+                        dishRepository.deleteDish(localDish!!)
+                        Toast.makeText(requireContext(), "${mealDetails.strMeal} removed from favorites", Toast.LENGTH_SHORT).show()
+                    }
+                } else {
+                    saveDishToFavorites(mealDetails)
+                }
             }
         }
     }
@@ -66,7 +84,6 @@ class ApiDishDetailsFragment : Fragment() {
         val ingredientsText = getIngredientsText(mealDetails)
         binding.dishIngredients.text = ingredientsText
 
-        // תיקון שגיאה 2: טעינה לתוך dish_img
         Glide.with(this)
             .load(mealDetails.strMealThumb)
             .placeholder(R.drawable.default_dish)
@@ -74,15 +91,19 @@ class ApiDishDetailsFragment : Fragment() {
     }
 
     private fun saveDishToFavorites(mealDetails: MealDetailsDto) {
-        // תיקון שגיאה 3: הוספת restaurantName והגדרת כל הפרמטרים במדויק
+        // שילוב המרכיבים וההוראות לתוך התיאור כדי שישמרו במסד הנתונים
+        val fullRecipe = "Ingredients:\n${getIngredientsText(mealDetails)}\n\nInstructions:\n${mealDetails.strInstructions}"
+
         val newDish = Dish(
             id = mealDetails.idMeal.toIntOrNull() ?: System.currentTimeMillis().toInt(),
-            dishTypeId = 0,
             name = mealDetails.strMeal,
-            restaurantName = "Explore API", // הוספנו את שם המסעדה!
+            dishTypeId = 0, // מזהה 0 אומר לנו שזו מנת API
+            restaurantName = "Explore API",
             imageRes = null,
-            imageUrl = mealDetails.strMealThumb,
+            imageUrl = mealDetails.strMealThumb, // שמירת הלינק לתמונה!
+            description = fullRecipe, // שמירת המתכון המלא!
             isFavorite = true,
+            price = 0,
             reviewsCount = 0
         )
 

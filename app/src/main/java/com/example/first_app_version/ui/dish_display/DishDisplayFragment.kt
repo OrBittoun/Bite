@@ -62,18 +62,26 @@ class DishDisplayFragment : Fragment() {
 
                 val ctx = requireContext()
                 binding.dishTitle.text = dish.name
-                binding.dishRestaurant.text = dish.restaurantName
-                val img = dish.imageRes ?: R.mipmap.pizza_foreground
+                binding.dishDesc.text = dish.description ?: ""
+                binding.dishRestaurant?.text = dish.restaurantName
 
-                Glide.with(requireContext())
-                    .load(img)
-                    .placeholder(R.drawable.default_dish)
-                    .into(binding.dishImg)
+                // תיקון טעינת תמונה: עדיפות ללינק מהאינטרנט אם קיים!
+                if (!dish.imageUrl.isNullOrEmpty()) {
+                    Glide.with(ctx)
+                        .load(dish.imageUrl)
+                        .placeholder(R.drawable.default_dish)
+                        .into(binding.dishImg)
+                } else {
+                    val img = dish.imageRes ?: R.mipmap.pizza_foreground
+                    Glide.with(ctx)
+                        .load(img)
+                        .placeholder(R.drawable.default_dish)
+                        .into(binding.dishImg)
+                }
 
                 binding.dishPrice.text =
                     ctx.getString(R.string.dish_price_display, dish.price.toDouble())
 
-                // --- לוגיקת המועדפים של השותף ---
                 val heartIcon = if (dish.isFavorite) {
                     R.drawable.ic_favorite_filled
                 } else {

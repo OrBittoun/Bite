@@ -15,6 +15,7 @@ import com.example.first_app_version.R
 import com.example.first_app_version.databinding.DishesLayoutBinding
 import com.example.first_app_version.ui.all_kitchens.SelectionViewModel
 import com.example.first_app_version.data.models.Dish
+import com.example.first_app_version.ui.api_data.CategoryViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -25,6 +26,8 @@ class DishesFragment : Fragment() {
 
     private val selectionViewModel: SelectionViewModel by activityViewModels()
     private val dishesViewModel: DishesViewModel by viewModels()
+    // הוספנו את ה-ViewModel של ה-API
+    private val categoryViewModel: CategoryViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -38,7 +41,6 @@ class DishesFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // האזנה למצב: האם אנחנו במועדפים או במצב רגיל?
         selectionViewModel.isFavoritesMode.observe(viewLifecycleOwner) { isFavorites ->
             if (isFavorites == true) {
                 loadFavoriteDishes()
@@ -78,8 +80,16 @@ class DishesFragment : Fragment() {
         val adapter = DishAdapter(dishes) { clickedDish ->
             try {
                 Log.d("DishesFragment", "Dish clicked: ${clickedDish.name} (ID: ${clickedDish.id})")
-                selectionViewModel.setDishId(clickedDish.id)
-                findNavController().navigate(R.id.action_dishesFragment_to_dishDisplayPageFragment)
+
+                // בדיקה: אם המזהה של סוג המנה הוא 0, מדובר במנה מה-API!
+                if (clickedDish.dishTypeId == 0) {
+                    categoryViewModel.fetchMealDetails(clickedDish.id.toString())
+                    // שימוש ב-Action התקני שהרגע יצרנו ב-my_nav.xml
+                    findNavController().navigate(R.id.action_dishesFragment_to_apiDishDetailsFragment)
+                } else {
+                    selectionViewModel.setDishId(clickedDish.id)
+                    findNavController().navigate(R.id.action_dishesFragment_to_dishDisplayPageFragment)
+                }
 
             } catch (e: Exception) {
                 Log.e("DishesFragment", "Navigation error: ${e.message}", e)

@@ -22,20 +22,37 @@ class DishAdapter(
 
         fun bind(dish: Dish) {
             val ctx = binding.root.context
-            val res = dish.imageRes ?: R.mipmap.pizza_foreground
             val count = dish.reviewsCount
 
             binding.dishDesc.text = dish.description.orEmpty()
             binding.dishTitle.text = dish.name
-            Glide.with(ctx)
-                .load(res)
-                .placeholder(R.drawable.default_dish) // תמונת זמנית בזמן הטעינה
-                .into(binding.dishImg)
             binding.restaurantName.text = dish.restaurantName
-            binding.dishPrice.text = ctx.getString(R.string.dish_price_display, dish.price.toDouble())
-            binding.dishDesc.text = dish.description ?: ""
-            binding.reviewsCount.text = ctx.resources.getQuantityString(R.plurals.reviews_count, count, count)
-            binding.reviewsCount.textDirection = View.TEXT_DIRECTION_LOCALE
+
+            // טעינת התמונה
+            if (!dish.imageUrl.isNullOrEmpty()) {
+                Glide.with(ctx)
+                    .load(dish.imageUrl)
+                    .placeholder(R.drawable.default_dish)
+                    .into(binding.dishImg)
+            } else {
+                val res = dish.imageRes ?: R.mipmap.pizza_foreground
+                Glide.with(ctx)
+                    .load(res)
+                    .placeholder(R.drawable.default_dish)
+                    .into(binding.dishImg)
+            }
+
+            // הלוגיקה החדשה: הסתרת מחיר וביקורות למנות API
+            if (dish.dishTypeId == 0) {
+                binding.dishPrice.visibility = View.GONE
+                binding.reviewsCount.visibility = View.GONE
+            } else {
+                binding.dishPrice.visibility = View.VISIBLE
+                binding.reviewsCount.visibility = View.VISIBLE
+                binding.dishPrice.text = ctx.getString(R.string.dish_price_display, dish.price.toDouble())
+                binding.reviewsCount.text = ctx.resources.getQuantityString(R.plurals.reviews_count, count, count)
+                binding.reviewsCount.textDirection = View.TEXT_DIRECTION_LOCALE
+            }
         }
 
         override fun onClick(v: View?) {
