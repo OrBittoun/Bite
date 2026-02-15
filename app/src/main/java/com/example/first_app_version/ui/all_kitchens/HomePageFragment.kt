@@ -60,6 +60,7 @@ class HomePageFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+
         // יצירת הקטגוריות
         homeCategories.clear()
         homeCategories.addAll(
