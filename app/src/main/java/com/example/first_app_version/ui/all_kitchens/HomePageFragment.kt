@@ -202,7 +202,9 @@ class HomePageFragment : Fragment() {
             }
 
             if (category.kitchenId == 7) {
-                Toast.makeText(requireContext(), "My Favorites", Toast.LENGTH_SHORT).show()
+                // התיקון שלנו: הפעלת מצב מועדפים ומעבר אמיתי למסך המנות!
+                selectionViewModel.setFavoritesMode(true)
+                findNavController().navigate(R.id.action_homePageFragment_to_dishesFragment)
                 return
             }
 

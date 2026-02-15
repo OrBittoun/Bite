@@ -3,20 +3,11 @@ package com.example.first_app_version.data.models
 import androidx.annotation.DrawableRes
 import androidx.room.ColumnInfo
 import androidx.room.Entity
-import androidx.room.ForeignKey
 import androidx.room.Index
 import androidx.room.PrimaryKey
 
 @Entity(
     tableName = "dishes",
-    foreignKeys = [
-        ForeignKey(
-            entity = DishType::class,
-            parentColumns = ["id"],
-            childColumns = ["dish_type_id"],
-            onDelete = ForeignKey.CASCADE
-        )
-    ],
     indices = [Index(value = ["dish_type_id"])]
 )
 data class Dish(
@@ -35,6 +26,8 @@ data class Dish(
     @ColumnInfo(name = "image_res")
     @param:DrawableRes val imageRes: Int? = null,
 
+    @ColumnInfo(name = "image_url") val imageUrl: String? = null,
+
     @ColumnInfo(name = "description")
     val description: String? = null,
 
@@ -45,9 +38,5 @@ data class Dish(
     val reviewsCount: Int = 0,
 
     @ColumnInfo(name = "is_favorite", defaultValue = "0")
-    val isFavorite: Boolean = false,
-
-    @ColumnInfo(name = "image_url") val imageUrl: String? = null,
-
+    val isFavorite: Boolean = false
 )
-

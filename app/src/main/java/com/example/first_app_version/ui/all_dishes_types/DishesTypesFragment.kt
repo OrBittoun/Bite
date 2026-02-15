@@ -47,13 +47,10 @@ class DishesTypesFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         adapter = DishTypeAdapter { dishType ->
-            // ניתוב חכם: אם זה מטבח API הולכים למסך API, אחרת למסך רגיל
             if (dishType.kitchenId == 6) {
-                // התיקון לשגיאה הראשונה: שימוש בפונקציה האמיתית של ה-API
                 categoryViewModel.fetchMealDetails(dishType.id.toString())
                 findNavController().navigate(R.id.action_dishesTypesFragment_to_apiDishDetailsFragment)
             } else {
-                // התיקון לשגיאות 2 ו-3: שימוש בשמות הפרמטרים כדי למנוע בלבול בסדר שלהם
                 val localDishType = DishType(
                     id = dishType.id,
                     kitchenId = dishType.kitchenId,
@@ -61,6 +58,8 @@ class DishesTypesFragment : Fragment() {
                     imageRes = dishType.imageRes as? Int
                 )
                 selectionViewModel.setDishType(localDishType)
+                // התיקון הקריטי: כיבוי מצב המועדפים כשנכנסים למטבח רגיל
+                selectionViewModel.setFavoritesMode(false)
                 findNavController().navigate(R.id.action_dishesTypesFragment_to_dishesFragment)
             }
         }
