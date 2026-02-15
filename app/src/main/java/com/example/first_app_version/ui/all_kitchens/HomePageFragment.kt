@@ -34,6 +34,9 @@ class HomePageFragment : Fragment() {
     private val dishImageCache = mutableMapOf<Int, Int>()
     private var kitchensCache: List<Kitchen> = emptyList()
 
+    // נחזיק את רשימת הבסיס כמשתנה מחלקה כדי לשמור על עקביות ה-IDs
+    private lateinit var baseHomeCategories: List<HomeCategory>
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -48,21 +51,23 @@ class HomePageFragment : Fragment() {
 
         dishRepository = DishRepository(requireActivity().application)
 
-        val homeCategories = listOf(
-            // הגדרת מטבח 6 עם ה-IDs המיוחדים למניעת התנגשות עם Room
-            HomeCategory(6, "Explore \uD83C\uDF0D", listOf(10013, 10010, 10001, 10011, 10003)),
-            HomeCategory(7, "My Favorites ❤\uFE0F", listOf()),
+        // הגדרת רשימת הבסיס -IDs קבועים מונעים בלבול בתמונות
+        // בתוך onViewCreated ב-HomePageFragment.kt
+        baseHomeCategories = listOf(
+            HomeCategory(6, "Explore 🌍", listOf(10013, 10010, 10001, 10011, 10003)),
+            HomeCategory(7, "My Favorites ❤️", listOf()),
             HomeCategory(1, kitchenViewModel.getKitchenSync(1)?.name ?: "Italian", listOf(1, 6, 11)),
             HomeCategory(2, kitchenViewModel.getKitchenSync(2)?.name ?: "Asian", listOf(16, 21, 26)),
-            HomeCategory(3, kitchenViewModel.getKitchenSync(3)?.name ?: "Meat & Fish", listOf(46, 50, 54, 58, 62)),
-            HomeCategory(4, kitchenViewModel.getKitchenSync(4)?.name ?: "Vegan", listOf(31, 36, 41)),
+
+            // כאן התיקון - החלפנו את ה-IDs כדי שיתאימו ל-Database
+            HomeCategory(3, kitchenViewModel.getKitchenSync(3)?.name ?: "Vegan", listOf(31, 36, 41)),
+            HomeCategory(4, kitchenViewModel.getKitchenSync(4)?.name ?: "Meat & Fish", listOf(46, 50, 54, 58, 62)),
             HomeCategory(5, kitchenViewModel.getKitchenSync(5)?.name ?: "Desserts", listOf(66, 70, 74))
         )
-
         val adapter = HomeCategoriesAdapter(
-            categories = homeCategories,
+            categories = baseHomeCategories.filter { it.kitchenId != 7 }, // התחלה ללא מועדפים
             previewProvider = { category ->
-                if (category.kitchenId == 6) { //explore
+                if (category.kitchenId == 6) {
                     category.previewDishIds.map { id ->
                         when (id) {
                             10013 -> DishPreview(dishId = id, categoryName = "Breakfast", imageRes = R.drawable.breakfast)
@@ -75,17 +80,12 @@ class HomePageFragment : Fragment() {
                     }
                 } else {
                     category.previewDishIds.map { dishId ->
-                        DishPreview(
-                            dishId = dishId,
-                            imageRes = getPreviewImageForDish(dishId)
-                        )
+                        DishPreview(dishId = dishId, imageRes = getPreviewImageForDish(dishId))
                     }
                 }
             },
             onDishClick = { id ->
-                // שלב 3: מניעת התנגשות בניווט
                 if (id >= 10000) {
-                    // כאן נטפל בעתיד בפתיחת מסך 8 המנות לפי שם הקטגוריה
                     val selectedCategoryName = when(id) {
                         10013 -> "Breakfast"
                         10010 -> "Starter"
@@ -96,7 +96,6 @@ class HomePageFragment : Fragment() {
                     }
                     Toast.makeText(requireContext(), "Opening $selectedCategoryName...", Toast.LENGTH_SHORT).show()
                 } else {
-                    // ניווט רגיל למנה מקומית
                     selectionViewModel.setDishId(id)
                     findNavController().navigate(R.id.action_homePageFragment_to_dishDisplayPageFragment2)
                 }
@@ -110,39 +109,45 @@ class HomePageFragment : Fragment() {
         binding.homeRecyclerView.adapter = adapter
 
         setupObservers()
-        prefetchLocalImages(homeCategories, adapter)
+        prefetchLocalImages(baseHomeCategories, adapter)
     }
 
-    // שאר הפונקציות (handleCategoryNavigation, prefetchLocalImages וכו') נשארות ללא שינוי...
     private fun handleCategoryNavigation(category: HomeCategory) {
+        Log.d("NavigationCheck", "Clicked on Kitchen ID: ${category.kitchenId} (${category.kitchenName})")
+
         try {
-            // 1. טיפול ב-Explore (ID 6)
-            if (category.kitchenId == 6) {
-                selectionViewModel.setFavoritesMode(false) // ודאי שזה כבוי
+            if (category.kitchenId == 6) { // Explore
+                selectionViewModel.setFavoritesMode(false)
                 categoryViewModel.fetchCategories()
                 findNavController().navigate(R.id.action_homePageFragment_to_dishesTypesFragment)
                 return
             }
 
-            // 2. טיפול במועדפים (ID 7) - כאן התיקון!
-            if (category.kitchenId == 7) {
-                selectionViewModel.setFavoritesMode(true) // הדלקת מצב מועדפים
-                // ניווט ישיר למסך המנות (DishesFragment) ולא למסך הסוגים
+            if (category.kitchenId == 7) { // Favorites
+                selectionViewModel.setFavoritesMode(true)
                 findNavController().navigate(R.id.action_homePageFragment_to_dishesFragment)
                 return
             }
 
-            // 3. טיפול במטבחים רגילים
-            selectionViewModel.setFavoritesMode(false) // כיבוי מצב מועדפים
+            // מטבח רגיל
+            selectionViewModel.setFavoritesMode(false)
+
+            // שליפת המטבח מה-ViewModel לפי ה-ID של הקטגוריה שנלחצה
             val selectedKitchen = kitchenViewModel.getKitchenSync(category.kitchenId)
-                ?: kitchensCache.firstOrNull { it.id == category.kitchenId }
 
             if (selectedKitchen != null) {
-                kitchenViewModel.setKitchen(selectedKitchen)
-                // מטבח רגיל הולך קודם לבחירת סוגי מנות (איטלקי -> פיצה/פסטה)
+                Log.d("NavigationCheck", "Setting Kitchen in ViewModel: ${selectedKitchen.name}")
+                kitchenViewModel.setKitchen(selectedKitchen) // כאן אנחנו מעדכנים את המטבח הנבחר
                 findNavController().navigate(R.id.action_homePageFragment_to_dishesTypesFragment)
             } else {
-                Toast.makeText(requireContext(), R.string.no_kitchen_found, Toast.LENGTH_SHORT).show()
+                // אם לא מצאנו ב-Sync, ננסה לחפש ב-Cache המקומי של הפרגמנט
+                val fallbackKitchen = kitchensCache.find { it.id == category.kitchenId }
+                if (fallbackKitchen != null) {
+                    kitchenViewModel.setKitchen(fallbackKitchen)
+                    findNavController().navigate(R.id.action_homePageFragment_to_dishesTypesFragment)
+                } else {
+                    Toast.makeText(requireContext(), "Kitchen not found (ID: ${category.kitchenId})", Toast.LENGTH_SHORT).show()
+                }
             }
         } catch (e: Exception) {
             Log.e("HomePageFragment", "Navigation error: ${e.message}")
@@ -156,32 +161,26 @@ class HomePageFragment : Fragment() {
 
         dishRepository.getFavoriteDishes().observe(viewLifecycleOwner) { favoriteDishes ->
             val favoriteIds = favoriteDishes.map { it.id }
+            val currentAdapter = binding.homeRecyclerView.adapter as? HomeCategoriesAdapter ?: return@observe
 
-            val currentAdapter = binding.homeRecyclerView.adapter as? HomeCategoriesAdapter
-            currentAdapter?.let { adapter ->
-
-                // 1. יצירת רשימת קטגוריות מעודכנת
-                val updatedCategories = adapter.categories.map { category ->
-                    if (category.kitchenId == 7) {
-                        category.copy(previewDishIds = favoriteIds)
-                    } else {
-                        category
-                    }
+            // יצירת רשימה מעודכנת המבוססת על רשימת הבסיס לשמירה על יציבות
+            val updatedCategories = baseHomeCategories.map { category ->
+                if (category.kitchenId == 7) {
+                    category.copy(previewDishIds = favoriteIds)
+                } else {
+                    category
                 }
+            }.filter { it.kitchenId != 7 || it.previewDishIds.isNotEmpty() }
 
-                // 2. סינון: הצג את קטגוריה 7 רק אם יש בה מנות
-                // שאר הקטגוריות (1-6) תמיד יוצגו
-                val filteredCategories = updatedCategories.filter { category ->
-                    category.kitchenId != 7 || category.previewDishIds.isNotEmpty()
-                }
-
-                // 3. טעינת תמונות ועדכון האדפטר
-                prefetchLocalImages(filteredCategories, adapter)
-                adapter.categories = filteredCategories
-                adapter.notifyDataSetChanged()
+            // בדיקה אם הנתונים באמת השתנו לפני עדכון (מונע בלבול תמונות ורענון מיותר)
+            if (currentAdapter.categories != updatedCategories) {
+                prefetchLocalImages(updatedCategories, currentAdapter)
+                currentAdapter.categories = updatedCategories
+                currentAdapter.notifyDataSetChanged()
             }
         }
     }
+
     private fun prefetchLocalImages(categories: List<HomeCategory>, adapter: HomeCategoriesAdapter) {
         val allPreviewIds = categories.flatMap { it.previewDishIds }.distinct()
         lifecycleScope.launch {

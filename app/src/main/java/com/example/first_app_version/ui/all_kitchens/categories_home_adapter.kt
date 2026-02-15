@@ -1,4 +1,5 @@
 package com.example.first_app_version.ui.all_kitchens
+
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,13 +19,21 @@ class HomeCategoriesAdapter(
     private val onCategoryClick: (HomeCategory) -> Unit
 ) : RecyclerView.Adapter<HomeCategoriesAdapter.CategoryViewHolder>() {
 
-
+    // שלב 1: הגדרת מזהים יציבים למניעת בלבול בתמונות בזמן מיחזור השורות
+    init {
+        setHasStableIds(true)
+    }
 
     override fun getItemCount(): Int = categories.size
 
+    // החזרת ה-ID של המטבח כמזהה קבוע לשורה
+    override fun getItemId(position: Int): Long {
+        return categories[position].kitchenId.toLong()
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoryViewHolder {
         val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.home_cards, parent, false) // Creating a card
+            .inflate(R.layout.home_cards, parent, false)
         return CategoryViewHolder(view)
     }
 
@@ -41,9 +50,9 @@ class HomeCategoriesAdapter(
             itemView.findViewById(R.id.categoryRecyclerView)
 
         fun bind(category: HomeCategory) {
-
             categoryTitle.text = category.kitchenName
-            categoryTitle.setOnClickListener { onCategoryClick(category) } // Tap goes to kitchen
+            categoryTitle.setOnClickListener { onCategoryClick(category) }
+
             val previewItems = previewProvider(category)
 
             val homeCategoryRowAdapter = HomeCategoryRowAdapter(
@@ -58,47 +67,34 @@ class HomeCategoriesAdapter(
 
             categoryRecyclerView.adapter = homeCategoryRowAdapter
 
-            // A tap anywhere in the horizontal row that is NOT an image navigates to kitchen
+            // טיפול בנקישה על השורה (מחוץ לתמונות)
             val gestureDetector = GestureDetector(itemView.context, object : SimpleOnGestureListener() {
                 override fun onSingleTapUp(e: MotionEvent): Boolean = true
             })
 
             categoryRecyclerView.addOnItemTouchListener(object : RecyclerView.OnItemTouchListener {
                 override fun onInterceptTouchEvent(rv: RecyclerView, e: MotionEvent): Boolean {
-                    // Only handle simple taps so that scrolling won't do anything
                     if (!gestureDetector.onTouchEvent(e)) return false
 
-                    // Child under the tap (if any)
                     val child = rv.findChildViewUnder(e.x, e.y)
 
                     if (child == null) {
-                        // Tap on blank/background area (no child view) to navigate to kitchen
                         onCategoryClick(category)
                         return true
                     }
 
-                    // If tapping on a child, check if it's an image item
-                    // We detect image items by presence of previewImage in the child
                     val isImageItem = child.findViewById<ImageView>(R.id.previewImage) != null
 
                     return if (isImageItem) {
-                        // Let the image's own click listener handle dish navigation
                         false
                     } else {
-                        // Tap on non-image child so navigate tp kitchen
                         onCategoryClick(category)
                         true
                     }
                 }
 
-                // Must have override functions
-                override fun onTouchEvent(rv: RecyclerView, e: MotionEvent) {
-                    // No-op: handled in intercept
-                }
-
-                override fun onRequestDisallowInterceptTouchEvent(disallowIntercept: Boolean) {
-                    // No-op
-                }
+                override fun onTouchEvent(rv: RecyclerView, e: MotionEvent) {}
+                override fun onRequestDisallowInterceptTouchEvent(disallowIntercept: Boolean) {}
             })
         }
     }
