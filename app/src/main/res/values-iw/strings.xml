@@ -94,5 +94,9 @@
     <string name="empty_favorites"> הרשימה שלך ריקה  </string>
     <string name="remove_from_favorites">הסרה מהמועדפים</string>
     <string name="add_to_favorites">הוספה למועדפים</string>
+    <string name="speak_now">דבר/י עכשיו</string>
+    <string name="speech_to_text_not_supported">זיהוי דיבור לא נתמך במכשיר זה</string>
+    <string name="api_no_categories_found">לא אותרו קטגוריות בשרת</string>
+    <string name="api_no_meal_details">לא אותרו פרטי מנה</string>
 
 </resources>

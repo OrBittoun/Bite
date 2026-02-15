@@ -26,7 +26,6 @@ class KitchenViewModel @Inject constructor(
     private val _chosenKitchen = MutableLiveData<Kitchen>()
     val chosenKitchen: LiveData<Kitchen> get() = _chosenKitchen
 
-    // --- הפונקציה שחסרה לשותף עבור מסך הבית ---
     fun getKitchenSync(id: Int): Kitchen? {
         return kitchens.value?.find { it.id == id }
     }

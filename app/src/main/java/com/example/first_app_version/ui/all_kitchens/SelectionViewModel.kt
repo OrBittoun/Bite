@@ -26,7 +26,6 @@ class SelectionViewModel @Inject constructor() : ViewModel() {
         _selectedDishType.value = dishType
     }
 
-    // --- התוספות של השותף עבור ניהול מצב מסך המועדפים ---
     private val _isFavoritesMode = MutableLiveData<Boolean>(false)
     val isFavoritesMode: LiveData<Boolean> = _isFavoritesMode
 

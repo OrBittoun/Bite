@@ -17,7 +17,6 @@ class DishDetailsViewModel @Inject constructor(
 
     fun dishById(dishId: Int): LiveData<Dish> = repository.getDishById(dishId)
 
-    // הפונקציה של השותף לעדכון סטטוס מועדפים
     fun toggleFavorite(dishId: Int, isFavorite: Boolean) {
         viewModelScope.launch(Dispatchers.IO) {
             repository.updateFavoriteStatus(dishId, isFavorite)

@@ -26,7 +26,6 @@ class DishesFragment : Fragment() {
 
     private val selectionViewModel: SelectionViewModel by activityViewModels()
     private val dishesViewModel: DishesViewModel by viewModels()
-    // הוספנו את ה-ViewModel של ה-API
     private val categoryViewModel: CategoryViewModel by activityViewModels()
 
     override fun onCreateView(
@@ -81,10 +80,8 @@ class DishesFragment : Fragment() {
             try {
                 Log.d("DishesFragment", "Dish clicked: ${clickedDish.name} (ID: ${clickedDish.id})")
 
-                // בדיקה: אם המזהה של סוג המנה הוא 0, מדובר במנה מה-API!
                 if (clickedDish.dishTypeId == 0) {
                     categoryViewModel.fetchMealDetails(clickedDish.id.toString())
-                    // שימוש ב-Action התקני שהרגע יצרנו ב-my_nav.xml
                     findNavController().navigate(R.id.action_dishesFragment_to_apiDishDetailsFragment)
                 } else {
                     selectionViewModel.setDishId(clickedDish.id)

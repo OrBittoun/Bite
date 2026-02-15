@@ -10,6 +10,7 @@ import javax.inject.Singleton
 class DishTypeRepository @Inject constructor(
     private val dishTypeDao: DishTypeDao
 ) {
+    // Retrieves all categories of dishes associated with a specific kitchen ID
     fun getDishTypesForKitchen(kitchenId: Int): LiveData<List<DishType>> =
         dishTypeDao.getDishTypesForKitchen(kitchenId)
 }

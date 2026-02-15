@@ -39,7 +39,6 @@ class AddCommentFragment : Fragment() {
     private var userEdited = false
     private var existingCommentPresent = false
 
-    // 1. הגדרת המנגנון שמקבל את התוצאה מזיהוי הדיבור
     private val speechRecognizerLauncher = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()
     ) { result ->
@@ -72,7 +71,6 @@ class AddCommentFragment : Fragment() {
         binding.ratingBar.numStars = 5
         binding.ratingBar.stepSize = 1f
 
-        // הפעלת ההקלטה בלחיצה על המיקרופון
         binding.btnMic.setOnClickListener {
             startSpeechToText()
         }
@@ -132,7 +130,6 @@ class AddCommentFragment : Fragment() {
                     }
                 }
 
-            // *** כאן שולב הקוד של השותפה לבדיקת התחברות (Firebase Auth) ***
             binding.submitButton.setOnClickListener {
                 val currentUser = FirebaseAuth.getInstance().currentUser
                 if (currentUser == null) {
@@ -150,18 +147,17 @@ class AddCommentFragment : Fragment() {
         }
     }
 
-    // הפונקציה שמשגרת את הבקשה לגוגל להקליט דיבור
     private fun startSpeechToText() {
         val intent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH).apply {
             putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM)
             putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault())
-            putExtra(RecognizerIntent.EXTRA_PROMPT, "דבר עכשיו...")
+            putExtra(RecognizerIntent.EXTRA_PROMPT, R.string.speak_now)
         }
 
         try {
             speechRecognizerLauncher.launch(intent)
         } catch (e: ActivityNotFoundException) {
-            Toast.makeText(requireContext(), "זיהוי דיבור לא נתמך במכשיר זה", Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(), R.string.speech_to_text_not_supported, Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -249,7 +245,6 @@ class AddCommentFragment : Fragment() {
         }, 4000)
     }
 
-    // *** הפונקציה שהשותפה הוסיפה להצגת דיאלוג במקרה שהמשתמש לא מחובר ***
     private fun showLoginRequiredDialog() {
         AlertDialog.Builder(requireContext())
             .setTitle(getString(R.string.dialog_sign_in_title))

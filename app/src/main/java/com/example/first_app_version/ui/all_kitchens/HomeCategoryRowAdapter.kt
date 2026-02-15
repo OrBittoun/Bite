@@ -60,7 +60,6 @@ class HomeCategoryRowAdapter(
         private val imageView: ImageView = itemView.findViewById(R.id.previewImage)
 
         fun bind(item: DishPreview) {
-            // טיפול חכם של השותף: בדיקה אם זו תמונה מהרשת או מקומית
             if (!item.imageUrl.isNullOrEmpty()) {
                 Glide.with(itemView.context)
                     .load(item.imageUrl)

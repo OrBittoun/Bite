@@ -24,10 +24,6 @@ abstract class KitchenDataBase : RoomDatabase() {
     abstract fun commentsDao(): CommentDao
     abstract fun categoryDao(): CategoryDao
 
-    /**
-     * Hilt will own the singleton DB instance. We keep your seed logic exactly as-is,
-     * but expose it as a Room Callback so the Hilt module can attach it.
-     */
     companion object {
 
         fun buildCallback(): Callback = object : Callback() {

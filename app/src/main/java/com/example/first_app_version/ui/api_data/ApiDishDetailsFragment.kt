@@ -45,7 +45,7 @@ class ApiDishDetailsFragment : Fragment() {
                 updateUI(mealDetails)
                 setupFavoriteToggle(mealDetails)
             } else {
-                Toast.makeText(requireContext(), "Failed to load meal details", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), R.string.api_no_meal_details, Toast.LENGTH_SHORT).show()
             }
         }
     }
@@ -53,15 +53,12 @@ class ApiDishDetailsFragment : Fragment() {
     private fun setupFavoriteToggle(mealDetails: MealDetailsDto) {
         val mealId = mealDetails.idMeal.toIntOrNull() ?: return
 
-        // האזנה למסד הנתונים כדי לדעת את הסטטוס בזמן אמת
         dishRepository.getDishById(mealId).observe(viewLifecycleOwner) { localDish ->
             val isFavorite = localDish != null && localDish.isFavorite
 
-            // עדכון צורת הלב
             val heartIcon = if (isFavorite) R.drawable.ic_favorite_filled else R.drawable.ic_favorite_border
             binding.favoriteHeart.setImageResource(heartIcon)
 
-            // הגדרת לחיצה שמבדילה בין הוספה למחיקה
             binding.favoriteHeart.setOnClickListener {
                 if (isFavorite) {
                     lifecycleScope.launch {
@@ -91,17 +88,16 @@ class ApiDishDetailsFragment : Fragment() {
     }
 
     private fun saveDishToFavorites(mealDetails: MealDetailsDto) {
-        // שילוב המרכיבים וההוראות לתוך התיאור כדי שישמרו במסד הנתונים
         val fullRecipe = "Ingredients:\n${getIngredientsText(mealDetails)}\n\nInstructions:\n${mealDetails.strInstructions}"
 
         val newDish = Dish(
             id = mealDetails.idMeal.toIntOrNull() ?: System.currentTimeMillis().toInt(),
             name = mealDetails.strMeal,
-            dishTypeId = 0, // מזהה 0 אומר לנו שזו מנת API
+            dishTypeId = 0, // Way to know that this is an API dish
             restaurantName = "Explore API",
             imageRes = null,
-            imageUrl = mealDetails.strMealThumb, // שמירת הלינק לתמונה!
-            description = fullRecipe, // שמירת המתכון המלא!
+            imageUrl = mealDetails.strMealThumb,
+            description = fullRecipe,
             isFavorite = true,
             price = 0,
             reviewsCount = 0
