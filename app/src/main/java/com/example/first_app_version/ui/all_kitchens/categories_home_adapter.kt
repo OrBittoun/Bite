@@ -18,6 +18,8 @@ class HomeCategoriesAdapter(
     private val onCategoryClick: (HomeCategory) -> Unit
 ) : RecyclerView.Adapter<HomeCategoriesAdapter.CategoryViewHolder>() {
 
+
+
     override fun getItemCount(): Int = categories.size
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoryViewHolder {

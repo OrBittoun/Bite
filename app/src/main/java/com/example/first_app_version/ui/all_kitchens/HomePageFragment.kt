@@ -116,27 +116,30 @@ class HomePageFragment : Fragment() {
     // שאר הפונקציות (handleCategoryNavigation, prefetchLocalImages וכו') נשארות ללא שינוי...
     private fun handleCategoryNavigation(category: HomeCategory) {
         try {
+            // 1. טיפול ב-Explore (ID 6)
             if (category.kitchenId == 6) {
+                selectionViewModel.setFavoritesMode(false) // ודאי שזה כבוי
                 categoryViewModel.fetchCategories()
                 findNavController().navigate(R.id.action_homePageFragment_to_dishesTypesFragment)
                 return
             }
 
-            if (category.kitchenId == 7) { // מועדפים
-                selectionViewModel.setFavoritesMode(true)
-                // ניווט ישירות למסך המנות
+            // 2. טיפול במועדפים (ID 7) - כאן התיקון!
+            if (category.kitchenId == 7) {
+                selectionViewModel.setFavoritesMode(true) // הדלקת מצב מועדפים
+                // ניווט ישיר למסך המנות (DishesFragment) ולא למסך הסוגים
                 findNavController().navigate(R.id.action_homePageFragment_to_dishesFragment)
                 return
             }
 
-            // לוגיקה רגילה לשאר הקטגוריות
-            selectionViewModel.setFavoritesMode(false)
-
+            // 3. טיפול במטבחים רגילים
+            selectionViewModel.setFavoritesMode(false) // כיבוי מצב מועדפים
             val selectedKitchen = kitchenViewModel.getKitchenSync(category.kitchenId)
                 ?: kitchensCache.firstOrNull { it.id == category.kitchenId }
 
             if (selectedKitchen != null) {
                 kitchenViewModel.setKitchen(selectedKitchen)
+                // מטבח רגיל הולך קודם לבחירת סוגי מנות (איטלקי -> פיצה/פסטה)
                 findNavController().navigate(R.id.action_homePageFragment_to_dishesTypesFragment)
             } else {
                 Toast.makeText(requireContext(), R.string.no_kitchen_found, Toast.LENGTH_SHORT).show()
