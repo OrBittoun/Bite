@@ -13,7 +13,6 @@ class DishesViewModel(application: Application) : AndroidViewModel(application) 
     fun getDishesForType(dishTypeId: Int): LiveData<List<Dish>> =
         repository.getDishesForDishType(dishTypeId)
 
-    // ⭐ חדש – מנה בודדת לפי ID
     fun getDishById(dishId: Int): LiveData<Dish> =
         repository.getDishById(dishId)
 }

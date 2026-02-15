@@ -1,0 +1,188 @@
+@startuml
+skinparam style strictuml
+skinparam classAttributeIconSize 0
+
+' =========================
+' UI Layer (View)
+' =========================
+package "UI (Activities/Fragments)" {
+  class MainActivity
+  class SignInFragment
+  class SignUpFragment
+  class HomeFragment
+  class CuisinesFragment
+  class FoodTypesFragment
+  class DishesFragment
+  class DishDetailsFragment
+}
+
+' =========================
+' ViewModels
+' =========================
+package "ViewModel" {
+  class LoggedInUserViewModel {
+    - currentUser: LiveData<User?>
+    + setUser(user: User?)
+    + signOut()
+  }
+
+  class AuthViewModel {
+    - authRepository: AuthRepository
+    - userRepository: UserRepository
+    + register(email: String, password: String, firstName: String, lastName: String)
+    + signIn(email: String, password: String)
+  }
+
+  class BrowseViewModel {
+    - cuisineRepository: CuisineRepository
+    + getCuisines(): LiveData<List<Cuisine>>
+    + getFoodTypes(cuisineId: String): LiveData<List<FoodType>>
+    + getDishes(foodTypeId: String): LiveData<List<Dish>>
+  }
+
+  class DishDetailsViewModel {
+    - dishRepository: DishRepository
+    - commentRepository: CommentRepository
+    + getDish(dishId: String): LiveData<Dish>
+    + getComments(dishId: String): LiveData<List<Comment>>
+    + addComment(dishId: String, text: String, rating: Int)
+    + getAvgRating(dishId: String): LiveData<Double>
+  }
+}
+
+' =========================
+' Repository Layer
+' =========================
+package "Repository" {
+  class AuthRepository {
+    - firebaseAuth: FirebaseAuth
+    + register(email: String, password: String)
+    + signIn(email: String, password: String)
+    + signOut()
+    + currentUid(): String?
+  }
+
+  class UserRepository {
+    - firestore: FirebaseFirestore
+    + createUserProfile(user: User)
+    + getUser(uid: String): LiveData<User?>
+  }
+
+  class CuisineRepository {
+    - firestore: FirebaseFirestore
+    + fetchCuisines(): LiveData<List<Cuisine>>
+    + fetchFoodTypes(cuisineId: String): LiveData<List<FoodType>>
+  }
+
+  class DishRepository {
+    - firestore: FirebaseFirestore
+    + fetchDishes(foodTypeId: String): LiveData<List<Dish>>
+    + fetchDish(dishId: String): LiveData<Dish>
+  }
+
+  class CommentRepository {
+    - firestore: FirebaseFirestore
+    + fetchComments(dishId: String): LiveData<List<Comment>>
+    + addComment(dishId: String, comment: Comment)
+    + listenCommentsRealtime(dishId: String)
+  }
+}
+
+' =========================
+' Models
+' =========================
+package "Models" {
+  class User {
+    + uid: String
+    + firstName: String
+    + lastName: String
+    + email: String
+  }
+
+  class Cuisine {
+    + id: String
+    + name: String
+    + imageUrl: String
+  }
+
+  class FoodType {
+    + id: String
+    + cuisineId: String
+    + name: String
+  }
+
+  class Dish {
+    + id: String
+    + foodTypeId: String
+    + name: String
+    + description: String
+    + imageUrl: String
+  }
+
+  class Comment {
+    + id: String
+    + dishId: String
+    + userId: String
+    + userFullName: String
+    + text: String
+    + rating: Int
+    + createdAt: Timestamp
+  }
+}
+
+' =========================
+' External Services
+' =========================
+package "Firebase" {
+  class FirebaseAuth
+  class FirebaseFirestore
+}
+
+' =========================
+' View -> ViewModel
+' =========================
+MainActivity --> LoggedInUserViewModel
+
+SignInFragment --> AuthViewModel
+SignUpFragment --> AuthViewModel
+
+HomeFragment --> BrowseViewModel
+CuisinesFragment --> BrowseViewModel
+FoodTypesFragment --> BrowseViewModel
+DishesFragment --> BrowseViewModel
+
+DishDetailsFragment --> DishDetailsViewModel
+
+' =========================
+' ViewModel -> Repository
+' =========================
+AuthViewModel --> AuthRepository
+AuthViewModel --> UserRepository
+
+BrowseViewModel --> CuisineRepository
+
+DishDetailsViewModel --> DishRepository
+DishDetailsViewModel --> CommentRepository
+
+LoggedInUserViewModel --> AuthRepository
+LoggedInUserViewModel --> UserRepository
+
+' =========================
+' Repository -> Firebase
+' =========================
+AuthRepository --> FirebaseAuth
+UserRepository --> FirebaseFirestore
+CuisineRepository --> FirebaseFirestore
+DishRepository --> FirebaseFirestore
+CommentRepository --> FirebaseFirestore
+
+' =========================
+' Repositories -> Models
+' =========================
+UserRepository ..> User
+CuisineRepository ..> Cuisine
+CuisineRepository ..> FoodType
+DishRepository ..> Dish
+CommentRepository ..> Comment
+
+@enduml
