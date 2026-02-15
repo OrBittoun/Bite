@@ -8,6 +8,10 @@ import com.example.first_app_version.data.models.DishType
 class SelectionViewModel : ViewModel() {
 
     private val _selectedDishId = MutableLiveData<Int>()
+
+    //חלק ב
+    private val _isFavoritesMode = MutableLiveData<Boolean>(false)
+    val isFavoritesMode: LiveData<Boolean> = _isFavoritesMode
     val selectedDishId: LiveData<Int>
         get() = _selectedDishId
 
@@ -22,5 +26,11 @@ class SelectionViewModel : ViewModel() {
     fun setDishType(dishType: DishType) {
         _selectedDishType.value = dishType
     }
+
+    //חלק ב
+    fun setFavoritesMode(isFavorites: Boolean) {
+        _isFavoritesMode.value = isFavorites
+    }
 }
+
 

@@ -16,6 +16,9 @@
         <action
             android:id="@+id/action_homePageFragment_to_dishDisplayPageFragment2"
             app:destination="@id/dishDisplayPageFragment" />
+        <action
+            android:id="@+id/action_homePageFragment_to_dishesFragment"
+            app:destination="@id/dishesFragment" />
     </fragment>
     <fragment
         android:id="@+id/dishesTypesFragment"

@@ -122,6 +122,16 @@ class HomePageFragment : Fragment() {
                 return
             }
 
+            if (category.kitchenId == 7) { // מועדפים
+                selectionViewModel.setFavoritesMode(true)
+                // ניווט ישירות למסך המנות
+                findNavController().navigate(R.id.action_homePageFragment_to_dishesFragment)
+                return
+            }
+
+            // לוגיקה רגילה לשאר הקטגוריות
+            selectionViewModel.setFavoritesMode(false)
+
             val selectedKitchen = kitchenViewModel.getKitchenSync(category.kitchenId)
                 ?: kitchensCache.firstOrNull { it.id == category.kitchenId }
 
