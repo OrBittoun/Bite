@@ -140,8 +140,35 @@ class HomePageFragment : Fragment() {
         kitchenViewModel.kitchens.observe(viewLifecycleOwner) { list ->
             kitchensCache = list ?: emptyList()
         }
-    }
 
+        dishRepository.getFavoriteDishes().observe(viewLifecycleOwner) { favoriteDishes ->
+            val favoriteIds = favoriteDishes.map { it.id }
+
+            val currentAdapter = binding.homeRecyclerView.adapter as? HomeCategoriesAdapter
+            currentAdapter?.let { adapter ->
+
+                // 1. יצירת רשימת קטגוריות מעודכנת
+                val updatedCategories = adapter.categories.map { category ->
+                    if (category.kitchenId == 7) {
+                        category.copy(previewDishIds = favoriteIds)
+                    } else {
+                        category
+                    }
+                }
+
+                // 2. סינון: הצג את קטגוריה 7 רק אם יש בה מנות
+                // שאר הקטגוריות (1-6) תמיד יוצגו
+                val filteredCategories = updatedCategories.filter { category ->
+                    category.kitchenId != 7 || category.previewDishIds.isNotEmpty()
+                }
+
+                // 3. טעינת תמונות ועדכון האדפטר
+                prefetchLocalImages(filteredCategories, adapter)
+                adapter.categories = filteredCategories
+                adapter.notifyDataSetChanged()
+            }
+        }
+    }
     private fun prefetchLocalImages(categories: List<HomeCategory>, adapter: HomeCategoriesAdapter) {
         val allPreviewIds = categories.flatMap { it.previewDishIds }.distinct()
         lifecycleScope.launch {

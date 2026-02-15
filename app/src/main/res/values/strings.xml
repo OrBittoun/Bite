@@ -52,6 +52,8 @@
     <string name="no_dishes">No dishes found</string>
     <string name="app_logo">No dishes found</string>
     <string name="no_data_message">No data available. Please check your internet connection to explore more recipes and try again</string>
+    <string name="remove_from_favorites">remove_from_favorites\n</string>
+    <string name="add_to_favorites">add_to_favorite\n</string>
 
 
 </resources>

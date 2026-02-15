@@ -22,4 +22,13 @@ interface DishDao {
     @Query("SELECT image_res FROM dishes WHERE id = :dishId LIMIT 1")
     suspend fun getImageResForDish(dishId: Int): Int?
 
+    // --- הוספה עבור מועדפים ---
+
+    // פונקציה לעדכון הסטטוס של המנה (מועדף או לא)
+    @Query("UPDATE dishes SET is_favorite = :isFavorite WHERE id = :dishId")
+    suspend fun updateFavoriteStatus(dishId: Int, isFavorite: Boolean)
+
+    // פונקציה לשליפת כל המנות שמוגדרות כהמועדפות
+    @Query("SELECT * FROM dishes WHERE is_favorite = 1")
+    fun getFavoriteDishes(): LiveData<List<Dish>>
 }

@@ -6,7 +6,6 @@ import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.Index
 import androidx.room.PrimaryKey
-
 @Entity(
     tableName = "dishes",
     foreignKeys = [
@@ -42,6 +41,10 @@ data class Dish(
     val price: Int = 0,
 
     @ColumnInfo(name = "reviews_count", defaultValue = "0")
-    val reviewsCount: Int = 0
+    val reviewsCount: Int = 0,
+
+    // השדה החדש שהוספנו:
+    @ColumnInfo(name = "is_favorite", defaultValue = "0")
+    val isFavorite: Boolean = false
 )
 

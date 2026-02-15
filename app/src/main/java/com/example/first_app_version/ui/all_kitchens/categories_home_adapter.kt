@@ -12,7 +12,7 @@ import android.view.GestureDetector.SimpleOnGestureListener
 import android.widget.ImageView
 
 class HomeCategoriesAdapter(
-    private val categories: List<HomeCategory>,
+    var categories: List<HomeCategory>,
     private val previewProvider: (HomeCategory) -> List<DishPreview>,
     private val onDishClick: (Int) -> Unit,
     private val onCategoryClick: (HomeCategory) -> Unit

@@ -46,6 +46,8 @@ class DishDisplayFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+
+
         binding.recyclerDishComments.layoutManager =
             LinearLayoutManager(requireContext())
         binding.recyclerDishComments.adapter = commentAdapter
@@ -72,13 +74,35 @@ class DishDisplayFragment : Fragment() {
             val ctx = binding.root.context
             currentDishId = dishId
 
+
             dishDetailsViewModel.dishById(dishId).observe(viewLifecycleOwner) { dish ->
+                if (dish == null) return@observe
+
                 binding.dishTitle.text = dish.name
                 binding.dishDesc.text = dish.description ?: ""
                 binding.dishRestaurant?.text = dish.restaurantName
                 val img = dish.imageRes ?: R.mipmap.pizza_foreground
                 binding.dishImg.setImageResource(img)
                 binding.dishPrice.text = ctx.getString(R.string.dish_price_display, dish.price.toDouble())
+
+                // תיקון שגיאת ה-Nullable: הוספת ?. לפני הגישה ל-View
+                val heartIcon = if (dish.isFavorite) {
+                    R.drawable.ic_favorite_filled
+                } else {
+                    R.drawable.ic_favorite_border
+                }
+
+                binding.favoriteHeart?.setImageResource(heartIcon)
+
+                // הוספת contentDescription לטובת נגישות (פותר את השגיאה מהצילום הראשון)
+                binding.favoriteHeart?.contentDescription = if (dish.isFavorite)
+                    getString(R.string.remove_from_favorites)
+                else
+                    getString(R.string.add_to_favorites)
+
+                binding.favoriteHeart?.setOnClickListener {
+                    dishDetailsViewModel.toggleFavorite(dish.id, !dish.isFavorite)
+                }
             }
 
             commentsViewModel.commentsForDish(dishId).observe(viewLifecycleOwner) { comments ->
