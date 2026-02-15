@@ -24,7 +24,6 @@ class MainActivity : AppCompatActivity() {
 
     private val loggedInUserViewModel: LoggedInUserViewModel by viewModels()
 
-    // הזרקת תלויות באמצעות Hilt במקום יצירה ידנית
     @Inject
     lateinit var userRepository: UserRepository
 
@@ -37,7 +36,6 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        // שמירה על הגדרות המסך המלא שלך
         enableEdgeToEdge()
         setContentView(R.layout.activity_main)
 
@@ -78,7 +76,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun updateIconForLoggedOut(destinationId: Int?) {
         if (destinationId == R.id.loginFragment || destinationId == R.id.registerFragment) {
-            userStatusIconGlobal.setImageResource(R.drawable.home) // ודא שיש לך תמונה בשם home ב-drawables
+            userStatusIconGlobal.setImageResource(R.drawable.home)
             userStatusIconGlobal.setOnClickListener {
                 navController.navigate(R.id.homePageFragment)
             }
@@ -128,7 +126,7 @@ class MainActivity : AppCompatActivity() {
             .setTitle(getString(R.string.dialog_sign_out_title))
             .setMessage(getString(R.string.dialog_sign_out_msg))
             .setPositiveButton(getString(R.string.menu_sign_out)) { _, _ ->
-                auth.signOut() // שימוש באובייקט המוזרק מ-Hilt
+                auth.signOut()
                 loggedInUserViewModel.clear()
                 navController.navigate(R.id.loginFragment)
             }

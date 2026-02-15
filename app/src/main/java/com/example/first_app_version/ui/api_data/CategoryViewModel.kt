@@ -1,6 +1,5 @@
 package com.example.first_app_version.ui.api_data
 
-// תיקנו את שורת הייבוא כדי שתצביע למיקום הנכון של הרפוזיטורי!
 import com.example.first_app_version.data.repository.CategoryRepository
 import android.util.Log
 import androidx.lifecycle.LiveData

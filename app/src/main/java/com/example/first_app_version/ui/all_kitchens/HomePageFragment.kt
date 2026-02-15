@@ -38,7 +38,6 @@ class HomePageFragment : Fragment() {
     private val selectionViewModel: SelectionViewModel by activityViewModels()
     private val categoryViewModel: CategoryViewModel by activityViewModels()
 
-    // הזרקת התלות של Hilt במקום ליצור ידנית!
     @Inject
     lateinit var dishRepository: DishRepository
 
@@ -60,8 +59,6 @@ class HomePageFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
-        // יצירת הקטגוריות
         homeCategories.clear()
         homeCategories.addAll(
             listOf(
@@ -92,10 +89,10 @@ class HomePageFragment : Fragment() {
                             }
                         }
                     }
-                    7 -> { // Favorites - יטען דינמית
+                    7 -> { // Favorites
                         emptyList()
                     }
-                    else -> { // קטגוריות רגילות
+                    else -> { // Regular categories
                         category.previewDishIds.map { dishId ->
                             DishPreview(
                                 dishId = dishId,
@@ -106,15 +103,15 @@ class HomePageFragment : Fragment() {
                 }
             },
             onDishClick = { id ->
-                if (id >= 50000) { // המזהים של TheMealDB הם תמיד בני 5 ספרות
-                    // זו מנה מהאינטרנט שנמצאת במועדפים! מנווטים למסך ה-API
+                if (id >= 50000) { // TheMealDB dish ids are always at least 50000
+                    // Navigate to the API adjusted screen
                     if (!isNetworkAvailable()) {
                         Toast.makeText(requireContext(), R.string.no_internet_error, Toast.LENGTH_SHORT).show()
                     } else {
                         categoryViewModel.fetchMealDetails(id.toString())
                         findNavController().navigate(R.id.action_homePageFragment_to_apiDishDetailsFragment)
                     }
-                } else if (id >= 10000) { // אלו מזהי הקטגוריות שהשותף המציא (10013 וכו')
+                } else if (id >= 10000) {
                     if (!isNetworkAvailable()) {
                         Toast.makeText(requireContext(), R.string.no_internet_error, Toast.LENGTH_SHORT).show()
                     } else {
@@ -138,7 +135,6 @@ class HomePageFragment : Fragment() {
                         }
                     }
                 } else {
-                    // מנה מקומית רגילה
                     selectionViewModel.setDishId(id)
                     findNavController().navigate(R.id.action_homePageFragment_to_dishDisplayPageFragment2)
                 }
@@ -168,7 +164,6 @@ class HomePageFragment : Fragment() {
                     )
                 }
 
-                // עדכן את ה-adapter עם המועדפים החדשים
                 adapter.updateFavorites(favoriteDishes.map { dish ->
                     DishPreview(
                         dishId = dish.id,

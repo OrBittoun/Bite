@@ -19,7 +19,7 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 object AppModule {
 
-    // --- Firebase ---
+    // Firebase setup
     @Provides
     @Singleton
     fun provideFirebaseAuth(): FirebaseAuth = FirebaseAuth.getInstance()
@@ -36,7 +36,7 @@ object AppModule {
     @Singleton
     fun provideUserRepository(firestore: FirebaseFirestore): UserRepository = UserRepository(firestore)
 
-    // --- Retrofit (API) ---
+    // Retrofit (API) setup
     @Provides
     @Singleton
     fun provideOkHttpClient(): OkHttpClient {
@@ -51,7 +51,6 @@ object AppModule {
     @Singleton
     fun provideRetrofit(client: OkHttpClient): Retrofit {
         return Retrofit.Builder()
-            // בהנחה שה-API שלכם הוא מ-TheMealDB:
             .baseUrl("https://www.themealdb.com/api/json/v1/1/")
             .addConverterFactory(GsonConverterFactory.create())
             .client(client)

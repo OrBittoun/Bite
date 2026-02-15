@@ -65,7 +65,6 @@ class DishDisplayFragment : Fragment() {
                 binding.dishDesc.text = dish.description ?: ""
                 binding.dishRestaurant?.text = dish.restaurantName
 
-                // תיקון טעינת תמונה: עדיפות ללינק מהאינטרנט אם קיים!
                 if (!dish.imageUrl.isNullOrEmpty()) {
                     Glide.with(ctx)
                         .load(dish.imageUrl)
@@ -103,7 +102,6 @@ class DishDisplayFragment : Fragment() {
                 commentAdapter.submitList(comments)
             }
 
-            // --- הלוגיקה שלך לבדיקת תגובה קיימת (שחזרנו אותה!) ---
             commentsViewModel.myCommentForDish(dishId).observe(viewLifecycleOwner) { myComment ->
                 if (myComment != null) {
                     binding.addComment.setText(R.string.edit_comment)

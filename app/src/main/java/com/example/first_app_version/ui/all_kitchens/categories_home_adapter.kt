@@ -22,7 +22,6 @@ class HomeCategoriesAdapter(
     private val onCategoryClick: (HomeCategory) -> Unit
 ) : RecyclerView.Adapter<HomeCategoriesAdapter.CategoryViewHolder>() {
 
-    // משתנה לשמירת המועדפים של השותף
     private var favoritesPreviews: List<DishPreview> = emptyList()
 
     init {
@@ -34,7 +33,6 @@ class HomeCategoriesAdapter(
         notifyDataSetChanged()
     }
 
-    // פונקציה לעדכון המועדפים
     fun updateFavorites(favorites: List<DishPreview>) {
         Log.d("HomeCategoriesAdapter", "updateFavorites called with ${favorites.size} items")
         this.favoritesPreviews = favorites
@@ -65,7 +63,6 @@ class HomeCategoriesAdapter(
             categoryTitle.text = category.kitchenName
             categoryTitle.setOnClickListener { onCategoryClick(category) }
 
-            // קבלת הנתונים המתאימים (מועדפים או רגיל)
             val previewItems = if (category.kitchenId == 7) {
                 favoritesPreviews
             } else {
@@ -91,7 +88,6 @@ class HomeCategoriesAdapter(
 
             categoryRecyclerView.addOnItemTouchListener(object : RecyclerView.OnItemTouchListener {
                 override fun onInterceptTouchEvent(rv: RecyclerView, e: MotionEvent): Boolean {
-                    // אם זה קטגוריית מועדפים וריקה - אל תיתן ללחוץ על הרקע
                     if (category.kitchenId == 7 && previewItems.isEmpty()) {
                         return false
                     }

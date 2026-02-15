@@ -13,12 +13,15 @@ import javax.inject.Singleton
 class CommentRepository @Inject constructor(
     private val commentDao: CommentDao
 ) {
+    // Observes the current user's comment for a specific dish
     fun observeMyComment(dishId: Int, authorName: String = "You"): LiveData<Comment?> =
         commentDao.getMyCommentForDish(dishId, authorName)
 
+    // Observes all comments for a specific dish
     fun observeComments(dishId: Int): LiveData<List<Comment>> =
         commentDao.getCommentsForDish(dishId)
 
+    // Saves or updates a comment and synchronizes the dish's review count
     suspend fun saveMyComment(
         dishId: Int,
         rating: Int,
@@ -39,6 +42,7 @@ class CommentRepository @Inject constructor(
         commentDao.insertOrReplaceAndSyncDishCount(comment)
     }
 
+    // Deletes the user's comment and updates the total review count
     suspend fun deleteMyComment(dishId: Int, authorName: String = "You") {
         commentDao.deleteByDishAndAuthorAndSync(dishId, authorName)
     }

@@ -46,7 +46,6 @@ object DatabaseModule {
     @Provides
     fun provideCommentDao(db: KitchenDataBase): CommentDao = db.commentsDao()
 
-    // הפונקציה החדשה שמספקת את ה-CategoryDao
     @Provides
     fun provideCategoryDao(db: KitchenDataBase): CategoryDao = db.categoryDao()
 }

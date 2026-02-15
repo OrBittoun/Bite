@@ -62,7 +62,7 @@ class LoginFragment : Fragment() {
                     binding.loginButton.isEnabled = true
                     loggedInUserViewModel.setUser(state.user)
                     Toast.makeText(requireContext(), getString(R.string.welcome_back), Toast.LENGTH_SHORT).show()
-                    authViewModel.resetState() // מונע קריאה כפולה
+                    authViewModel.resetState()
 
                     val navigatedBack = findNavController().popBackStack()
                     if (!navigatedBack) {

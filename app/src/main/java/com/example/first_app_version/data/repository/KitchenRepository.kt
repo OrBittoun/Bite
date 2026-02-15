@@ -10,8 +10,10 @@ import javax.inject.Singleton
 class KitchenRepository @Inject constructor(
     private val kitchenDao: KitchenDao
 ) {
+    // Provides an observable list of all available kitchens
     fun getItems(): LiveData<List<Kitchen>> = kitchenDao.getKitchens()
 
+    // Fetches a specific kitchen by ID, returning null if not found or on error
     suspend fun getKitchen(id: Int): Kitchen? =
         try {
             kitchenDao.getKitchen(id)

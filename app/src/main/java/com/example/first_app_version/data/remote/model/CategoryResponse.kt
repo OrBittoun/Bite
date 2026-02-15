@@ -4,7 +4,8 @@ data class CategoryResponse(
     val categories: List<CategoryDto>
 )
 
-data class CategoryDto( //Data transfer object
+//Data transfer object
+data class CategoryDto(
     val idCategory: String,
     val strCategory: String,
     val strCategoryThumb: String,

@@ -7,14 +7,14 @@ import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query
 
-interface MealApiService { //interface means a contract with no code
+interface MealApiService {
 
     @GET("categories.php")
     suspend fun getCategories(): Response<CategoryResponse>
 
     @GET("filter.php")
     suspend fun getMealsByCategory(
-        @Query("c") category: String //query means adding parameters to the url
+        @Query("c") category: String
     ): Response<MealsResponse>
 
     @GET("lookup.php")

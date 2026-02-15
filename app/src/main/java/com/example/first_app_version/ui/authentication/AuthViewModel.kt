@@ -59,13 +59,11 @@ class AuthViewModel @Inject constructor(
         }
     }
 
-    // פונקציה לאיפוס המצב לאחר שגיאה/הצלחה כדי למנוע קפיצות בניווט
     fun resetState() {
         _authState.value = AuthState.Idle
     }
 }
 
-// מחלקה שמייצגת את מצב האותנטיקציה
 sealed class AuthState {
     object Idle : AuthState()
     object Loading : AuthState()

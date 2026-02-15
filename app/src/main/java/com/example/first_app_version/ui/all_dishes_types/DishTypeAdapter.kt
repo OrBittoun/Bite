@@ -27,7 +27,6 @@ class DishTypeAdapter(
         fun bind(dishType: DishTypeForRetro) {
             binding.mealTitle.text = dishType.name
 
-            // Glide מספיק חכם כדי לדעת אם imageRes הוא Int מקומי או String של URL מהאינטרנט!
             Glide.with(binding.root.context)
                 .load(dishType.imageRes)
                 .placeholder(R.drawable.default_dish)

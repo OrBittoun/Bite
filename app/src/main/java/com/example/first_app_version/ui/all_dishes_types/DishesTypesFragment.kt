@@ -29,7 +29,6 @@ class DishesTypesFragment : Fragment() {
     private val dishesTypesViewModel: DishesTypesViewModel by viewModels()
     private val selectionViewModel: SelectionViewModel by activityViewModels()
 
-    // הוספת ה-ViewModel שאחראי על קריאות הרשת
     private val categoryViewModel: CategoryViewModel by activityViewModels()
 
     private lateinit var adapter: DishTypeAdapter
@@ -58,7 +57,6 @@ class DishesTypesFragment : Fragment() {
                     imageRes = dishType.imageRes as? Int
                 )
                 selectionViewModel.setDishType(localDishType)
-                // התיקון הקריטי: כיבוי מצב המועדפים כשנכנסים למטבח רגיל
                 selectionViewModel.setFavoritesMode(false)
                 findNavController().navigate(R.id.action_dishesTypesFragment_to_dishesFragment)
             }
@@ -74,11 +72,9 @@ class DishesTypesFragment : Fragment() {
                 return@observe
             }
 
-            // לוגיקת החלוקה: API לעומת Room
             if (kitchen.id == 6) {
                 categoryViewModel.meals.observe(viewLifecycleOwner) { mealList ->
                     if (!mealList.isNullOrEmpty()) {
-                        // המרת הנתונים מהאינטרנט למודל המשותף של המסך
                         val uiList = mealList.take(8).map { meal ->
                             DishTypeForRetro(
                                 id = meal.idMeal.toInt(),
@@ -89,7 +85,7 @@ class DishesTypesFragment : Fragment() {
                         }
                         adapter.submitList(uiList)
                     } else {
-                        Toast.makeText(requireContext(), "No categories found from API", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(requireContext(), R.string.api_no_categories_found, Toast.LENGTH_SHORT).show()
                     }
                 }
             } else {
@@ -97,7 +93,6 @@ class DishesTypesFragment : Fragment() {
                     if (dishTypes.isEmpty()) {
                         Toast.makeText(requireContext(), R.string.no_dish_types_found, Toast.LENGTH_SHORT).show()
                     }
-                    // המרת הנתונים מה-Room למודל המשותף של המסך
                     val uiList = dishTypes.map { dbType ->
                         DishTypeForRetro(
                             id = dbType.id,

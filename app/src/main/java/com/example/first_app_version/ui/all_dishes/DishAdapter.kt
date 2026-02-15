@@ -28,7 +28,6 @@ class DishAdapter(
             binding.dishTitle.text = dish.name
             binding.restaurantName.text = dish.restaurantName
 
-            // טעינת התמונה
             if (!dish.imageUrl.isNullOrEmpty()) {
                 Glide.with(ctx)
                     .load(dish.imageUrl)
@@ -42,7 +41,6 @@ class DishAdapter(
                     .into(binding.dishImg)
             }
 
-            // הלוגיקה החדשה: הסתרת מחיר וביקורות למנות API
             if (dish.dishTypeId == 0) {
                 binding.dishPrice.visibility = View.GONE
                 binding.reviewsCount.visibility = View.GONE

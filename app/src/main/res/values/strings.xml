@@ -91,5 +91,11 @@
     <string name="empty_favorites">Your list is empty  </string>
     <string name="remove_from_favorites">remove_from_favorites\n</string>
     <string name="add_to_favorites">add_to_favorite\n</string>
+    <string name="speak_now">Speak now</string>
+    <string name="speech_to_text_not_supported">Speech to text not supported</string>
+    <string name="api_no_categories_found">No categories found from API</string>
+    <string name="api_no_meal_details">Failed to load meal details</string>
+
+
     <string name="signIn">Sign In</string>
 </resources>
