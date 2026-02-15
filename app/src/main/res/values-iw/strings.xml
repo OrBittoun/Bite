@@ -89,7 +89,10 @@
     <string name="dialog_sign_in_title">נדרשת התחברת</string>
     <string name="dialog_sign_in_text">עליך להתחבר כדי להוסיף או לעדכן תגובה.</string>
     <string name="dialog_add_comment_text">ברצונך להוסיף את התגובה?</string>
-
-
+    <string name="no_internet_error">אין חיבור לאינטרנט. אנא נסה שוב</string>
+    <string name="hello_blank_fragment">שלום דף ריק</string>
+    <string name="empty_favorites"> הרשימה שלך ריקה  </string>
+    <string name="remove_from_favorites">הסרה מהמועדפים</string>
+    <string name="add_to_favorites">הוספה למועדפים</string>
 
 </resources>

@@ -47,7 +47,6 @@ android {
 
 dependencies {
     implementation("androidx.room:room-runtime:2.8.4")
-//    implementation(libs.firebase.auth.ktx)
     add("kapt", "androidx.room:room-compiler:2.8.4")
 
     implementation(libs.hilt.android)
@@ -76,4 +75,9 @@ dependencies {
     implementation(platform("com.google.firebase:firebase-bom:33.1.2"))
     implementation("com.google.firebase:firebase-auth")
     implementation("com.google.firebase:firebase-firestore")
+
+    kapt("com.github.bumptech.glide:compiler:4.16.0")
+    implementation("com.squareup.retrofit2:retrofit:2.11.0")
+    implementation("com.squareup.retrofit2:converter-gson:2.11.0")
+    implementation("com.squareup.okhttp3:logging-interceptor:4.12.0")
 }

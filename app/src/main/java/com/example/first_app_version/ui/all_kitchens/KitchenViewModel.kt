@@ -4,7 +4,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.first_app_version.R
 import com.example.first_app_version.data.models.HomeCategory
 import com.example.first_app_version.data.models.Kitchen
 import com.example.first_app_version.data.repository.DishRepository
@@ -26,6 +25,11 @@ class KitchenViewModel @Inject constructor(
 
     private val _chosenKitchen = MutableLiveData<Kitchen>()
     val chosenKitchen: LiveData<Kitchen> get() = _chosenKitchen
+
+    // --- הפונקציה שחסרה לשותף עבור מסך הבית ---
+    fun getKitchenSync(id: Int): Kitchen? {
+        return kitchens.value?.find { it.id == id }
+    }
 
     private val _homeCategories = MutableLiveData<List<HomeCategory>>()
     val homeCategories: LiveData<List<HomeCategory>> = _homeCategories
@@ -63,7 +67,7 @@ class KitchenViewModel @Inject constructor(
             val allDishIds = categoriesList.flatMap { it.previewDishIds }.distinct()
             val imagesDeferred = allDishIds.map { id ->
                 async {
-                    val res = dishRepository.getDishImageRes(id) ?: R.drawable.default_dish
+                    val res = dishRepository.getDishImageRes(id) ?: com.example.first_app_version.R.drawable.default_dish
                     id to res
                 }
             }

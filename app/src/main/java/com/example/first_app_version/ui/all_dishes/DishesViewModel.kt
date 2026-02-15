@@ -14,4 +14,8 @@ class DishesViewModel @Inject constructor(
 
     fun getDishesForType(dishTypeId: Int): LiveData<List<Dish>> =
         repository.getDishesForDishType(dishTypeId)
+
+    fun getFavoriteDishes(): LiveData<List<Dish>> {
+        return repository.getFavoriteDishes()
+    }
 }

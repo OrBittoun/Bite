@@ -2,6 +2,7 @@ package com.example.first_app_version.di
 
 import android.content.Context
 import androidx.room.Room
+import com.example.first_app_version.data.local_db.CategoryDao
 import com.example.first_app_version.data.local_db.CommentDao
 import com.example.first_app_version.data.local_db.DishDao
 import com.example.first_app_version.data.local_db.DishTypeDao
@@ -28,7 +29,7 @@ object DatabaseModule {
             KitchenDataBase::class.java,
             "bite_db"
         )
-            .fallbackToDestructiveMigration(true)
+            .fallbackToDestructiveMigration()
             .addCallback(KitchenDataBase.buildCallback())
             .build()
     }
@@ -44,4 +45,8 @@ object DatabaseModule {
 
     @Provides
     fun provideCommentDao(db: KitchenDataBase): CommentDao = db.commentsDao()
+
+    // הפונקציה החדשה שמספקת את ה-CategoryDao
+    @Provides
+    fun provideCategoryDao(db: KitchenDataBase): CategoryDao = db.categoryDao()
 }

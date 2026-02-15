@@ -86,6 +86,9 @@
     <string name="dialog_sign_in_title">Login Required </string>
     <string name="dialog_sign_in_text">You must be logged in to add or update a comment.</string>
     <string name="dialog_add_comment_text">Are you sure you want to add this comment?</string>
-
-
+    <string name="no_internet_error">No Internet Connection. Please try again</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="empty_favorites">Your list is empty  </string>
+    <string name="remove_from_favorites">remove_from_favorites\n</string>
+    <string name="add_to_favorites">add_to_favorite\n</string>
 </resources>

@@ -49,52 +49,55 @@ class DishDisplayFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.recyclerDishComments.layoutManager =
-            LinearLayoutManager(requireContext())
+        binding.recyclerDishComments.layoutManager = LinearLayoutManager(requireContext())
         binding.recyclerDishComments.adapter = commentAdapter
-        binding.recyclerDishComments.setHasFixedSize(true)
-
-        ViewCompat.setOnApplyWindowInsetsListener(binding.recyclerDishComments) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            val extraBottomPx = TypedValue.applyDimension(
-                TypedValue.COMPLEX_UNIT_DIP,
-                16f,
-                resources.displayMetrics
-            ).toInt()
-
-            v.setPadding(
-                v.paddingLeft,
-                v.paddingTop,
-                v.paddingRight,
-                systemBars.bottom + extraBottomPx
-            )
-            insets
-        }
 
         selectionViewModel.selectedDishId.observe(viewLifecycleOwner) { dishId ->
-            val ctx = binding.root.context
+            if (dishId == null) return@observe
+
             currentDishId = dishId
 
             dishDetailsViewModel.dishById(dishId).observe(viewLifecycleOwner) { dish ->
+                if (dish == null) return@observe
+
+                val ctx = requireContext()
                 binding.dishTitle.text = dish.name
-                binding.dishDesc.text = dish.description ?: ""
                 binding.dishRestaurant.text = dish.restaurantName
                 val img = dish.imageRes ?: R.mipmap.pizza_foreground
+
                 Glide.with(requireContext())
                     .load(img)
                     .placeholder(R.drawable.default_dish)
                     .into(binding.dishImg)
+
                 binding.dishPrice.text =
                     ctx.getString(R.string.dish_price_display, dish.price.toDouble())
+
+                // --- לוגיקת המועדפים של השותף ---
+                val heartIcon = if (dish.isFavorite) {
+                    R.drawable.ic_favorite_filled
+                } else {
+                    R.drawable.ic_favorite_border
+                }
+
+                binding.favoriteHeart?.setImageResource(heartIcon)
+                binding.favoriteHeart?.contentDescription = if (dish.isFavorite)
+                    getString(R.string.remove_from_favorites)
+                else
+                    getString(R.string.add_to_favorites)
+
+                binding.favoriteHeart?.setOnClickListener {
+                    dishDetailsViewModel.toggleFavorite(dish.id, !dish.isFavorite)
+                }
             }
 
             commentsViewModel.commentsForDish(dishId).observe(viewLifecycleOwner) { comments ->
                 commentAdapter.submitList(comments)
             }
 
-            // Check if a comment exists and adjust the text accordingly
+            // --- הלוגיקה שלך לבדיקת תגובה קיימת (שחזרנו אותה!) ---
             commentsViewModel.myCommentForDish(dishId).observe(viewLifecycleOwner) { myComment ->
-                if (myComment != null) { // There is a comment
+                if (myComment != null) {
                     binding.addComment.setText(R.string.edit_comment)
                 } else {
                     binding.addComment.setText(R.string.add_comment)

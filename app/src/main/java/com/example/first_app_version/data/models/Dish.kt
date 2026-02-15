@@ -42,6 +42,12 @@ data class Dish(
     val price: Int = 0,
 
     @ColumnInfo(name = "reviews_count", defaultValue = "0")
-    val reviewsCount: Int = 0
+    val reviewsCount: Int = 0,
+
+    @ColumnInfo(name = "is_favorite", defaultValue = "0")
+    val isFavorite: Boolean = false,
+
+    @ColumnInfo(name = "image_url") val imageUrl: String? = null,
+
 )
 

@@ -16,6 +16,12 @@
         <action
             android:id="@+id/action_homePageFragment_to_dishDisplayPageFragment2"
             app:destination="@id/dishDisplayPageFragment" />
+        <action
+            android:id="@+id/action_homePageFragment_to_apiDishDetailsFragment"
+            app:destination="@id/apiDishDetailsFragment" />
+        <action
+            android:id="@+id/action_homePageFragment_to_dishesFragment"
+            app:destination="@id/dishesFragment" />
     </fragment>
 
     <fragment
@@ -26,6 +32,9 @@
         <action
             android:id="@+id/action_dishesTypesFragment_to_dishesFragment"
             app:destination="@id/dishesFragment" />
+        <action
+            android:id="@+id/action_dishesTypesFragment_to_apiDishDetailsFragment"
+            app:destination="@id/apiDishDetailsFragment" />
     </fragment>
 
     <fragment
@@ -77,5 +86,11 @@
             android:id="@+id/action_loginFragment_to_registerFragment"
             app:destination="@id/registerFragment" />
     </fragment>
+
+    <fragment
+        android:id="@+id/apiDishDetailsFragment"
+        android:name="com.example.first_app_version.ui.dish_display.ApiDishDetailsFragment"
+        android:label="fragment_api_dish_details"
+        tools:layout="@layout/api_dish_details" />
 
 </navigation>

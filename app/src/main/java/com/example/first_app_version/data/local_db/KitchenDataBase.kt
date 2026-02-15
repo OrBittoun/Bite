@@ -5,14 +5,15 @@ import androidx.room.Database
 import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
 import com.example.first_app_version.R
+import com.example.first_app_version.data.models.Category
 import com.example.first_app_version.data.models.Comment
 import com.example.first_app_version.data.models.Dish
 import com.example.first_app_version.data.models.DishType
 import com.example.first_app_version.data.models.Kitchen
 
 @Database(
-    entities = [Kitchen::class, DishType::class, Dish::class, Comment::class],
-    version = 14,
+    entities = [Kitchen::class, DishType::class, Dish::class, Comment::class, Category::class],
+    version = 20,
     exportSchema = false
 )
 abstract class KitchenDataBase : RoomDatabase() {
@@ -21,6 +22,7 @@ abstract class KitchenDataBase : RoomDatabase() {
     abstract fun dishTypesDao(): DishTypeDao
     abstract fun dishesDao(): DishDao
     abstract fun commentsDao(): CommentDao
+    abstract fun categoryDao(): CategoryDao
 
     /**
      * Hilt will own the singleton DB instance. We keep your seed logic exactly as-is,
@@ -29,7 +31,6 @@ abstract class KitchenDataBase : RoomDatabase() {
     companion object {
 
         fun buildCallback(): Callback = object : Callback() {
-
             override fun onCreate(db: SupportSQLiteDatabase) {
                 super.onCreate(db)
                 Log.d("DB_CREATE", "KitchenDataBase onCreate CALLED")
