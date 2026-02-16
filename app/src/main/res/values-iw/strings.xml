@@ -81,10 +81,10 @@
     <string name="last_name">שם משפחה</string>
     <string name="email">כתובת מייל</string>
     <string name="password">סיסמא</string>
-    <string name="already_have_an_account_sign_in">כבר יש לך חשבון? התחבר</string>
+    <string name="already_have_an_account_sign_in">כבר יש לך חשבון? </string>
     <string name="sign_up">הרשמה</string>
     <string name="description_sign_up_button">כפתור הרשמה</string>
-    <string name="don_t_have_an_account_sign_up">אין לך חשבון? הירשם</string>
+    <string name="don_t_have_an_account_sign_up">אין לך חשבון? </string>
     <string name="description_login_button">כפתור התחברות</string>
     <string name="dialog_sign_in_title">נדרשת התחברת</string>
     <string name="dialog_sign_in_text">עליך להתחבר כדי להוסיף או לעדכן תגובה.</string>
@@ -100,6 +100,6 @@
     <string name="api_no_meal_details">לא אותרו פרטי מנה</string>
     <string name="removed_from_favorites">%1$s המנה הוסרה מהמועדפים</string>
     <string name="added_to_favorites">%1$s המנה הוספה למועדפים</string>
-
+    <string name="signIn">כניסה</string>
 
 </resources>
