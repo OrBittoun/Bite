@@ -63,7 +63,7 @@ class ApiDishDetailsFragment : Fragment() {
                 if (isFavorite) {
                     lifecycleScope.launch {
                         dishRepository.deleteDish(localDish!!)
-                        Toast.makeText(requireContext(), "${mealDetails.strMeal} removed from favorites", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(requireContext(), getString(R.string.removed_from_favorites, mealDetails.strMeal), Toast.LENGTH_SHORT).show()
                     }
                 } else {
                     saveDishToFavorites(mealDetails)
@@ -105,7 +105,7 @@ class ApiDishDetailsFragment : Fragment() {
 
         lifecycleScope.launch {
             dishRepository.insertDish(newDish)
-            Toast.makeText(requireContext(), "${mealDetails.strMeal} added to favorites!", Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(), getString(R.string.added_to_favorites, mealDetails.strMeal), Toast.LENGTH_SHORT).show()
         }
     }
 

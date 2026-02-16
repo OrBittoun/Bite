@@ -98,5 +98,8 @@
     <string name="speech_to_text_not_supported">זיהוי דיבור לא נתמך במכשיר זה</string>
     <string name="api_no_categories_found">לא אותרו קטגוריות בשרת</string>
     <string name="api_no_meal_details">לא אותרו פרטי מנה</string>
+    <string name="removed_from_favorites">%1$s המנה הוסרה מהמועדפים</string>
+    <string name="added_to_favorites">%1$s המנה הוספה למועדפים</string>
+
 
 </resources>
