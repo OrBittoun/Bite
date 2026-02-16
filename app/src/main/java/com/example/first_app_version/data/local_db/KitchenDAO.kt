@@ -8,10 +8,12 @@ import com.example.first_app_version.data.models.Kitchen
 @Dao
 interface KitchenDao {
 
+    // Retrieves all kitchens from the database, ordered by their ID
     @Query("SELECT * FROM kitchens ORDER BY id ASC")
     fun getKitchens(): LiveData<List<Kitchen>>
 
+    // Fetches a single kitchen by its unique ID
     @Query("SELECT * FROM kitchens WHERE id = :id LIMIT 1")
-    fun getKitchen(id: Int): Kitchen
+    suspend fun getKitchen(id: Int): Kitchen
 
 }

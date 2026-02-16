@@ -1,15 +1,23 @@
 package com.example.first_app_version.data.repository
 
-import android.app.Application
+import androidx.lifecycle.LiveData
 import com.example.first_app_version.data.local_db.KitchenDao
-import com.example.first_app_version.data.local_db.KitchenDataBase
 import com.example.first_app_version.data.models.Kitchen
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class KitchenRepository(application: Application) {
+@Singleton
+class KitchenRepository @Inject constructor(
+    private val kitchenDao: KitchenDao
+) {
+    // Provides an observable list of all available kitchens
+    fun getItems(): LiveData<List<Kitchen>> = kitchenDao.getKitchens()
 
-    private val kitchenDao: KitchenDao = KitchenDataBase.getDataBase(application.applicationContext).kitchensDao()
-
-    fun getItems() = kitchenDao.getKitchens()
-    fun getKitchen(id: Int): Kitchen? = try { kitchenDao.getKitchen(id) } catch (_: Exception) { null }
-
+    // Fetches a specific kitchen by ID, returning null if not found or on error
+    suspend fun getKitchen(id: Int): Kitchen? =
+        try {
+            kitchenDao.getKitchen(id)
+        } catch (_: Exception) {
+            null
+        }
 }

@@ -1,12 +1,17 @@
 package com.example.first_app_version.ui.add_comment
 
+import android.app.Activity
+import android.content.ActivityNotFoundException
+import android.content.Intent
 import android.os.Bundle
+import android.speech.RecognizerIntent
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -17,8 +22,12 @@ import com.airbnb.lottie.LottieAnimationView
 import com.example.first_app_version.R
 import com.example.first_app_version.databinding.AddCommentLayoutBinding
 import com.example.first_app_version.ui.all_kitchens.SelectionViewModel
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import java.util.Locale
+import com.google.firebase.auth.FirebaseAuth
 
+@AndroidEntryPoint
 class AddCommentFragment : Fragment() {
 
     private var _binding: AddCommentLayoutBinding? = null
@@ -29,6 +38,23 @@ class AddCommentFragment : Fragment() {
 
     private var userEdited = false
     private var existingCommentPresent = false
+
+    private val speechRecognizerLauncher = registerForActivityResult(
+        ActivityResultContracts.StartActivityForResult()
+    ) { result ->
+        if (result.resultCode == Activity.RESULT_OK && result.data != null) {
+            val results = result.data?.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS)
+            val spokenText = results?.get(0) ?: ""
+
+            if (spokenText.isNotEmpty()) {
+                val currentText = binding.commentEditText.text?.toString() ?: ""
+                val newText = if (currentText.isEmpty()) spokenText else "$currentText $spokenText"
+
+                binding.commentEditText.setText(newText)
+                binding.commentEditText.setSelection(binding.commentEditText.text?.length ?: 0)
+            }
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -44,6 +70,10 @@ class AddCommentFragment : Fragment() {
 
         binding.ratingBar.numStars = 5
         binding.ratingBar.stepSize = 1f
+
+        binding.btnMic.setOnClickListener {
+            startSpeechToText()
+        }
 
         addCommentViewModel.draftRating.observe(viewLifecycleOwner) { rating ->
             if (!userEdited) {
@@ -91,8 +121,8 @@ class AddCommentFragment : Fragment() {
                 .observe(viewLifecycleOwner) { myComment ->
                     existingCommentPresent = myComment != null
 
-                    // Toggle Delete button visibility based on whether user has a comment
-                    binding.deleteButton.visibility = if (existingCommentPresent) View.VISIBLE else View.GONE
+                    binding.deleteButton.visibility =
+                        if (existingCommentPresent) View.VISIBLE else View.GONE
 
                     if (addCommentViewModel.isDraftEmpty()) {
                         addCommentViewModel.prefillDraftFromExisting(myComment)
@@ -101,14 +131,33 @@ class AddCommentFragment : Fragment() {
                 }
 
             binding.submitButton.setOnClickListener {
-                val id = selectionViewModel.selectedDishId.value ?: return@setOnClickListener
-                showConfirmDialog(id)
+                val currentUser = FirebaseAuth.getInstance().currentUser
+                if (currentUser == null) {
+                    showLoginRequiredDialog()
+                } else {
+                    val id = selectionViewModel.selectedDishId.value ?: return@setOnClickListener
+                    showConfirmDialog(id)
+                }
             }
 
             binding.deleteButton.setOnClickListener {
                 val id = selectionViewModel.selectedDishId.value ?: return@setOnClickListener
                 showDeleteConfirmDialog(id)
             }
+        }
+    }
+
+    private fun startSpeechToText() {
+        val intent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH).apply {
+            putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM)
+            putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault())
+            putExtra(RecognizerIntent.EXTRA_PROMPT, R.string.speak_now)
+        }
+
+        try {
+            speechRecognizerLauncher.launch(intent)
+        } catch (e: ActivityNotFoundException) {
+            Toast.makeText(requireContext(), R.string.speech_to_text_not_supported, Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -134,7 +183,8 @@ class AddCommentFragment : Fragment() {
                 val text = binding.commentEditText.text.toString().trim()
 
                 if (text.isEmpty()) {
-                    Toast.makeText(requireContext(), R.string.insert_comment, Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(), R.string.insert_comment, Toast.LENGTH_SHORT)
+                        .show()
                     return@setOnClickListener
                 }
 
@@ -162,8 +212,8 @@ class AddCommentFragment : Fragment() {
                 lifecycleScope.launch {
                     addCommentViewModel.deleteMyComment(dishId)
                     dialog.dismiss()
-                    Toast.makeText(requireContext(), R.string.comment_deleted, Toast.LENGTH_SHORT).show()
-                    // Navigate back after deletion
+                    Toast.makeText(requireContext(), R.string.comment_deleted, Toast.LENGTH_SHORT)
+                        .show()
                     findNavController().popBackStack()
                 }
             }
@@ -193,6 +243,17 @@ class AddCommentFragment : Fragment() {
                 findNavController().popBackStack()
             }
         }, 4000)
+    }
+
+    private fun showLoginRequiredDialog() {
+        AlertDialog.Builder(requireContext())
+            .setTitle(getString(R.string.dialog_sign_in_title))
+            .setMessage(getString(R.string.dialog_sign_in_text))
+            .setPositiveButton(getString(R.string.login)) { _, _ ->
+                findNavController().navigate(R.id.loginFragment)
+            }
+            .setNegativeButton(getString(R.string.cancel), null)
+            .show()
     }
 
     override fun onDestroyView() {

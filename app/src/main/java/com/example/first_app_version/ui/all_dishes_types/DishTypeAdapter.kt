@@ -3,17 +3,18 @@ package com.example.first_app_version.ui.all_dishes_types
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.first_app_version.R
-import com.example.first_app_version.data.models.DishType
+import com.example.first_app_version.data.models.DishTypeForRetro
 import com.example.first_app_version.databinding.DishTypeLayoutBinding
 
 class DishTypeAdapter(
-    private val onClick: (DishType) -> Unit
+    private val onClick: (DishTypeForRetro) -> Unit
 ) : RecyclerView.Adapter<DishTypeAdapter.DishTypeViewHolder>() {
 
-    private val dishTypes: MutableList<DishType> = mutableListOf()
+    private val dishTypes: MutableList<DishTypeForRetro> = mutableListOf()
 
-    fun submitList(newDishTypes: List<DishType>) {
+    fun submitList(newDishTypes: List<DishTypeForRetro>) {
         dishTypes.clear()
         dishTypes.addAll(newDishTypes)
         notifyDataSetChanged()
@@ -23,12 +24,16 @@ class DishTypeAdapter(
         private val binding: DishTypeLayoutBinding
     ) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(dishType: DishType) {
+        fun bind(dishType: DishTypeForRetro) {
             binding.mealTitle.text = dishType.name
-            binding.mealImage.setImageResource(dishType.imageRes ?: R.drawable.default_dish)
+
+            Glide.with(binding.root.context)
+                .load(dishType.imageRes)
+                .placeholder(R.drawable.default_dish)
+                .into(binding.mealImage)
+
             binding.root.setOnClickListener { onClick(dishType) }
         }
-
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DishTypeViewHolder {
