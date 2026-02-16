@@ -78,16 +78,13 @@ class DishesFragment : Fragment() {
 
         val adapter = DishAdapter(dishes) { clickedDish ->
             try {
-                Log.d("DishesFragment", "Dish clicked: ${clickedDish.name} (ID: ${clickedDish.id})")
-
                 if (clickedDish.dishTypeId == 0) {
-                    categoryViewModel.fetchMealDetails(clickedDish.id.toString())
+                    selectionViewModel.setDishId(clickedDish.id)
                     findNavController().navigate(R.id.action_dishesFragment_to_apiDishDetailsFragment)
                 } else {
                     selectionViewModel.setDishId(clickedDish.id)
                     findNavController().navigate(R.id.action_dishesFragment_to_dishDisplayPageFragment)
                 }
-
             } catch (e: Exception) {
                 Log.e("DishesFragment", "Navigation error: ${e.message}", e)
                 Toast.makeText(requireContext(), R.string.dish_nav_error, Toast.LENGTH_SHORT).show()

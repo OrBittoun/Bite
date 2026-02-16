@@ -103,19 +103,15 @@ class HomePageFragment : Fragment() {
                 }
             },
             onDishClick = { id ->
-                if (id >= 50000) { // TheMealDB dish ids are always at least 50000
-                    // Navigate to the API adjusted screen
-                    if (!isNetworkAvailable()) {
-                        Toast.makeText(requireContext(), R.string.no_internet_error, Toast.LENGTH_SHORT).show()
-                    } else {
-                        categoryViewModel.fetchMealDetails(id.toString())
-                        findNavController().navigate(R.id.action_homePageFragment_to_apiDishDetailsFragment)
-                    }
+                if (id >= 50000) {
+                    selectionViewModel.setDishId(id)
+                    findNavController().navigate(R.id.action_homePageFragment_to_apiDishDetailsFragment)
                 } else if (id >= 10000) {
                     if (!isNetworkAvailable()) {
                         Toast.makeText(requireContext(), R.string.no_internet_error, Toast.LENGTH_SHORT).show()
                     } else {
                         if (id == 10099) {
+                            selectionViewModel.setDishId(-1)
                             categoryViewModel.fetchRandomMeal()
                             findNavController().navigate(R.id.action_homePageFragment_to_apiDishDetailsFragment)
                         } else {
@@ -181,7 +177,6 @@ class HomePageFragment : Fragment() {
     private fun handleCategoryNavigation(category: HomeCategory) {
         try {
             if (category.kitchenId == 6) {
-                // התיקון: פשוט מתעלמים מהלחיצה על כותרת Explore כדי לא להגיע למסך ריק!
                 return
             }
 

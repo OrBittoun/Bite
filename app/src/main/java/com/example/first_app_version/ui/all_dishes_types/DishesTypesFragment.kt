@@ -47,7 +47,7 @@ class DishesTypesFragment : Fragment() {
 
         adapter = DishTypeAdapter { dishType ->
             if (dishType.kitchenId == 6) {
-                categoryViewModel.fetchMealDetails(dishType.id.toString())
+                selectionViewModel.setDishId(dishType.id)
                 findNavController().navigate(R.id.action_dishesTypesFragment_to_apiDishDetailsFragment)
             } else {
                 val localDishType = DishType(
