@@ -97,6 +97,7 @@
     <string name="api_no_meal_details">Failed to load meal details</string>
     <string name="removed_from_favorites">%1$s removed from favorites</string>
     <string name="added_to_favorites">%1$s removed from favorites</string>
+    <string name="signIn">Sign In</string>
 
 
 </resources>
